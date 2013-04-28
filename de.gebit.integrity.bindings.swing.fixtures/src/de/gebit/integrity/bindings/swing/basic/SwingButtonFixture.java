@@ -9,6 +9,7 @@ package de.gebit.integrity.bindings.swing.basic;
 
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -42,7 +43,7 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 	@FixtureMethod(description = "Click the button '$name$'")
 	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		clickButton(findComponentGuarded(aComponentPath, JButton.class, null));
+		clickButton(findComponentGuarded(aComponentPath, AbstractButton.class, null));
 	}
 
 	/**
@@ -149,7 +150,7 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 	 *            the button
 	 * @throws EventQueueTimeoutException
 	 */
-	protected void clickButton(JButton aButton) throws EventQueueTimeoutException {
+	protected void clickButton(AbstractButton aButton) throws EventQueueTimeoutException {
 		runOnEventQueueAndWait(createButtonClickRunnable(aButton));
 	}
 
@@ -159,7 +160,7 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 	 * @param aButton
 	 * @return the runnable
 	 */
-	protected Runnable createButtonClickRunnable(final JButton aButton) {
+	protected Runnable createButtonClickRunnable(final AbstractButton aButton) {
 		return new Runnable() {
 
 			@Override

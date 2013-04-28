@@ -9,7 +9,7 @@ package de.gebit.integrity.bindings.swing.eclipse.basic;
 
 import java.awt.Component;
 
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 
 import de.gebit.integrity.bindings.swing.basic.SwingButtonFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
@@ -25,7 +25,7 @@ public class SwingButtonFixtureProposalProvider extends SwingComponentFixturePro
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {
-		return JButton.class;
+		return AbstractButton.class;
 	}
 
 }
