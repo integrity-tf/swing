@@ -10,7 +10,6 @@ package de.gebit.integrity.bindings.swing.basic;
 import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -24,7 +23,7 @@ import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
 /**
- * This fixture provides access to {@link JButton} components.
+ * This fixture provides access to {@link AbstractButton} components.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -69,13 +68,13 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 		case JOptionPane.YES_NO_CANCEL_OPTION:
 			switch (aButton) {
 			case YES:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(0));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(0));
 				return;
 			case NO:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(1));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(1));
 				return;
 			case CANCEL:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(2));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(2));
 				return;
 			default:
 				break;
@@ -84,10 +83,10 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 		case JOptionPane.YES_NO_OPTION:
 			switch (aButton) {
 			case YES:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(0));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(0));
 				return;
 			case NO:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(1));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(1));
 				return;
 			default:
 				break;
@@ -96,10 +95,10 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 		case JOptionPane.OK_CANCEL_OPTION:
 			switch (aButton) {
 			case OK:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(0));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(0));
 				return;
 			case CANCEL:
-				clickButton(findComponentsInContainer(tempOptionPane, null, JButton.class).get(2));
+				clickButton(findComponentsInContainer(tempOptionPane, null, AbstractButton.class).get(2));
 				return;
 			default:
 				break;
