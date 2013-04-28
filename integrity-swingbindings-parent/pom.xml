@@ -4,7 +4,7 @@
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-swingbindings-parent</artifactId>
-  <version>0.11.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <name>Integrity Swing Bindings Parent POM</name>
   <description>The Integrity Swing Bindings allow Swing applications to be tested with Integrity.</description>
   
@@ -12,6 +12,8 @@
   
   <properties>
   	<isRelease>false</isRelease>
+  	
+  	<integrity-version>0.11.0-SNAPSHOT</integrity-version>
   	  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho-version>0.16.0</tycho-version>
@@ -38,7 +40,7 @@
 			    <artifact>
 			      <groupId>de.gebit.integrity</groupId>
 			      <artifactId>integrity-target</artifactId>
-			      <version>${project.version}</version>
+			      <version>${integrity-version}</version>
 			      <classifier>juno</classifier>
 			    </artifact>
 			  </target>

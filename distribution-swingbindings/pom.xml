@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <artifactId>integrity-parent</artifactId>
+    <artifactId>integrity-swingbindings-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>0.11.0-SNAPSHOT</version>
-    <relativePath>../integrity-parent/pom.xml</relativePath>
+    <version>0.1.0-SNAPSHOT</version>
+    <relativePath>../integrity-swingbindings-parent/pom.xml</relativePath>
   </parent>
   
   <artifactId>swingbindings-distribution</artifactId>

@@ -11,6 +11,11 @@
   		<dependencySet>
   			<useProjectArtifact>false</useProjectArtifact>
     		<unpack>false</unpack>
+    		<excludes>
+    			<exclude>de.gebit.integrity:de.gebit.integrity.dsl</exclude>
+    			<exclude>de.gebit.integrity:de.gebit.integrity.remoting</exclude>
+    			<exclude>de.gebit.integrity:de.gebit.integrity.runner</exclude>
+    		</excludes>
   		</dependencySet>
 	</dependencySets>
   
