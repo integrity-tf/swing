@@ -6,6 +6,11 @@
     <format>zip</format>
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
+  <files>
+  	<file>
+  	  <source>integrity/swingFixtures.integrity</source>
+  	</file>
+  </files>
   
   	<dependencySets>
   		<dependencySet>
