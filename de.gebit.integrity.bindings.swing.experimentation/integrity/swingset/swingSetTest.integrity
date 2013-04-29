@@ -12,9 +12,18 @@ packagedef swing.swingset with
 		
 		test tableColumnCount name: "JTable" = 6
 		test tableRowCount name: "JTable" = 46
-		test tableText name: "JTable" row: 0 column: 0 = "Mike"
-		test tableContent name: "JTable" row: 0 column: 0 = "Mike"
+		test tableCellText name: "JTable" row: 1 column: 1 = "Mike"
+		test tableCellContent name: "JTable" row: 1 column: 1 = "Mike"
 		
+		tabletest tableContent name: "JTable"
+			| row | +firstName = | +lastName = |
+			| 1   | "Mike"       | "Albers"    |
+			| 2   | "Mark"       | "Andrews"   |
+			
+		tabletest tableContent name: "JTable"
+			| +firstName = | +lastName = |
+			| "Mike"       | "Albers"    |
+			| "Mark"       | "Andrews"   |
 		
 		call swing.tools.authorAssist
 		

@@ -19,8 +19,8 @@ packagedef swing.chat with
 		
 		tabletest listText name: "messageList"
 			| position | =         |
-			| 0        | "Bar!"    |
-			| 1        | "Foobar!" |
+			| 1        | "Bar!"    |
+			| 2        | "Foobar!" |
 			
 		tabletest listText name: "messageList"
 			| =         |

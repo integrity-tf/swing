@@ -40,7 +40,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 * @param aComponentPath
 	 *            the path of the component
 	 * @param aListPosition
-	 *            the position in the list (zero-based)
+	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
 	 * @return the element in the list at the given position, or null if the position is larger than the available
 	 *         entries
 	 * @throws AmbiguousComponentPathException
@@ -62,7 +62,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 * @param aComponentPath
 	 *            the path of the component
 	 * @param aListPosition
-	 *            the position in the list (zero-based)
+	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
 	 * @return the element in the list at the given position, or null if the position is larger than the available
 	 *         entries
 	 * @throws AmbiguousComponentPathException
@@ -84,7 +84,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 * @param aComponentPath
 	 *            the path of the component
 	 * @param aListPosition
-	 *            the position in the list (zero-based)
+	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
 	 * @return the text in the list at the given position, or null if the position is larger than the available entries
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
@@ -110,7 +110,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 * @param aComponentPath
 	 *            the path of the component
 	 * @param aListPosition
-	 *            the position in the list (zero-based)
+	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
 	 * @return the text in the list at the given position, or null if the position is larger than the available entries
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
@@ -149,7 +149,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 * @param aComponentPath
 	 *            the path to the component
 	 * @param aPosition
-	 *            the position in the list (zero-based)
+	 *            the position in the list (one-based!)
 	 * @param aBottomUpFlag
 	 *            true if bottom-up, false if top-down
 	 * @return the object
@@ -162,15 +162,15 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 		ListModel tempModel = tempList.getModel();
 
 		int tempPosition = (aPosition != null) ? aPosition : (nextPosition++);
-		if (tempPosition < 0) {
-			throw new IndexOutOfBoundsException("List positions below 0 are invalid.");
+		if (tempPosition <= 0) {
+			throw new IndexOutOfBoundsException("List positions below and including 0 are invalid.");
 		}
 
 		int tempListSize = tempModel.getSize();
-		if (tempPosition >= tempListSize) {
+		if (tempPosition > tempListSize) {
 			return null;
 		} else {
-			int tempActualPosition = aBottomUpFlag ? tempListSize - (tempPosition + 1) : tempPosition;
+			int tempActualPosition = aBottomUpFlag ? tempListSize - tempPosition : tempPosition + 1;
 			return tempModel.getElementAt(tempActualPosition);
 		}
 	}

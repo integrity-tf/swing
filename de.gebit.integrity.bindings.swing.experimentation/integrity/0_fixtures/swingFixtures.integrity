@@ -56,10 +56,14 @@ packagedef swing.tables with
 	calldef getTableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
 	testdef tableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
 	
-	// Table content
-	calldef getTableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
+	// Table cell content
+	calldef getTableCellContent uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellContent
+	testdef tableCellContent uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellContent
+	calldef getTableCellText uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellText
+	testdef tableCellText uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellText
+	
+	// Table (row) content
 	testdef tableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
-	calldef getTableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
 	testdef tableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
 
 packageend
