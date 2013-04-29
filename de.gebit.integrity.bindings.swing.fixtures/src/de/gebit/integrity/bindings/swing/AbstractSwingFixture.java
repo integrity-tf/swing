@@ -51,6 +51,10 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	protected void runOnEventQueueAndWait(Runnable aRunnable) throws EventQueueTimeoutException {
 		runOnEventQueue(aRunnable);
 		waitForEventQueue();
+		// Now the runnable has been processed, but depending on what the runnable did, further events might have been
+		// pushed onto the queue (as a result of changing a controls' value, for example). We want to wait for those
+		// as well, so we put another wait behind:
+		waitForEventQueue();
 	}
 
 	/**

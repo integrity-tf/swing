@@ -9,6 +9,12 @@ packagedef swing.swingset with
 		
 		call clickButton name: "frame0.JToggleButton#13"
 		
+		test sliderMinValue name: "frame0.JSlider#0" = 0
+		test sliderMaxValue name: "frame0.JSlider#0" = 10
+		
+		call setSliderValue name: "frame0.JSlider#0" value: 5
+		test sliderValue name: "frame0.JSlider#0" = 5
+		
 		call swing.tools.authorAssist
 		
 		
