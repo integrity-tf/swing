@@ -1,5 +1,5 @@
-import launch.*
-import basic.*
+import swing.launch.*
+import swing.basic.*
 
 packagedef swing.calculator with
 
@@ -27,10 +27,10 @@ packagedef swing.calculator with
 		//call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
 	
 		
-		call tools.authorAssist
+		call swing.tools.authorAssist
 		
 		
-		test killApp
+		call killApp
 	
 	suiteend
 

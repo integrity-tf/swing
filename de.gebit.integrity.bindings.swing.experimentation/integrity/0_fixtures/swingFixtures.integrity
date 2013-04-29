@@ -1,4 +1,4 @@
-packagedef basic with
+packagedef swing.basic with
 
 	// Various useful stuff
 	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
@@ -35,5 +35,24 @@ packagedef basic with
 	testdef listEntryBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryBottomUp
 	calldef getListTextBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextBottomUp
 	testdef listTextBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextBottomUp
+ 
+packageend
+
+
+packagedef swing.launch with
+
+	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch
+	
+	testdef isAppAlive uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#isAlive
+	
+	calldef killApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
+	testdef killAppTest uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
+
+packageend
+
+
+packagedef swing.tools with
+
+	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
  
 packageend

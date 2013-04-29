@@ -1,0 +1,19 @@
+import swing.launch.*
+import swing.basic.*
+
+packagedef swing.swingset with
+
+	suitedef main with
+	
+		call launchApp mainClass: "SwingSet2"
+		
+		call clickButton name: "frame0.JToggleButton#13"
+		
+		call swing.tools.authorAssist
+		
+		
+		call killApp
+	
+	suiteend
+
+packageend

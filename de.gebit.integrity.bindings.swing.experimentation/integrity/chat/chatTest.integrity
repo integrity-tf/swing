@@ -1,5 +1,5 @@
-import launch.*
-import basic.*
+import swing.launch.*
+import swing.basic.*
 
 packagedef swing.chat with
 
@@ -48,7 +48,7 @@ packagedef swing.chat with
 	suiteend
  	
 	suitedef killChatApp with
-		test killApp
+		call killApp
 	suiteend
 
 	suitedef sendMessageFromAToB gets message with
