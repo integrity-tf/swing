@@ -95,6 +95,16 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected JTextField identificationShortPathField;
 
 	/**
+	 * Label for the short component class.
+	 */
+	protected JLabel identificationClassLabel;
+
+	/**
+	 * Text field containing the component class.
+	 */
+	protected JTextField identificationClassField;
+
+	/**
 	 * Thread used to inject component mouse listeners into all components which are required for identification
 	 * purposes.
 	 */
@@ -171,7 +181,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 		swingComponentHandler = aSwingComponentHandler;
 
-		setBounds(100, 100, 540, 120);
+		setBounds(100, 100, 540, 140);
 		setAlwaysOnTop(true);
 		setModalExclusionType(Dialog.ModalExclusionType.TOOLKIT_EXCLUDE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -232,6 +242,23 @@ public class SwingAuthorAssistFrame extends JFrame {
 		tempConstraint.fill = GridBagConstraints.HORIZONTAL;
 		tempConstraint.weightx = 1.0;
 		identificationPathPanel.add(identificationShortPathField, tempConstraint);
+
+		identificationClassLabel = new JLabel("Class:");
+		identificationClassLabel.setHorizontalAlignment(JLabel.RIGHT);
+		identificationClassField = new JTextField();
+		tempConstraint = new GridBagConstraints();
+		tempConstraint.gridx = 0;
+		tempConstraint.gridy = 2;
+		tempConstraint.fill = GridBagConstraints.HORIZONTAL;
+		tempConstraint.insets = new Insets(2, 2, 2, 2);
+		identificationPathPanel.add(identificationClassLabel, tempConstraint);
+		tempConstraint = new GridBagConstraints();
+		tempConstraint.gridx = 1;
+		tempConstraint.gridy = 2;
+		tempConstraint.insets = new Insets(2, 2, 2, 2);
+		tempConstraint.fill = GridBagConstraints.HORIZONTAL;
+		tempConstraint.weightx = 1.0;
+		identificationPathPanel.add(identificationClassField, tempConstraint);
 
 		identificationPanel.add(identificationPathPanel, BorderLayout.CENTER);
 
@@ -408,6 +435,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 				identificationFullPathField.setText("--- component path not unique ---");
 				identificationShortPathField.setText("");
 			}
+			identificationClassField.setText(aComponent.getClass().getName());
 		}
 	}
 
@@ -424,6 +452,9 @@ public class SwingAuthorAssistFrame extends JFrame {
 				identifiedComponentBorder = null;
 			}
 			identifiedComponent = null;
+			identificationClassField.setText("");
+			identificationFullPathField.setText("");
+			identificationShortPathField.setText("");
 		}
 	}
 
