@@ -12,6 +12,7 @@ import java.awt.Component;
 import javax.swing.JSlider;
 
 import de.gebit.integrity.bindings.swing.basic.SwingSliderFixture;
+import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**

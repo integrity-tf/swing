@@ -12,6 +12,7 @@ import java.awt.Component;
 import javax.swing.JRadioButton;
 
 import de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture;
+import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**

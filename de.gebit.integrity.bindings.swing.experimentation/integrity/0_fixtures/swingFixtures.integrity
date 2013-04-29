@@ -48,6 +48,23 @@ packagedef swing.basic with
 packageend
 
 
+packagedef swing.tables with
+
+	// Basic table stuff
+	calldef getTableColumnCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableColumnCount
+	testdef tableColumnCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableColumnCount
+	calldef getTableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
+	testdef tableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
+	
+	// Table content
+	calldef getTableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
+	testdef tableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
+	calldef getTableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
+	testdef tableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
+
+packageend
+
+
 packagedef swing.launch with
 
 	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch

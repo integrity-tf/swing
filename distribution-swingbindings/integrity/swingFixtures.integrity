@@ -24,6 +24,15 @@ packagedef swing.basic with
 	testdef textFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
 	calldef setTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setTextFieldContent
 	
+	// Sliders
+	calldef getSliderMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMinValue
+	testdef sliderMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMinValue
+	calldef getSliderMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMaxValue
+	testdef sliderMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMaxValue
+	calldef getSliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderValue
+	testdef sliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderValue
+	calldef setSliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setSliderValue
+	
 	// Lists
 	calldef getListEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
 	testdef listEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
@@ -36,6 +45,23 @@ packagedef swing.basic with
 	calldef getListTextBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextBottomUp
 	testdef listTextBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextBottomUp
  
+packageend
+
+
+packagedef swing.tables with
+
+	// Basic table stuff
+	calldef getTableColumnCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableColumnCount
+	testdef tableColumnCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableColumnCount
+	calldef getTableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
+	testdef tableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
+	
+	// Table content
+	calldef getTableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
+	testdef tableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
+	calldef getTableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
+	testdef tableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
+
 packageend
 
 

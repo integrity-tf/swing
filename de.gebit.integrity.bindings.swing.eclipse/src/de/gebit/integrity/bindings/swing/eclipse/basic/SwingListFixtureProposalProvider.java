@@ -12,6 +12,7 @@ import java.awt.Component;
 import javax.swing.JList;
 
 import de.gebit.integrity.bindings.swing.basic.SwingListFixture;
+import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**

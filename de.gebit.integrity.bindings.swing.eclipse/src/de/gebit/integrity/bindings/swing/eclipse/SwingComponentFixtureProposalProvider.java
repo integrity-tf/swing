@@ -5,13 +5,12 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.bindings.swing.eclipse.basic;
+package de.gebit.integrity.bindings.swing.eclipse;
 
 import java.awt.Component;
 import java.util.List;
 import java.util.Map;
 
-import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 
 /**

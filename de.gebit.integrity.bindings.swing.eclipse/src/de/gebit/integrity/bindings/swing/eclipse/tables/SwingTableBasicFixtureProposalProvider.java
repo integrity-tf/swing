@@ -5,28 +5,28 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.bindings.swing.eclipse.basic;
+package de.gebit.integrity.bindings.swing.eclipse.tables;
 
 import java.awt.Component;
 
-import javax.swing.JLabel;
+import javax.swing.JTable;
 
-import de.gebit.integrity.bindings.swing.basic.SwingLabelFixture;
 import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
- * Proposal provider class for the {@link SwingLabelFixture}.
+ * Proposal provider class for the {@link SwingTableBasicFixture}.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-@CustomProposalFixtureLink(SwingLabelFixture.class)
-public class SwingLabelFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+@CustomProposalFixtureLink(SwingTableBasicFixture.class)
+public class SwingTableBasicFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {
-		return JLabel.class;
+		return JTable.class;
 	}
 
 }

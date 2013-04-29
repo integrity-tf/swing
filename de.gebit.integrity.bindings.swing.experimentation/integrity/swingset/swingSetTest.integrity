@@ -1,5 +1,6 @@
 import swing.launch.*
 import swing.basic.*
+import swing.tables.*
 
 packagedef swing.swingset with
 
@@ -9,11 +10,11 @@ packagedef swing.swingset with
 		
 		call clickButton name: "frame0.JToggleButton#13"
 		
-		test sliderMinValue name: "frame0.JSlider#0" = 0
-		test sliderMaxValue name: "frame0.JSlider#0" = 10
+		test tableColumnCount name: "JTable" = 6
+		test tableRowCount name: "JTable" = 46
+		test tableText name: "JTable" row: 0 column: 0 = "Mike"
+		test tableContent name: "JTable" row: 0 column: 0 = "Mike"
 		
-		call setSliderValue name: "frame0.JSlider#0" value: 5
-		test sliderValue name: "frame0.JSlider#0" = 5
 		
 		call swing.tools.authorAssist
 		
