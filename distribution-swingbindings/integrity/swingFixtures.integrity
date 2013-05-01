@@ -19,6 +19,14 @@ packagedef swing.basic with
 	calldef getRadioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
 	testdef radioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
 	
+	// Checkboxes
+	calldef checkCheckBox uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#checkCheckBox
+	calldef uncheckCheckBox uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#uncheckCheckBox
+	calldef toggleCheckBox uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#toggleCheckBox
+	calldef setCheckBoxState uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setCheckBox
+	calldef getCheckBoxState uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getCheckBoxState
+	testdef checkBoxState uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getCheckBoxState
+	
 	// Text Fields
 	calldef getTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
 	testdef textFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
@@ -56,10 +64,14 @@ packagedef swing.tables with
 	calldef getTableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
 	testdef tableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
 	
-	// Table content
-	calldef getTableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
+	// Table cell content
+	calldef getTableCellContent uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellContent
+	testdef tableCellContent uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellContent
+	calldef getTableCellText uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellText
+	testdef tableCellText uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellText
+	
+	// Table (row) content
 	testdef tableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
-	calldef getTableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
 	testdef tableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
 
 packageend

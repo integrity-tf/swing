@@ -37,7 +37,15 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture implements Cus
 	@FixtureMethod(descriptionCall = "Check the radio button '$name$'")
 	public void checkRadioButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		findComponentGuarded(aComponentPath, JRadioButton.class, null).doClick();
+		final JRadioButton tempButton = findComponentGuarded(aComponentPath, JRadioButton.class, null);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempButton.doClick();
+			}
+		});
 	}
 
 	/**
