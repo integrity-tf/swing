@@ -11,7 +11,7 @@
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-swingbindings-all</artifactId>
-  <name>All Integrity Swing Bindings Modules</name>
+  <name>Integrity Swing Bindings</name>
   <version>0.1.0-SNAPSHOT</version>
   <!-- This exists mostly because of Tycho Version Plugin usage -->
   
