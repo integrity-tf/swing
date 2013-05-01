@@ -55,9 +55,17 @@ public class SwingTextFieldFixture extends AbstractSwingFixture implements Custo
 	 */
 	@FixtureMethod(descriptionCall = "Enter '$text$' in text field '$name$'")
 	public void setTextFieldContent(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "text") String aText) throws AmbiguousComponentPathException,
+			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
 			EventQueueTimeoutException, InvalidComponentPathException {
-		findComponentGuarded(aComponentPath, JTextField.class, null).setText(aText);
+		final JTextField tempField = findComponentGuarded(aComponentPath, JTextField.class, null);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempField.setText(aText);
+			}
+		});
 	}
 
 }
