@@ -11,7 +11,7 @@ import java.awt.Component;
 
 import javax.swing.JTable;
 
-import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingTableBasicFixture.class)
-public class SwingTableBasicFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+public class SwingTableBasicFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {

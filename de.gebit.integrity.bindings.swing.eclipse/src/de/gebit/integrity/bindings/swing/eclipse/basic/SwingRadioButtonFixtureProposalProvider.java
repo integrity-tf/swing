@@ -12,7 +12,7 @@ import java.awt.Component;
 import javax.swing.JRadioButton;
 
 import de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture;
-import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingRadioButtonFixture.class)
-public class SwingRadioButtonFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+public class SwingRadioButtonFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {

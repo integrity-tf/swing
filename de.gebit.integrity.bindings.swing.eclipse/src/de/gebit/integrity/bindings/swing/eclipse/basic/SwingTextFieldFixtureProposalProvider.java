@@ -12,7 +12,7 @@ import java.awt.Component;
 import javax.swing.JTextField;
 
 import de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture;
-import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingTextFieldFixture.class)
-public class SwingTextFieldFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+public class SwingTextFieldFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {

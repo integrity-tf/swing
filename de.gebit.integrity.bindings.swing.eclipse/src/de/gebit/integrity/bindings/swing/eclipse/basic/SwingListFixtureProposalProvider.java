@@ -12,7 +12,7 @@ import java.awt.Component;
 import javax.swing.JList;
 
 import de.gebit.integrity.bindings.swing.basic.SwingListFixture;
-import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingListFixture.class)
-public class SwingListFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+public class SwingListFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {

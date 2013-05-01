@@ -12,7 +12,7 @@ import java.awt.Component;
 import javax.swing.AbstractButton;
 
 import de.gebit.integrity.bindings.swing.basic.SwingButtonFixture;
-import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingButtonFixture.class)
-public class SwingButtonFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+public class SwingButtonFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {

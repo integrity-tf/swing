@@ -12,7 +12,7 @@ import java.awt.Component;
 import javax.swing.JSlider;
 
 import de.gebit.integrity.bindings.swing.basic.SwingSliderFixture;
-import de.gebit.integrity.bindings.swing.eclipse.SwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingSliderFixture.class)
-public class SwingSliderFixtureProposalProvider extends SwingComponentFixtureProposalProvider {
+public class SwingSliderFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {
