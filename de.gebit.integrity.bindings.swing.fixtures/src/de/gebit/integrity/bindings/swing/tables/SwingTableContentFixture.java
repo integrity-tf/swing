@@ -18,6 +18,7 @@ import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
 import de.gebit.integrity.bindings.swing.EventQueueTimeoutException;
 import de.gebit.integrity.bindings.swing.InvalidComponentPathException;
+import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -28,7 +29,8 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingTableContentFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingTableContentFixture extends AbstractSwingFixture implements CustomProposalFixture,
+		ArbitraryParameterFixture {
 
 	/**
 	 * The last row; this is used in case of repeated invocations because of tabletests to track which row must be
@@ -174,7 +176,7 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 *            the name to simplify
 	 * @return the simplified name
 	 */
-	protected String simplifyColumnName(String aName) {
+	public static String simplifyColumnName(String aName) {
 		if (aName == null) {
 			return null;
 		}
@@ -223,7 +225,7 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 *            the column number
 	 * @return the generated name
 	 */
-	protected String generateColumnName(int aColumn) {
+	public static String generateColumnName(int aColumn) {
 		return "col" + (aColumn + 1);
 	}
 

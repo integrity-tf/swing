@@ -31,9 +31,13 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.JToggleButton;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
+import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
+import de.gebit.integrity.bindings.swing.InvalidComponentPathException;
+import de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture;
 import de.gebit.integrity.bindings.swing.util.Base64;
 
 /**
@@ -144,7 +148,6 @@ public class SwingAuthorAssistServer {
 			}
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
 			try {
@@ -164,37 +167,18 @@ public class SwingAuthorAssistServer {
 					try {
 						BufferedReader tempReader = new BufferedReader(new InputStreamReader(
 								tempClientSocket.getInputStream()));
-						String tempFilterClassName = tempReader.readLine();
+						String tempQueryLine = tempReader.readLine();
+						PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
+						String tempQueryType = tempQueryLine.substring(0, tempQueryLine.indexOf("|"));
+						tempQueryLine = tempQueryLine.substring(tempQueryLine.indexOf("|") + 1);
 
-						if (tempFilterClassName != null) {
-							try {
-								Class<?> tempFilterClass = getClass().getClassLoader().loadClass(tempFilterClassName);
-
-								List<Component> tempComponents = (List<Component>) swingComponentHandler
-										.findComponents(null, (Class<? extends Component>) tempFilterClass, ownerFrame);
-
-								Map<Object, Object> tempCache = new HashMap<Object, Object>();
-								PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
-								for (Component tempComponent : tempComponents) {
-									String tempLongPath = swingComponentHandler
-											.createUniquifiedComponentPath(tempComponent);
-									String tempShortPath = swingComponentHandler
-											.createShortestComponentPath(tempComponent);
-
-									if (tempLongPath != null) {
-										if (tempShortPath == null) {
-											tempShortPath = "";
-										}
-										tempWriter.println(generateComponentLine(tempShortPath, tempLongPath,
-												tempComponent, tempCache));
-									}
-								}
-
-								tempWriter.flush();
-							} catch (ClassNotFoundException exc) {
-								exc.printStackTrace();
-							}
+						if ("components".equals(tempQueryType)) {
+							processComponentQuery(tempQueryLine, tempWriter);
+						} else if ("tablecols".equals(tempQueryType)) {
+							processTableColumnQuery(tempQueryLine, tempWriter);
 						}
+
+						tempWriter.flush();
 					} catch (Throwable exc) {
 						exc.printStackTrace();
 					} finally {
@@ -206,6 +190,68 @@ public class SwingAuthorAssistServer {
 			} catch (IOException exc) {
 				exc.printStackTrace();
 			}
+		}
+	}
+
+	/**
+	 * Finds all components that match the specified query (which is expected to be a class name).
+	 * 
+	 * @param aQueryLine
+	 *            the class name of the components to find
+	 * @param anOutputWriter
+	 *            the writer to write result lines to
+	 */
+	protected void processComponentQuery(String aQueryLine, PrintWriter anOutputWriter) {
+		if (aQueryLine != null) {
+			try {
+				Class<?> tempFilterClass = getClass().getClassLoader().loadClass(aQueryLine);
+
+				@SuppressWarnings("unchecked")
+				List<Component> tempComponents = (List<Component>) swingComponentHandler.findComponents(null,
+						(Class<? extends Component>) tempFilterClass, ownerFrame);
+
+				Map<Object, Object> tempCache = new HashMap<Object, Object>();
+				for (Component tempComponent : tempComponents) {
+					String tempLongPath = swingComponentHandler.createUniquifiedComponentPath(tempComponent);
+					String tempShortPath = swingComponentHandler.createShortestComponentPath(tempComponent);
+
+					if (tempLongPath != null) {
+						if (tempShortPath == null) {
+							tempShortPath = "";
+						}
+						anOutputWriter.println(generateComponentLine(tempShortPath, tempLongPath, tempComponent,
+								tempCache));
+					}
+				}
+			} catch (ClassNotFoundException exc) {
+				exc.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Finds all table columns in a given table.
+	 * 
+	 * @param aQueryLine
+	 *            the table component path
+	 * @param anOutputWriter
+	 *            the writer to write result lines to
+	 */
+	protected void processTableColumnQuery(String aQueryLine, PrintWriter anOutputWriter) {
+		try {
+			JTable tempTable = swingComponentHandler.findComponentGuarded(aQueryLine, JTable.class, ownerFrame);
+			for (int i = 0; i < tempTable.getColumnCount(); i++) {
+				String tempColumnName = tempTable.getColumnName(i);
+				if (tempColumnName != null) {
+					anOutputWriter.println(SwingTableContentFixture.simplifyColumnName(tempColumnName) + ":"
+							+ tempColumnName);
+				}
+				anOutputWriter.println(SwingTableContentFixture.generateColumnName(i) + ":" + tempColumnName);
+			}
+		} catch (AmbiguousComponentPathException exc) {
+			exc.printStackTrace();
+		} catch (InvalidComponentPathException exc) {
+			exc.printStackTrace();
 		}
 	}
 

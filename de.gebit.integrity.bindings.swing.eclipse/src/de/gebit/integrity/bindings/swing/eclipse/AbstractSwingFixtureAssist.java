@@ -49,58 +49,29 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Requests all proposals from the {@link SwingAuthorAssistServer} for the given component class. The proposals
-	 * which are returned are parsed and converted into {@link CustomProposalDefinition} instances as well.
+	 * Runs a {@link SwingAuthorAssistRequestRunnable} against an author assist server. The connection is established
+	 * automatically, then the runnables' code is run, and the connection closed.
 	 * 
-	 * @param aComponentClass
-	 *            the component class to filter for
-	 * @return the list of proposals (may be empty or null in case of no proposals/errors)
+	 * @param aRequestType
+	 *            the request type to submit to the author assist server
+	 * @param aRequest
+	 *            the actual request line to be submitted
+	 * @param aRunnable
+	 *            the runnable to execute for response parsing
+	 * @return a list of proposal definitions returned by the runnable
 	 */
-	protected List<CustomProposalDefinition> requestProposals(Class<? extends Component> aComponentClass) {
+	protected <T extends Object> List<T> runAuthorAssistRequest(String aRequestType, String aRequest,
+			SwingAuthorAssistRequestRunnable<T> aRunnable) {
 		Socket tempSocket = null;
 		try {
 			tempSocket = createSocket();
 
 			PrintWriter tempWriter = new PrintWriter(tempSocket.getOutputStream());
-			tempWriter.println(aComponentClass.getName());
+			tempWriter.println(aRequestType + "|" + aRequest);
 			tempWriter.flush();
 			BufferedReader tempReader = new BufferedReader(new InputStreamReader(tempSocket.getInputStream()));
-			List<CustomProposalDefinition> tempList = new ArrayList<CustomProposalDefinition>();
 
-			String tempLine = tempReader.readLine();
-			while (tempLine != null) {
-				Matcher tempMatcher = SUGGESTION_PATTERN.matcher(tempLine);
-				if (tempMatcher.matches()) {
-					String tempLongPath = tempMatcher.group(1);
-					String tempShortPath = tempMatcher.group(2);
-					String tempHTMLDetails = tempMatcher.group(3);
-					String tempPlainDetails = tempMatcher.group(4);
-
-					if (tempHTMLDetails.length() == 0) {
-						tempHTMLDetails = null;
-					}
-					if (tempPlainDetails.length() == 0) {
-						tempPlainDetails = null;
-					} else {
-						tempPlainDetails = tempPlainDetails.replace(SwingAuthorAssistServer.COMPONENT_LINE_NEWLINE,
-								"\n");
-					}
-
-					boolean tempHasShortPath = tempShortPath.length() > 0 && !tempShortPath.equals(tempLongPath);
-
-					tempList.add(new CustomProposalDefinition('"' + tempLongPath + '"', tempLongPath, tempHTMLDetails,
-							tempPlainDetails, tempHasShortPath ? 0 : 1, true));
-					if (tempShortPath.length() > 0 && !tempShortPath.equals(tempLongPath)) {
-						tempList.add(new CustomProposalDefinition('"' + tempShortPath + '"', tempShortPath,
-								tempHTMLDetails, tempPlainDetails, 2, true));
-					}
-				} else {
-					System.err.println("Suggestion line not parseable: '" + tempLine + "'");
-				}
-				tempLine = tempReader.readLine();
-			}
-
-			return tempList;
+			return aRunnable.run(tempReader);
 		} catch (UnknownHostException exc) {
 			exc.printStackTrace();
 		} catch (IOException exc) {
@@ -116,5 +87,81 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Requests all proposals from the {@link SwingAuthorAssistServer} for the given component class. The proposals
+	 * which are returned are parsed and converted into {@link CustomProposalDefinition} instances as well.
+	 * 
+	 * @param aComponentClass
+	 *            the component class to filter for
+	 * @return the list of proposals (may be empty or null in case of no proposals/errors)
+	 */
+	protected List<CustomProposalDefinition> requestProposals(Class<? extends Component> aComponentClass) {
+		return runAuthorAssistRequest("components", aComponentClass.getName(),
+				new SwingAuthorAssistRequestRunnable<CustomProposalDefinition>() {
+
+					@Override
+					public List<CustomProposalDefinition> run(BufferedReader aReader) throws IOException {
+						List<CustomProposalDefinition> tempList = new ArrayList<CustomProposalDefinition>();
+
+						String tempLine = aReader.readLine();
+						while (tempLine != null) {
+							Matcher tempMatcher = SUGGESTION_PATTERN.matcher(tempLine);
+							if (tempMatcher.matches()) {
+								String tempLongPath = tempMatcher.group(1);
+								String tempShortPath = tempMatcher.group(2);
+								String tempHTMLDetails = tempMatcher.group(3);
+								String tempPlainDetails = tempMatcher.group(4);
+
+								if (tempHTMLDetails.length() == 0) {
+									tempHTMLDetails = null;
+								}
+								if (tempPlainDetails.length() == 0) {
+									tempPlainDetails = null;
+								} else {
+									tempPlainDetails = tempPlainDetails.replace(
+											SwingAuthorAssistServer.COMPONENT_LINE_NEWLINE, "\n");
+								}
+
+								boolean tempHasShortPath = tempShortPath.length() > 0
+										&& !tempShortPath.equals(tempLongPath);
+
+								tempList.add(new CustomProposalDefinition('"' + tempLongPath + '"', tempLongPath,
+										tempHTMLDetails, tempPlainDetails, tempHasShortPath ? 0 : 1, true));
+								if (tempShortPath.length() > 0 && !tempShortPath.equals(tempLongPath)) {
+									tempList.add(new CustomProposalDefinition('"' + tempShortPath + '"', tempShortPath,
+											tempHTMLDetails, tempPlainDetails, 2, true));
+								}
+							} else {
+								System.err.println("Suggestion line not parseable: '" + tempLine + "'");
+							}
+							tempLine = aReader.readLine();
+						}
+
+						return tempList;
+					}
+				});
+	}
+
+	/**
+	 * Implementations of this interface encapsulate parsers for responses from the {@link SwingAuthorAssistServer}.
+	 * 
+	 * 
+	 * @author Slartibartfast
+	 * 
+	 */
+	protected interface SwingAuthorAssistRequestRunnable<T> {
+
+		/**
+		 * This shall contain the code that reads lines from the provided reader and parses them into a list of results.
+		 * 
+		 * @param aReader
+		 *            the reader to read the response from
+		 * @return a list of proposals
+		 * @throws IOException
+		 */
+		List<T> run(BufferedReader aReader) throws IOException;
+
 	}
 }

@@ -4,7 +4,7 @@ import swing.tables.*
 
 packagedef swing.swingset with
 
-	suitedef main with
+	suitedef tables with
 	
 		call launchApp mainClass: "SwingSet2"
 		
@@ -21,9 +21,13 @@ packagedef swing.swingset with
 			| 2   | "Mark"       | "Andrews"   |
 			
 		tabletest tableContent name: "JTable"
-			| +firstName = | +lastName = |
-			| "Mike"       | "Albers"    |
-			| "Mark"       | "Andrews"   |
+			| +col1 = | +col2 =   |
+			| "Mike"  | "Albers"  |
+			| "Mark"  | "Andrews" |
+			
+//		tabletest tableContent name: "JTable"
+//			| row | +favoriteColor = | +favoriteMovie = |
+		
 		
 		call swing.tools.authorAssist
 		
