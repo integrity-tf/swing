@@ -74,7 +74,9 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	}
 
 	/**
-	 * 
+	 * A result object which encapsulates the named arbitrary results from a call to
+	 * {@link SwingTableContentFixture#getTableContent(String, Integer)} or
+	 * {@link SwingTableContentFixture#getTableText(String, Integer, Integer)}.
 	 * 
 	 * 
 	 * @author Rene Schneider - initial API and implementation
@@ -82,18 +84,18 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 */
 	protected static class SwingTableRowResult {
 
+		/**
+		 * The map containing the arbitrary result values.
+		 */
 		private Map<String, Object> arbitraryResultsMap;
 
 		/**
-		 * 
+		 * Creates a new instance.
 		 */
 		public SwingTableRowResult(Map<String, Object> aResultMap) {
 			arbitraryResultsMap = aResultMap;
 		}
 
-		/**
-		 * @return the anArbitraryResultsMap
-		 */
 		public Map<String, Object> getArbitraryResultsMap() {
 			return arbitraryResultsMap;
 		}
@@ -158,8 +160,20 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 		return tempResults;
 	}
 
+	/**
+	 * These characters are allowed for named result identifiers.
+	 */
 	protected static final String IDENTIFIER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
 
+	/**
+	 * Simplifies any given column name to match the requirements for named result identifiers. This converts a nice
+	 * name like "First Name" to "firstName", trying to keep as much information as possible while conforming to rules
+	 * for named result identifiers.
+	 * 
+	 * @param aName
+	 *            the name to simplify
+	 * @return the simplified name
+	 */
 	protected String simplifyColumnName(String aName) {
 		if (aName == null) {
 			return null;
@@ -202,6 +216,13 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 		return tempName;
 	}
 
+	/**
+	 * Autogenerates a column name based on the number of the column.
+	 * 
+	 * @param aColumn
+	 *            the column number
+	 * @return the generated name
+	 */
 	protected String generateColumnName(int aColumn) {
 		return "col" + (aColumn + 1);
 	}
