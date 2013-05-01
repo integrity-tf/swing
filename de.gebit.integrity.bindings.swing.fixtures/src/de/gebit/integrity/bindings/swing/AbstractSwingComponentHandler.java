@@ -370,7 +370,7 @@ public abstract class AbstractSwingComponentHandler {
 		if (tempMatches.size() > 1) {
 			for (int i = 0; i < tempMatches.size(); i++) {
 				if (tempMatches.get(i) == aComponent) {
-					return tempPath + "#" + (i + 1);
+					return tempPath + "#" + i;
 				}
 			}
 		}
