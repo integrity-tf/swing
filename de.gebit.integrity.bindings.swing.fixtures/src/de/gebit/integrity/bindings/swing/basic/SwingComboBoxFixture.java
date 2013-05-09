@@ -118,7 +118,9 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Returns if an entry at position $position$ exists in combo box '$name$'", descriptionTest = "Checks if an entry at position $position$ exists in combo box '$name$'")
+	@FixtureMethod(descriptionCall = "Returns if an entry {position?at position $position$}{"
+			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} exists in combo box '$name$'", descriptionTest = "Checks if an entry {position?at position $position$}{"
+			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} exists in combo box '$name$'")
 	public boolean entryExists(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = "position") Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
@@ -145,7 +147,9 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Fetches the entry at position $position$ from combo box '$name$'", descriptionTest = "Checks the entry at position $position$ in combo box '$name$'")
+	@FixtureMethod(descriptionCall = "Fetches the entry {position?at position $position$}{" + ENTRY_TEXT_PARAMETER_NAME
+			+ "?'$text$'} from combo box '$name$'", descriptionTest = "Checks the entry {position?at position $position$}{"
+			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
 	public Object getEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = "position") Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
