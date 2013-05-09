@@ -24,9 +24,6 @@ packagedef swing.swingset with
 			| +col1 = | +col2 =   |
 			| "Mike"  | "Albers"  |
 			| "Mark"  | "Andrews" |
-			
-//		tabletest tableContent name: "JTable"
-//			| row | +favoriteColor = | +favoriteMovie = |
 		
 		
 		call swing.tools.authorAssist

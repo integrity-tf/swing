@@ -1,0 +1,31 @@
+import swing.launch.*
+import swing.basic.*
+import swing.tables.*
+
+packagedef swing.swingset with
+
+	suitedef combobox with
+	
+		call launchApp mainClass: "SwingSet2"
+		
+		call clickButton name: "frame0.JToggleButton#3"
+		
+		test comboBoxEntryExists name: "frame0.JComboBox#1" position: 1
+		test comboBoxEntryExists name: "frame0.JComboBox#1" position: 40 = false
+		
+		test comboBoxEntryExists name: "frame0.JComboBox#1" text: "Brent"
+		test comboBoxEntry name: "frame0.JComboBox#1" position: 1 = "Brent"
+		
+		call selectComboBoxEntry name: "frame0.JComboBox#1" text: "Brent"
+		test comboBoxSelectedEntry name: "frame0.JComboBox#1" = "Brent"
+		test comboBoxSelectedEntryPosition name: "frame0.JComboBox#1" = 1
+		
+		
+		call swing.tools.authorAssist
+		
+		
+		call killApp
+	
+	suiteend
+
+packageend
