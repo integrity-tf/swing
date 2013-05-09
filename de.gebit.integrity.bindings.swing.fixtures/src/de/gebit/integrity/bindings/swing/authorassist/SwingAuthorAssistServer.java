@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
@@ -176,6 +177,8 @@ public class SwingAuthorAssistServer {
 							processComponentQuery(tempQueryLine, tempWriter);
 						} else if ("tablecols".equals(tempQueryType)) {
 							processTableColumnQuery(tempQueryLine, tempWriter);
+						} else if ("comboboxentries".equals(tempQueryType)) {
+							processComboBoxEntryQuery(tempQueryLine, tempWriter);
 						}
 
 						tempWriter.flush();
@@ -247,6 +250,31 @@ public class SwingAuthorAssistServer {
 							+ tempColumnName);
 				}
 				anOutputWriter.println(SwingTableContentFixture.generateColumnName(i) + ":" + tempColumnName);
+			}
+		} catch (AmbiguousComponentPathException exc) {
+			exc.printStackTrace();
+		} catch (InvalidComponentPathException exc) {
+			exc.printStackTrace();
+		}
+	}
+
+	/**
+	 * Finds all current values in a given combobox.
+	 * 
+	 * @param aQueryLine
+	 *            the combobox component path
+	 * @param anOutputWriter
+	 *            the writer to write result lines to
+	 */
+	protected void processComboBoxEntryQuery(String aQueryLine, PrintWriter anOutputWriter) {
+		try {
+			JComboBox tempComboBox = swingComponentHandler
+					.findComponentGuarded(aQueryLine, JComboBox.class, ownerFrame);
+			for (int i = 0; i < tempComboBox.getItemCount(); i++) {
+				Object tempItem = tempComboBox.getItemAt(i);
+				if (tempItem != null) {
+					anOutputWriter.println(tempItem.toString());
+				}
 			}
 		} catch (AmbiguousComponentPathException exc) {
 			exc.printStackTrace();

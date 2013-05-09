@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist;
 import de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
@@ -38,7 +39,7 @@ public class SwingTableContentFixtureParameterEnumerator extends AbstractSwingFi
 	@Override
 	public List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureMethodName,
 			Map<String, Object> someFixedParameters, List<String> aNestedObjectPath) {
-		String tempTableName = (String) someFixedParameters.get("name");
+		String tempTableName = (String) someFixedParameters.get(SwingComboBoxFixture.COMPONENT_PATH_PARAMETER_NAME);
 		if (tempTableName == null) {
 			return null;
 		}
