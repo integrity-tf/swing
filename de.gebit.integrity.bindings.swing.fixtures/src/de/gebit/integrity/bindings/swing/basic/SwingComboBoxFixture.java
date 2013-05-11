@@ -36,6 +36,11 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	public static final String[] METHODS_WITH_ENTRY_TEXT_RESULTS = { "getSelectedEntry", "getEntry" };
 
 	/**
+	 * Internal position used for tabletests.
+	 */
+	protected int position;
+
+	/**
 	 * Selects a given entry at a specified position or with a given text from the combo box. You only need to provide
 	 * one: either a position or a text.
 	 * 
@@ -156,7 +161,14 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		JComboBox tempComboBox = findComponentGuarded(aComponentPath, JComboBox.class, null);
 
-		int tempIndexToFetch = findItemIndexGuarded(tempComboBox, anEntryPosition, anEntryText);
+		Integer tempEntryPositionToUse = anEntryPosition;
+		if (anEntryText == null && anEntryPosition == null) {
+			// This enables tabletests in which the position is not explicitly stated
+			position++;
+			tempEntryPositionToUse = position;
+		}
+
+		int tempIndexToFetch = findItemIndexGuarded(tempComboBox, tempEntryPositionToUse, anEntryText);
 
 		return tempComboBox.getItemAt(tempIndexToFetch);
 	}
