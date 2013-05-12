@@ -8,17 +8,11 @@
 package de.gebit.integrity.bindings.swing.eclipse.basic;
 
 import java.awt.Component;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JTabbedPane;
 
 import de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture;
-import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
+import de.gebit.integrity.bindings.swing.eclipse.AbstractResultSuggestingSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
@@ -28,7 +22,8 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingTabbedPaneFixture.class)
-public class SwingTabbedPaneFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
+public class SwingTabbedPaneFixtureProposalProvider extends
+		AbstractResultSuggestingSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {
@@ -36,60 +31,23 @@ public class SwingTabbedPaneFixtureProposalProvider extends AbstractSwingCompone
 	}
 
 	@Override
-	public List<CustomProposalDefinition> defineParameterProposals(String aFixtureMethodName, String aParameterName,
-			Map<String, Object> someParameterValues) {
-		if (SwingTabbedPaneFixture.TAB_TEXT_PARAMETER_NAME.equals(aParameterName)) {
-			return requestTabTitleProposals(someParameterValues);
-		} else {
-			return super.defineParameterProposals(aFixtureMethodName, aParameterName, someParameterValues);
-		}
+	protected String getAuthorAssistRequestType() {
+		return "tabtitles";
 	}
 
 	@Override
-	public List<CustomProposalDefinition> defineResultProposals(String aFixtureMethodName, String aResultName,
-			Object aResultValue, Map<String, Object> someParameterValues) {
-		if (Arrays.asList(SwingTabbedPaneFixture.METHODS_WITH_TAB_TEXT_RESULTS).contains(aFixtureMethodName)) {
-			return requestTabTitleProposals(someParameterValues);
-		} else {
-			return super.defineResultProposals(aFixtureMethodName, aResultName, aResultValue, someParameterValues);
-		}
+	protected String[] getRelevantMethods() {
+		return SwingTabbedPaneFixture.METHODS_WITH_TAB_TEXT_RESULTS;
 	}
 
-	private List<CustomProposalDefinition> requestTabTitleProposals(Map<String, Object> someParameterValues) {
-		String tempComponentName = (String) someParameterValues
-				.get(SwingTabbedPaneFixture.COMPONENT_PATH_PARAMETER_NAME);
-		if (tempComponentName == null) {
-			return null;
-		}
+	@Override
+	protected String getRelevantPositionParameterName() {
+		return SwingTabbedPaneFixture.TAB_POSITION_PARAMETER_NAME;
+	}
 
-		final Integer tempPosition = (Integer) someParameterValues
-				.get(SwingTabbedPaneFixture.TAB_POSITION_PARAMETER_NAME);
-
-		return runAuthorAssistRequest("tabtitles", tempComponentName,
-				new SwingAuthorAssistRequestRunnable<CustomProposalDefinition>() {
-
-					@Override
-					public List<CustomProposalDefinition> run(BufferedReader aReader) throws IOException {
-						List<CustomProposalDefinition> tempResults = new ArrayList<CustomProposalDefinition>();
-
-						String tempLine = aReader.readLine();
-						int tempCount = 1;
-						while (tempLine != null) {
-							if (tempPosition != null && tempCount == tempPosition) {
-								tempResults.add(new CustomProposalDefinition("\"" + tempLine + "\"", tempLine
-										+ " (currently at pos. " + tempPosition + ")", HIGH_BASE_PRIORITY, null));
-							} else {
-								tempResults.add(new CustomProposalDefinition("\"" + tempLine + "\"", tempLine,
-										HIGH_BASE_PRIORITY - tempCount, null));
-							}
-							tempCount++;
-
-							tempLine = aReader.readLine();
-						}
-
-						return tempResults;
-					}
-				});
+	@Override
+	protected String getRelevantTextParameterName() {
+		return SwingTabbedPaneFixture.TAB_TEXT_PARAMETER_NAME;
 	}
 
 }
