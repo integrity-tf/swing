@@ -24,6 +24,11 @@ public abstract class AbstractSwingComponentFixtureProposalProvider extends Abst
 		CustomProposalProvider {
 
 	/**
+	 * A high priority number.
+	 */
+	protected static final int HIGH_BASE_PRIORITY = 999999999;
+
+	/**
 	 * Must return the class for which to provide proposals.
 	 * 
 	 * @return

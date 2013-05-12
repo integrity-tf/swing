@@ -31,6 +31,11 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	public static final String ENTRY_TEXT_PARAMETER_NAME = "text";
 
 	/**
+	 * The parameter name for entry position.
+	 */
+	public static final String ENTRY_POSITION_PARAMETER_NAME = "position";
+
+	/**
 	 * These methods accept entry texts as their expected result.
 	 */
 	public static final String[] METHODS_WITH_ENTRY_TEXT_RESULTS = { "getSelectedEntry", "getEntry" };
@@ -54,10 +59,10 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(description = "Select the entry {position?at position $position$}{" + ENTRY_TEXT_PARAMETER_NAME
-			+ "?'$text$'} in combo box '$name$'")
+	@FixtureMethod(description = "Select the entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
 	public void selectEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer anEntryPosition,
+			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
 		final JComboBox tempComboBox = findComponentGuarded(aComponentPath, JComboBox.class, null);
@@ -124,11 +129,13 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Returns if an entry {position?at position $position$}{"
-			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} exists in combo box '$name$'", descriptionTest = "Checks if an entry {position?at position $position$}{"
+	@FixtureMethod(descriptionCall = "Returns if an entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME
+			+ "?'$text$'} exists in combo box '$name$'", descriptionTest = "Checks if an entry {"
+			+ ENTRY_POSITION_PARAMETER_NAME + "?at position $" + ENTRY_POSITION_PARAMETER_NAME + "$}{"
 			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} exists in combo box '$name$'")
 	public boolean entryExists(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer anEntryPosition,
+			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		JComboBox tempComboBox = findComponentGuarded(aComponentPath, JComboBox.class, null);
@@ -153,11 +160,15 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Fetches the entry {position?at position $position$}{" + ENTRY_TEXT_PARAMETER_NAME
-			+ "?'$text$'} from combo box '$name$'", descriptionTest = "Checks the entry {position?at position $position$}{"
+	@FixtureMethod(descriptionCall = "Fetches the entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} from combo box '$name$'", descriptionTest = "Checks the entry {"
+			+ ENTRY_POSITION_PARAMETER_NAME
+			+ "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME
+			+ "$}{"
 			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
 	public Object getEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer anEntryPosition,
+			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		JComboBox tempComboBox = findComponentGuarded(aComponentPath, JComboBox.class, null);

@@ -31,6 +31,11 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture implements Cust
 	public static final String TAB_TEXT_PARAMETER_NAME = "text";
 
 	/**
+	 * The parameter name for tab position.
+	 */
+	public static final String TAB_POSITION_PARAMETER_NAME = "position";
+
+	/**
 	 * These methods accept tab title texts as their expected result.
 	 */
 	public static final String[] METHODS_WITH_TAB_TEXT_RESULTS = { "getSelectedTab", "getTabTitle" };
@@ -48,10 +53,10 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture implements Cust
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(description = "Select the tab {position?at position $position$}{" + TAB_TEXT_PARAMETER_NAME
-			+ "?'$text$'} in tabbed pane '$name$'")
+	@FixtureMethod(description = "Select the tab {" + TAB_POSITION_PARAMETER_NAME + "?at position $"
+			+ TAB_POSITION_PARAMETER_NAME + "$}{" + TAB_TEXT_PARAMETER_NAME + "?'$text$'} in tabbed pane '$name$'")
 	public void selectTab(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer aTabPosition,
+			@FixtureParameter(name = TAB_POSITION_PARAMETER_NAME) Integer aTabPosition,
 			@FixtureParameter(name = TAB_TEXT_PARAMETER_NAME) String aTabText) throws AmbiguousComponentPathException,
 			EventQueueTimeoutException, InvalidComponentPathException {
 		final JTabbedPane tempTabbedPane = findComponentGuarded(aComponentPath, JTabbedPane.class, null);
@@ -146,10 +151,12 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture implements Cust
 	 * @throws AmbiguousComponentPathException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Fetches the title of the tab at position $position$ from tabbed pane '$name$'", descriptionTest = "Checks the title of the tab at position $position$ in tabbed pane '$name$'")
+	@FixtureMethod(descriptionCall = "Fetches the title of the tab at position $" + TAB_POSITION_PARAMETER_NAME
+			+ "$ from tabbed pane '$name$'", descriptionTest = "Checks the title of the tab at position $"
+			+ TAB_POSITION_PARAMETER_NAME + "$ in tabbed pane '$name$'")
 	public String getTabTitle(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer aTabPosition) throws AmbiguousComponentPathException,
-			InvalidComponentPathException {
+			@FixtureParameter(name = TAB_POSITION_PARAMETER_NAME) Integer aTabPosition)
+			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		JTabbedPane tempTabbedPane = findComponentGuarded(aComponentPath, JTabbedPane.class, null);
 
 		if (aTabPosition == null || aTabPosition < 1) {
