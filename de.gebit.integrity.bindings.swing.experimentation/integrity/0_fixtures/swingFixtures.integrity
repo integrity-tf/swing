@@ -42,18 +42,24 @@ packagedef swing.basic with
 	calldef setSliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setSliderValue
 	
 	// Lists
+	calldef selectListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#selectEntries
+	calldef getSelectedListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntries
+	testdef selectedListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntries
+	calldef getSelectedListEntryPositions uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntryPositions
+	testdef selectedListEntryPositions uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntryPositions
+	calldef getListEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#entryExists
+	testdef listEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#entryExists
 	calldef getListEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
 	testdef listEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
 	calldef getListEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntry
 	testdef listEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntry
-	// to add: select
 	
 	// Combo Boxes
 	calldef selectComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#selectEntry
-	calldef getComboBoxSelectedEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
-	testdef comboBoxSelectedEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
-	calldef getComboBoxSelectedEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
-	testdef comboBoxSelectedEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
+	calldef getSelectedComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
+	testdef selectedComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
+	calldef getSelectedComboBoxEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
+	testdef selectedComboBoxEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
 	calldef getComboBoxEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#entryExists
 	testdef comboBoxEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#entryExists
 	calldef getComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry

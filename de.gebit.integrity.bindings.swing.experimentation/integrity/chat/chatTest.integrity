@@ -26,8 +26,19 @@ packagedef swing.chat with
 			| =         |
 			| "Bar!"    |
 			| "Foobar!" |
+			
+		// Do some selection testing, just because it's cool :)
+		call selectListEntries name: "messageList" position: 1
+		test selectedListEntries name: "messageList" = "Bar!"
+		test selectedListEntryPositions name: "messageList" = 1
 		
-		//call tools.authorAssist
+		call selectListEntries name: "messageList" position: 1, 2
+		test selectedListEntries name: "messageList" = "Bar!", "Foobar!"
+		test selectedListEntryPositions name: "messageList" = 1, 2
+		
+		
+		
+		call swing.tools.authorAssist
 		
 				
 		suite killChatApp

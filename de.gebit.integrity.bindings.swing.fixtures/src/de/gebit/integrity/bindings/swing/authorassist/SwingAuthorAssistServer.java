@@ -32,6 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
@@ -182,6 +183,8 @@ public class SwingAuthorAssistServer {
 							processComboBoxEntryQuery(tempQueryLine, tempWriter);
 						} else if ("tabtitles".equals(tempQueryType)) {
 							processTabTitleQuery(tempQueryLine, tempWriter);
+						} else if ("listentries".equals(tempQueryType)) {
+							processListEntryQuery(tempQueryLine, tempWriter);
 						}
 
 						tempWriter.flush();
@@ -300,6 +303,30 @@ public class SwingAuthorAssistServer {
 					ownerFrame);
 			for (int i = 0; i < tempTabbedPane.getTabCount(); i++) {
 				Object tempItem = tempTabbedPane.getTitleAt(i);
+				if (tempItem != null) {
+					anOutputWriter.println(tempItem.toString());
+				}
+			}
+		} catch (AmbiguousComponentPathException exc) {
+			exc.printStackTrace();
+		} catch (InvalidComponentPathException exc) {
+			exc.printStackTrace();
+		}
+	}
+
+	/**
+	 * Finds all current values in a given list.
+	 * 
+	 * @param aQueryLine
+	 *            the list component path
+	 * @param anOutputWriter
+	 *            the writer to write result lines to
+	 */
+	protected void processListEntryQuery(String aQueryLine, PrintWriter anOutputWriter) {
+		try {
+			JList tempList = swingComponentHandler.findComponentGuarded(aQueryLine, JList.class, ownerFrame);
+			for (int i = 0; i < tempList.getModel().getSize(); i++) {
+				Object tempItem = tempList.getModel().getElementAt(i);
 				if (tempItem != null) {
 					anOutputWriter.println(tempItem.toString());
 				}

@@ -20,8 +20,8 @@ packagedef swing.swingset with
 		
 		// select an entry and check the selected entry
 		call selectComboBoxEntry name: "frame0.JComboBox#1" text: "Brent"
-		test comboBoxSelectedEntry name: "frame0.JComboBox#1" = "Brent"
-		test comboBoxSelectedEntryPosition name: "frame0.JComboBox#1" = 1
+		test selectedComboBoxEntry name: "frame0.JComboBox#1" = "Brent"
+		test selectedComboBoxEntryPosition name: "frame0.JComboBox#1" = 1
 		
 		// Test all combo box entries, first by referring to their positions explicitly
 		tabletest comboBoxEntry name: "frame0.JComboBox#1"
