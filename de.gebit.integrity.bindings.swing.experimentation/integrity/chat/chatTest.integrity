@@ -17,12 +17,12 @@ packagedef swing.chat with
 		
 		suite sendMessageFromBToA message: "Foobar!"
 		
-		tabletest listText name: "messageList"
+		tabletest listEntry name: "messageList"
 			| position | =         |
 			| 1        | "Bar!"    |
 			| 2        | "Foobar!" |
 			
-		tabletest listText name: "messageList"
+		tabletest listEntry name: "messageList"
 			| =         |
 			| "Bar!"    |
 			| "Foobar!" |
@@ -68,7 +68,10 @@ packagedef swing.chat with
 	
 	suitedef checkMessageReceived gets message with
 		// received messages are added at the bottom of the list, so we can check the last one
-		test listEntryBottomUp name: "messageList" position: 0 = message
+		variable listEntryCount
+		call getListEntryCount name: "messageList" -> listEntryCount
+		
+		test listEntry name: "messageList" position: listEntryCount = message
 	suiteend
 
 packageend

@@ -48,84 +48,10 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the element at position $position$ in list '$name$'", descriptionTest = "Check the element at position $position$ in list '$name$'")
-	public Object getListEntryTopDown(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+	public Object getListEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = "position") Integer aListPosition) throws AmbiguousComponentPathException,
 			EventQueueTimeoutException, InvalidComponentPathException {
-		return getListContent(aComponentPath, aListPosition, false);
-	}
-
-	/**
-	 * Returns the current element at the given position in the given list, starting at the bottom. Can be used either
-	 * as a call fixture method to retrieve the text into a variable, or as a test fixture to check the text against a
-	 * reference text.
-	 * 
-	 * @param aComponentPath
-	 *            the path of the component
-	 * @param aListPosition
-	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
-	 * @return the element in the list at the given position, or null if the position is larger than the available
-	 *         entries
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
-	 */
-	@FixtureMethod(descriptionCall = "Get the element at position $position$ (bottom-up) in list '$name$'", descriptionTest = "Check the element at position $position$ (bottom-up) in list '$name$'")
-	public Object getListEntryBottomUp(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer aListPosition) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
-		return getListContent(aComponentPath, aListPosition, true);
-	}
-
-	/**
-	 * Returns the current text at the given position in the given list, starting at the top. Can be used either as a
-	 * call fixture method to retrieve the text into a variable, or as a test fixture to check the text against a
-	 * reference text.
-	 * 
-	 * @param aComponentPath
-	 *            the path of the component
-	 * @param aListPosition
-	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
-	 * @return the text in the list at the given position, or null if the position is larger than the available entries
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
-	 */
-	@FixtureMethod(descriptionCall = "Get the text at position $position$ in list '$name$'", descriptionTest = "Check the text at position $position$ in list '$name$'")
-	public String getListTextTopDown(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer aListPosition) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
-		Object tempElement = getListContent(aComponentPath, aListPosition, false);
-		if (tempElement != null) {
-			return tempElement.toString();
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns the current text at the given position in the given list, starting at the bottom. Can be used either as a
-	 * call fixture method to retrieve the text into a variable, or as a test fixture to check the text against a
-	 * reference text.
-	 * 
-	 * @param aComponentPath
-	 *            the path of the component
-	 * @param aListPosition
-	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
-	 * @return the text in the list at the given position, or null if the position is larger than the available entries
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
-	 */
-	@FixtureMethod(descriptionCall = "Get the text at position $position$ (bottom-up) in list '$name$'", descriptionTest = "Check the text at position $position$ (bottom-up) in list '$name$'")
-	public String getListTextBottomUp(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "position") Integer aListPosition) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
-		Object tempElement = getListContent(aComponentPath, aListPosition, true);
-		if (tempElement != null) {
-			return tempElement.toString();
-		} else {
-			return null;
-		}
+		return getListContent(aComponentPath, aListPosition);
 	}
 
 	/**
@@ -150,18 +76,16 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	 *            the path to the component
 	 * @param aPosition
 	 *            the position in the list (one-based!)
-	 * @param aBottomUpFlag
-	 *            true if bottom-up, false if top-down
 	 * @return the object
 	 * @throws AmbiguousComponentPathException
 	 * @throws InvalidComponentPathException
 	 */
-	protected Object getListContent(String aComponentPath, Integer aPosition, boolean aBottomUpFlag)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+	protected Object getListContent(String aComponentPath, Integer aPosition) throws AmbiguousComponentPathException,
+			InvalidComponentPathException {
 		JList tempList = findComponentGuarded(aComponentPath, JList.class, null);
 		ListModel tempModel = tempList.getModel();
 
-		int tempPosition = (aPosition != null) ? aPosition : (nextPosition++);
+		int tempPosition = (aPosition != null) ? aPosition : (++nextPosition);
 		if (tempPosition <= 0) {
 			throw new IndexOutOfBoundsException("List positions below and including 0 are invalid.");
 		}
@@ -170,7 +94,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 		if (tempPosition > tempListSize) {
 			return null;
 		} else {
-			int tempActualPosition = aBottomUpFlag ? tempListSize - tempPosition : tempPosition + 1;
+			int tempActualPosition = tempPosition - 1;
 			return tempModel.getElementAt(tempActualPosition);
 		}
 	}
