@@ -32,6 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 
@@ -179,6 +180,8 @@ public class SwingAuthorAssistServer {
 							processTableColumnQuery(tempQueryLine, tempWriter);
 						} else if ("comboboxentries".equals(tempQueryType)) {
 							processComboBoxEntryQuery(tempQueryLine, tempWriter);
+						} else if ("tabtitles".equals(tempQueryType)) {
+							processTabTitleQuery(tempQueryLine, tempWriter);
 						}
 
 						tempWriter.flush();
@@ -272,6 +275,31 @@ public class SwingAuthorAssistServer {
 					.findComponentGuarded(aQueryLine, JComboBox.class, ownerFrame);
 			for (int i = 0; i < tempComboBox.getItemCount(); i++) {
 				Object tempItem = tempComboBox.getItemAt(i);
+				if (tempItem != null) {
+					anOutputWriter.println(tempItem.toString());
+				}
+			}
+		} catch (AmbiguousComponentPathException exc) {
+			exc.printStackTrace();
+		} catch (InvalidComponentPathException exc) {
+			exc.printStackTrace();
+		}
+	}
+
+	/**
+	 * Finds all possible tab titles in a tabbed pane.
+	 * 
+	 * @param aQueryLine
+	 *            the tabbed pane component path
+	 * @param anOutputWriter
+	 *            the writer to write result lines to
+	 */
+	public void processTabTitleQuery(String aQueryLine, PrintWriter anOutputWriter) {
+		try {
+			JTabbedPane tempTabbedPane = swingComponentHandler.findComponentGuarded(aQueryLine, JTabbedPane.class,
+					ownerFrame);
+			for (int i = 0; i < tempTabbedPane.getTabCount(); i++) {
+				Object tempItem = tempTabbedPane.getTitleAt(i);
 				if (tempItem != null) {
 					anOutputWriter.println(tempItem.toString());
 				}

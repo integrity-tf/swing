@@ -64,6 +64,15 @@ packagedef swing.basic with
 	testdef comboBoxEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#entryExists
 	calldef getComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry
 	testdef comboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry
+	
+	// Tabbed Panes
+	calldef selectTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#selectTab
+	calldef getSelectedTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTab
+	testdef selectedTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTab
+	calldef getSelectedTabPosition uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTabPosition
+	testdef selectedTabPosition uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTabPosition
+	calldef getTabTitle uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getTabTitle
+	testdef tabTitle uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getTabTitle
  
 packageend
 
