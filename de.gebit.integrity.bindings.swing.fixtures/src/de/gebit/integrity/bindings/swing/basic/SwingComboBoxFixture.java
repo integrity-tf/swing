@@ -54,7 +54,8 @@ public class SwingComboBoxFixture extends AbstractSwingFixture implements Custom
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(description = "Select the entry at position $position$ in combo box '$name$'")
+	@FixtureMethod(description = "Select the entry {position?at position $position$}{" + ENTRY_TEXT_PARAMETER_NAME
+			+ "?'$text$'} in combo box '$name$'")
 	public void selectEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = "position") Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
