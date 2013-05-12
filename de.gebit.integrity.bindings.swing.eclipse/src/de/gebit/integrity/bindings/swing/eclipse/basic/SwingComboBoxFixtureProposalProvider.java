@@ -50,7 +50,6 @@ public class SwingComboBoxFixtureProposalProvider extends AbstractSwingComponent
 	@Override
 	public List<CustomProposalDefinition> defineResultProposals(String aFixtureMethodName, String aResultName,
 			Object aResultValue, Map<String, Object> someParameterValues) {
-		System.out.println(aFixtureMethodName);
 		if (Arrays.asList(SwingComboBoxFixture.METHODS_WITH_ENTRY_TEXT_RESULTS).contains(aFixtureMethodName)) {
 			String tempComponentName = (String) someParameterValues
 					.get(SwingComboBoxFixture.COMPONENT_PATH_PARAMETER_NAME);
