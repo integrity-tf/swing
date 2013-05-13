@@ -1,0 +1,13 @@
+import swing.launch.*
+
+packagedef swing.swingset.launch with
+
+	suitedef launchSwingSet concludedby killSwingSet with
+		call launchAppAndWait mainClass: "SwingSet2" time: 2000
+	suiteend
+	
+	suitedef killSwingSet with
+		call killApp
+	suiteend
+
+packageend

@@ -36,6 +36,8 @@ import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
+import javax.swing.JTree;
+import javax.swing.tree.TreeNode;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
 import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
@@ -44,9 +46,11 @@ import de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture;
 import de.gebit.integrity.bindings.swing.util.Base64;
 
 /**
- * The author assist server provides a kind of entrance into the running application, primarily used by the Swing
- * Fixture content assist feature in the Integrity editor. When the server is running, the content assist feature can
- * connect to it and query for information about components in the currently-running application.
+ * The author assist server provides a kind of entrance into the running
+ * application, primarily used by the Swing Fixture content assist feature in
+ * the Integrity editor. When the server is running, the content assist feature
+ * can connect to it and query for information about components in the
+ * currently-running application.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -81,20 +85,25 @@ public class SwingAuthorAssistServer {
 	/**
 	 * Creates a new instance.
 	 */
-	public SwingAuthorAssistServer(AbstractSwingComponentHandler aSwingComponentHandler, JFrame anOwnerFrame) {
+	public SwingAuthorAssistServer(
+			AbstractSwingComponentHandler aSwingComponentHandler,
+			JFrame anOwnerFrame) {
 		swingComponentHandler = aSwingComponentHandler;
 		ownerFrame = anOwnerFrame;
 	}
 
 	/**
-	 * Creates and returns a new {@link ServerSocket}, bound to the desired hostname and port.
+	 * Creates and returns a new {@link ServerSocket}, bound to the desired
+	 * hostname and port.
 	 * 
 	 * @return the bound socket
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	protected ServerSocket createServerSocket() throws UnknownHostException, IOException {
-		return new ServerSocket(DEFAULT_PORT, 1, InetAddress.getByName(DEFAULT_HOST));
+	protected ServerSocket createServerSocket() throws UnknownHostException,
+			IOException {
+		return new ServerSocket(DEFAULT_PORT, 1,
+				InetAddress.getByName(DEFAULT_HOST));
 	}
 
 	/**
@@ -118,9 +127,11 @@ public class SwingAuthorAssistServer {
 	}
 
 	/**
-	 * The author assist server is responsible for providing an entrance into the running Swing application to the code
-	 * completion functionality of the Swing bindings (base class:
-	 * {@link de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist}).
+	 * The author assist server is responsible for providing an entrance into
+	 * the running Swing application to the code completion functionality of the
+	 * Swing bindings (base class:
+	 * {@link de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist}
+	 * ).
 	 * 
 	 * 
 	 * @author Rene Schneider - initial API and implementation
@@ -168,12 +179,16 @@ public class SwingAuthorAssistServer {
 					}
 
 					try {
-						BufferedReader tempReader = new BufferedReader(new InputStreamReader(
-								tempClientSocket.getInputStream()));
+						BufferedReader tempReader = new BufferedReader(
+								new InputStreamReader(
+										tempClientSocket.getInputStream()));
 						String tempQueryLine = tempReader.readLine();
-						PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
-						String tempQueryType = tempQueryLine.substring(0, tempQueryLine.indexOf("|"));
-						tempQueryLine = tempQueryLine.substring(tempQueryLine.indexOf("|") + 1);
+						PrintWriter tempWriter = new PrintWriter(
+								tempClientSocket.getOutputStream());
+						String tempQueryType = tempQueryLine.substring(0,
+								tempQueryLine.indexOf("|"));
+						tempQueryLine = tempQueryLine.substring(tempQueryLine
+								.indexOf("|") + 1);
 
 						if ("components".equals(tempQueryType)) {
 							processComponentQuery(tempQueryLine, tempWriter);
@@ -185,6 +200,8 @@ public class SwingAuthorAssistServer {
 							processTabTitleQuery(tempQueryLine, tempWriter);
 						} else if ("listentries".equals(tempQueryType)) {
 							processListEntryQuery(tempQueryLine, tempWriter);
+						} else if ("treeitems".equals(tempQueryType)) {
+							processTreeItemQuery(tempQueryLine, tempWriter);
 						}
 
 						tempWriter.flush();
@@ -203,32 +220,40 @@ public class SwingAuthorAssistServer {
 	}
 
 	/**
-	 * Finds all components that match the specified query (which is expected to be a class name).
+	 * Finds all components that match the specified query (which is expected to
+	 * be a class name).
 	 * 
 	 * @param aQueryLine
 	 *            the class name of the components to find
 	 * @param anOutputWriter
 	 *            the writer to write result lines to
 	 */
-	protected void processComponentQuery(String aQueryLine, PrintWriter anOutputWriter) {
+	protected void processComponentQuery(String aQueryLine,
+			PrintWriter anOutputWriter) {
 		if (aQueryLine != null) {
 			try {
-				Class<?> tempFilterClass = getClass().getClassLoader().loadClass(aQueryLine);
+				Class<?> tempFilterClass = getClass().getClassLoader()
+						.loadClass(aQueryLine);
 
 				@SuppressWarnings("unchecked")
-				List<Component> tempComponents = (List<Component>) swingComponentHandler.findComponents(null,
-						(Class<? extends Component>) tempFilterClass, ownerFrame);
+				List<Component> tempComponents = (List<Component>) swingComponentHandler
+						.findComponents(null,
+								(Class<? extends Component>) tempFilterClass,
+								ownerFrame);
 
 				Map<Object, Object> tempCache = new HashMap<Object, Object>();
 				for (Component tempComponent : tempComponents) {
-					String tempLongPath = swingComponentHandler.createUniquifiedComponentPath(tempComponent);
-					String tempShortPath = swingComponentHandler.createShortestComponentPath(tempComponent);
+					String tempLongPath = swingComponentHandler
+							.createUniquifiedComponentPath(tempComponent);
+					String tempShortPath = swingComponentHandler
+							.createShortestComponentPath(tempComponent);
 
 					if (tempLongPath != null) {
 						if (tempShortPath == null) {
 							tempShortPath = "";
 						}
-						anOutputWriter.println(generateComponentLine(tempShortPath, tempLongPath, tempComponent,
+						anOutputWriter.println(generateComponentLine(
+								tempShortPath, tempLongPath, tempComponent,
 								tempCache));
 					}
 				}
@@ -246,16 +271,21 @@ public class SwingAuthorAssistServer {
 	 * @param anOutputWriter
 	 *            the writer to write result lines to
 	 */
-	protected void processTableColumnQuery(String aQueryLine, PrintWriter anOutputWriter) {
+	protected void processTableColumnQuery(String aQueryLine,
+			PrintWriter anOutputWriter) {
 		try {
-			JTable tempTable = swingComponentHandler.findComponentGuarded(aQueryLine, JTable.class, ownerFrame);
+			JTable tempTable = swingComponentHandler.findComponentGuarded(
+					aQueryLine, JTable.class, ownerFrame);
 			for (int i = 0; i < tempTable.getColumnCount(); i++) {
 				String tempColumnName = tempTable.getColumnName(i);
 				if (tempColumnName != null) {
-					anOutputWriter.println(SwingTableContentFixture.simplifyColumnName(tempColumnName) + ":"
+					anOutputWriter.println(SwingTableContentFixture
+							.simplifyColumnName(tempColumnName)
+							+ ":"
 							+ tempColumnName);
 				}
-				anOutputWriter.println(SwingTableContentFixture.generateColumnName(i) + ":" + tempColumnName);
+				anOutputWriter.println(SwingTableContentFixture
+						.generateColumnName(i) + ":" + tempColumnName);
 			}
 		} catch (AmbiguousComponentPathException exc) {
 			exc.printStackTrace();
@@ -272,10 +302,12 @@ public class SwingAuthorAssistServer {
 	 * @param anOutputWriter
 	 *            the writer to write result lines to
 	 */
-	protected void processComboBoxEntryQuery(String aQueryLine, PrintWriter anOutputWriter) {
+	protected void processComboBoxEntryQuery(String aQueryLine,
+			PrintWriter anOutputWriter) {
 		try {
 			JComboBox tempComboBox = swingComponentHandler
-					.findComponentGuarded(aQueryLine, JComboBox.class, ownerFrame);
+					.findComponentGuarded(aQueryLine, JComboBox.class,
+							ownerFrame);
 			for (int i = 0; i < tempComboBox.getItemCount(); i++) {
 				Object tempItem = tempComboBox.getItemAt(i);
 				if (tempItem != null) {
@@ -297,10 +329,12 @@ public class SwingAuthorAssistServer {
 	 * @param anOutputWriter
 	 *            the writer to write result lines to
 	 */
-	public void processTabTitleQuery(String aQueryLine, PrintWriter anOutputWriter) {
+	public void processTabTitleQuery(String aQueryLine,
+			PrintWriter anOutputWriter) {
 		try {
-			JTabbedPane tempTabbedPane = swingComponentHandler.findComponentGuarded(aQueryLine, JTabbedPane.class,
-					ownerFrame);
+			JTabbedPane tempTabbedPane = swingComponentHandler
+					.findComponentGuarded(aQueryLine, JTabbedPane.class,
+							ownerFrame);
 			for (int i = 0; i < tempTabbedPane.getTabCount(); i++) {
 				Object tempItem = tempTabbedPane.getTitleAt(i);
 				if (tempItem != null) {
@@ -322,9 +356,11 @@ public class SwingAuthorAssistServer {
 	 * @param anOutputWriter
 	 *            the writer to write result lines to
 	 */
-	protected void processListEntryQuery(String aQueryLine, PrintWriter anOutputWriter) {
+	protected void processListEntryQuery(String aQueryLine,
+			PrintWriter anOutputWriter) {
 		try {
-			JList tempList = swingComponentHandler.findComponentGuarded(aQueryLine, JList.class, ownerFrame);
+			JList tempList = swingComponentHandler.findComponentGuarded(
+					aQueryLine, JList.class, ownerFrame);
 			for (int i = 0; i < tempList.getModel().getSize(); i++) {
 				Object tempItem = tempList.getModel().getElementAt(i);
 				if (tempItem != null) {
@@ -338,29 +374,82 @@ public class SwingAuthorAssistServer {
 		}
 	}
 
+	protected void processTreeItemQuery(String aQueryLine,
+			PrintWriter anOutputWriter) {
+		String[] tempParts = aQueryLine.split("|", 4);
+		String tempComponentPath = tempParts[0];
+		boolean tempParentFlag = Boolean.TRUE.toString().equals(tempParts[1]);
+		boolean tempLeafFlag = Boolean.TRUE.toString().equals(tempParts[2]);
+		String tempPrefix = tempParts[3];
+
+		try {
+			JTree tempTree = swingComponentHandler.findComponentGuarded(
+					tempComponentPath, JTree.class, ownerFrame);
+			recursiveProcessTreeItemQuery(tempPrefix, tempParentFlag,
+					tempLeafFlag, "", (TreeNode) tempTree.getModel().getRoot(),
+					anOutputWriter);
+		} catch (AmbiguousComponentPathException exc) {
+			exc.printStackTrace();
+		} catch (InvalidComponentPathException exc) {
+			exc.printStackTrace();
+		}
+	}
+
+	private void recursiveProcessTreeItemQuery(String aPrefix,
+			boolean aParentFlag, boolean aLeafFlag, String aPartialItemPath,
+			TreeNode aNode, PrintWriter anOutputWriter) {
+		if (aNode.getAllowsChildren()) {
+			for (int i = 0; i < aNode.getChildCount(); i++) {
+				TreeNode tempChild = aNode.getChildAt(i);
+				String tempChildPathPart = tempChild.toString();
+				// Escape the childs' name, if necessary
+				tempChildPathPart = tempChildPathPart.replace("\\.", "\\\\.");
+				tempChildPathPart = tempChildPathPart.replace(".", "\\.");
+
+				String tempChildPath = aPartialItemPath;
+				if (tempChildPath.length() > 0) {
+					tempChildPath += ".";
+				}
+				tempChildPath += tempChildPathPart;
+
+				if (aPrefix.length() == 0
+						|| aPrefix.startsWith(tempChildPathPart)) {
+					if ((aParentFlag && tempChild.getAllowsChildren())
+							|| (aLeafFlag && !tempChild.getAllowsChildren())) {
+						anOutputWriter.println(tempChildPathPart);
+					}
+					recursiveProcessTreeItemQuery(aPrefix, aParentFlag,
+							aLeafFlag, tempChildPathPart, tempChild,
+							anOutputWriter);
+				}
+			}
+		}
+	}
+
 	/**
 	 * This is used as newline indicator in both HTML and plain results.
 	 */
 	public static final String COMPONENT_LINE_NEWLINE = "<br>";
 
 	/**
-	 * Maximum width for the quickhelp overview pictures pointing out a specific component. If the real width is larger,
-	 * scaling will occur.
+	 * Maximum width for the quickhelp overview pictures pointing out a specific
+	 * component. If the real width is larger, scaling will occur.
 	 */
 	public final int getComponentLineOverviewImgMaxWidth() {
 		return 260;
 	}
 
 	/**
-	 * Maximum height for the quickhelp overview pictures pointing out a specific component. If the real height is
-	 * larger, scaling will occur.
+	 * Maximum height for the quickhelp overview pictures pointing out a
+	 * specific component. If the real height is larger, scaling will occur.
 	 */
 	public final int getComponentLineOverviewImgMaxHeight() {
 		return 160;
 	}
 
 	/**
-	 * Minimum scaling factor. If scaling below this factor would be necessary, the max height/width values are ignored.
+	 * Minimum scaling factor. If scaling below this factor would be necessary,
+	 * the max height/width values are ignored.
 	 */
 	public final float getComponentLineOverviewMinScaling() {
 		return 0.33f;
@@ -376,60 +465,72 @@ public class SwingAuthorAssistServer {
 	 * @param aComponent
 	 *            the component in question
 	 * @param aCacheMap
-	 *            a map which can be used to cache expensive stuff, such as generated images
+	 *            a map which can be used to cache expensive stuff, such as
+	 *            generated images
 	 * @return the line
 	 */
-	protected String generateComponentLine(String aShortPath, String aLongPath, Component aComponent,
-			Map<Object, Object> aCacheMap) {
+	protected String generateComponentLine(String aShortPath, String aLongPath,
+			Component aComponent, Map<Object, Object> aCacheMap) {
 		StringBuilder tempHTMLDescription = new StringBuilder();
 		StringBuilder tempPlainDescription = new StringBuilder();
 
 		addHTMLComponentCSSLinePart(tempHTMLDescription);
 		addHTMLComponentTagLinePart(tempHTMLDescription, "Component");
-		tempHTMLDescription.append(aComponent.getClass().getName() + COMPONENT_LINE_NEWLINE);
+		tempHTMLDescription.append(aComponent.getClass().getName()
+				+ COMPONENT_LINE_NEWLINE);
 
-		tempPlainDescription.append("Component: " + aComponent.getClass().getName() + COMPONENT_LINE_NEWLINE);
+		tempPlainDescription.append("Component: "
+				+ aComponent.getClass().getName() + COMPONENT_LINE_NEWLINE);
 
 		if (aComponent instanceof JButton) {
-			String tempButtonText = "'" + ((JButton) aComponent).getText() + "'";
+			String tempButtonText = "'" + ((JButton) aComponent).getText()
+					+ "'";
 			addHTMLComponentTagLinePart(tempHTMLDescription, "Text");
 			tempHTMLDescription.append(tempButtonText + COMPONENT_LINE_NEWLINE);
 
-			tempPlainDescription.append("Text: " + tempButtonText + COMPONENT_LINE_NEWLINE);
+			tempPlainDescription.append("Text: " + tempButtonText
+					+ COMPONENT_LINE_NEWLINE);
 		} else if (aComponent instanceof JToggleButton) {
-			String tempButtonText = "'" + ((JToggleButton) aComponent).getText() + "'";
+			String tempButtonText = "'"
+					+ ((JToggleButton) aComponent).getText() + "'";
 			addHTMLComponentTagLinePart(tempHTMLDescription, "Text");
 			tempHTMLDescription.append(tempButtonText + COMPONENT_LINE_NEWLINE);
 
-			tempPlainDescription.append("Text: " + tempButtonText + COMPONENT_LINE_NEWLINE);
+			tempPlainDescription.append("Text: " + tempButtonText
+					+ COMPONENT_LINE_NEWLINE);
 		}
 
 		addHTMLComponentTagLinePart(tempHTMLDescription, "Enabled");
 		tempHTMLDescription.append(aComponent.isEnabled());
 
-		tempPlainDescription.append("Enabled: " + aComponent.isEnabled() + COMPONENT_LINE_NEWLINE);
+		tempPlainDescription.append("Enabled: " + aComponent.isEnabled()
+				+ COMPONENT_LINE_NEWLINE);
 
-		addHTMLComponentImageLinePart(tempHTMLDescription, aComponent, aCacheMap);
+		addHTMLComponentImageLinePart(tempHTMLDescription, aComponent,
+				aCacheMap);
 
-		return aLongPath + "||" + aShortPath + "||" + tempHTMLDescription.toString() + "||"
+		return aLongPath + "||" + aShortPath + "||"
+				+ tempHTMLDescription.toString() + "||"
 				+ tempPlainDescription.toString();
 	}
 
 	/**
-	 * Adds a tag to the HTML line being built. A tag is basically a header for some data afterwards and printed bold.
+	 * Adds a tag to the HTML line being built. A tag is basically a header for
+	 * some data afterwards and printed bold.
 	 * 
 	 * @param aBuilder
 	 *            the string builder building the line
 	 * @param aTag
 	 *            the name of the tag
 	 */
-	protected void addHTMLComponentTagLinePart(StringBuilder aBuilder, String aTag) {
+	protected void addHTMLComponentTagLinePart(StringBuilder aBuilder,
+			String aTag) {
 		aBuilder.append("<span class=\"tag\">" + aTag + ":</span> ");
 	}
 
 	/**
-	 * Adds a little overview image pointing out the position of the provided component in its host frame with a red
-	 * line.
+	 * Adds a little overview image pointing out the position of the provided
+	 * component in its host frame with a red line.
 	 * 
 	 * @param aBuilder
 	 *            the string builder building the line
@@ -438,8 +539,8 @@ public class SwingAuthorAssistServer {
 	 * @param aCacheMap
 	 *            the cache
 	 */
-	protected void addHTMLComponentImageLinePart(StringBuilder aBuilder, Component aComponent,
-			Map<Object, Object> aCacheMap) {
+	protected void addHTMLComponentImageLinePart(StringBuilder aBuilder,
+			Component aComponent, Map<Object, Object> aCacheMap) {
 		Window tempOuterContainer = null;
 		Container tempParent = aComponent.getParent();
 		while (tempParent != null) {
@@ -450,24 +551,31 @@ public class SwingAuthorAssistServer {
 			tempParent = tempParent.getParent();
 		}
 
-		if (tempOuterContainer != null && tempOuterContainer.getWidth() > 10 && tempOuterContainer.getHeight() > 10) {
+		if (tempOuterContainer != null && tempOuterContainer.getWidth() > 10
+				&& tempOuterContainer.getHeight() > 10) {
 			// Scaled images of outer containers are stored in the provided
 			// cache for quick reuse
-			BufferedImage tempScaledOriginalImage = (BufferedImage) aCacheMap.get(tempOuterContainer);
+			BufferedImage tempScaledOriginalImage = (BufferedImage) aCacheMap
+					.get(tempOuterContainer);
 			Float tempScalingFactor = null;
 
 			if (tempScaledOriginalImage != null) {
-				tempScalingFactor = (Float) aCacheMap.get(tempScaledOriginalImage);
+				tempScalingFactor = (Float) aCacheMap
+						.get(tempScaledOriginalImage);
 			} else {
-				BufferedImage tempImage = new BufferedImage(tempOuterContainer.getWidth(),
-						tempOuterContainer.getHeight(), BufferedImage.TYPE_INT_RGB);
+				BufferedImage tempImage = new BufferedImage(
+						tempOuterContainer.getWidth(),
+						tempOuterContainer.getHeight(),
+						BufferedImage.TYPE_INT_RGB);
 				Graphics2D tempGraphics = (Graphics2D) tempImage.getGraphics();
 				tempOuterContainer.paintAll(tempGraphics);
 
-				float tempScalingFactor1 = (float) getComponentLineOverviewImgMaxWidth() / (float) tempImage.getWidth();
+				float tempScalingFactor1 = (float) getComponentLineOverviewImgMaxWidth()
+						/ (float) tempImage.getWidth();
 				float tempScalingFactor2 = (float) getComponentLineOverviewImgMaxHeight()
 						/ (float) tempImage.getHeight();
-				tempScalingFactor = tempScalingFactor1 < tempScalingFactor2 ? tempScalingFactor1 : tempScalingFactor2;
+				tempScalingFactor = tempScalingFactor1 < tempScalingFactor2 ? tempScalingFactor1
+						: tempScalingFactor2;
 
 				if (tempScalingFactor >= 1.0) {
 					tempScalingFactor = 1.0f;
@@ -477,17 +585,26 @@ public class SwingAuthorAssistServer {
 						tempScalingFactor = getComponentLineOverviewMinScaling();
 					}
 
-					tempScaledOriginalImage = new BufferedImage(Math.round((float) tempImage.getWidth()
-							* tempScalingFactor), Math.round((float) tempImage.getHeight() * tempScalingFactor),
+					tempScaledOriginalImage = new BufferedImage(
+							Math.round((float) tempImage.getWidth()
+									* tempScalingFactor),
+							Math.round((float) tempImage.getHeight()
+									* tempScalingFactor),
 							BufferedImage.TYPE_INT_RGB);
-					tempGraphics = (Graphics2D) tempScaledOriginalImage.getGraphics();
-					tempGraphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					tempGraphics = (Graphics2D) tempScaledOriginalImage
+							.getGraphics();
+					tempGraphics.setRenderingHint(
+							RenderingHints.KEY_INTERPOLATION,
 							RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-					tempGraphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-					tempGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-					tempGraphics.drawImage(tempImage, 0, 0, tempScaledOriginalImage.getWidth(),
-							tempScaledOriginalImage.getHeight(), 0, 0, tempImage.getWidth(), tempImage.getHeight(),
-							null);
+					tempGraphics.setRenderingHint(RenderingHints.KEY_RENDERING,
+							RenderingHints.VALUE_RENDER_QUALITY);
+					tempGraphics.setRenderingHint(
+							RenderingHints.KEY_ANTIALIASING,
+							RenderingHints.VALUE_ANTIALIAS_ON);
+					tempGraphics.drawImage(tempImage, 0, 0,
+							tempScaledOriginalImage.getWidth(),
+							tempScaledOriginalImage.getHeight(), 0, 0,
+							tempImage.getWidth(), tempImage.getHeight(), null);
 					tempGraphics.dispose();
 				}
 
@@ -497,9 +614,12 @@ public class SwingAuthorAssistServer {
 
 			// Create a copy of the scaled image for addition of component
 			// location info
-			BufferedImage tempScaledImage = new BufferedImage(tempScaledOriginalImage.getWidth(),
-					tempScaledOriginalImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-			Graphics2D tempGraphics = (Graphics2D) tempScaledImage.getGraphics();
+			BufferedImage tempScaledImage = new BufferedImage(
+					tempScaledOriginalImage.getWidth(),
+					tempScaledOriginalImage.getHeight(),
+					BufferedImage.TYPE_INT_RGB);
+			Graphics2D tempGraphics = (Graphics2D) tempScaledImage
+					.getGraphics();
 			tempGraphics.drawImage(tempScaledOriginalImage, 0, 0, null);
 
 			// Calculate the coordinates for drawing a border around the
@@ -514,10 +634,14 @@ public class SwingAuthorAssistServer {
 				tempComponentY += tempParent.getY();
 				tempParent = tempParent.getParent();
 			}
-			tempComponentX = Math.round((float) tempComponentX * tempScalingFactor) - 2;
-			tempComponentY = Math.round((float) tempComponentY * tempScalingFactor) - 2;
-			tempBorderWidth = Math.round((float) tempBorderWidth * tempScalingFactor) + 2;
-			tempBorderHeight = Math.round((float) tempBorderHeight * tempScalingFactor) + 2;
+			tempComponentX = Math.round((float) tempComponentX
+					* tempScalingFactor) - 2;
+			tempComponentY = Math.round((float) tempComponentY
+					* tempScalingFactor) - 2;
+			tempBorderWidth = Math.round((float) tempBorderWidth
+					* tempScalingFactor) + 2;
+			tempBorderHeight = Math.round((float) tempBorderHeight
+					* tempScalingFactor) + 2;
 
 			// Ensure component border coordinates are within valid bounds
 			if (tempComponentX < 0) {
@@ -540,9 +664,11 @@ public class SwingAuthorAssistServer {
 			// Draw a border around the whole image and a red border around the
 			// coordinate
 			tempGraphics.setColor(Color.BLACK);
-			tempGraphics.drawRect(0, 0, tempScaledImage.getWidth() - 1, tempScaledImage.getHeight() - 1);
+			tempGraphics.drawRect(0, 0, tempScaledImage.getWidth() - 1,
+					tempScaledImage.getHeight() - 1);
 			tempGraphics.setColor(Color.RED);
-			tempGraphics.drawRect(tempComponentX, tempComponentY, tempBorderWidth, tempBorderHeight);
+			tempGraphics.drawRect(tempComponentX, tempComponentY,
+					tempBorderWidth, tempBorderHeight);
 			tempGraphics.dispose();
 
 			// Encode the final image in base64 and place it in the HTML as an
@@ -552,8 +678,10 @@ public class SwingAuthorAssistServer {
 				ImageIO.write(tempScaledImage, "PNG", tempOutBuffer);
 				final byte[] tempByteArray = tempOutBuffer.toByteArray();
 				String tempEncodedData = Base64.encodeBytes(tempByteArray);
-				aBuilder.append("<div style=\"width: " + tempScaledImage.getWidth() + "px; height: "
-						+ tempScaledImage.getHeight() + "px; background: #000 url(data:image/png;base64,"
+				aBuilder.append("<div style=\"width: "
+						+ tempScaledImage.getWidth() + "px; height: "
+						+ tempScaledImage.getHeight()
+						+ "px; background: #000 url(data:image/png;base64,"
 						+ tempEncodedData + ");\"/>");
 			} catch (IOException exc) {
 				exc.printStackTrace();

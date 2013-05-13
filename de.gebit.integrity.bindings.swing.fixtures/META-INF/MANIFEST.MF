@@ -8,6 +8,7 @@ Export-Package: de.gebit.integrity.bindings.swing,
  de.gebit.integrity.bindings.swing.basic,
  de.gebit.integrity.bindings.swing.launch,
  de.gebit.integrity.bindings.swing.tables,
+ de.gebit.integrity.bindings.swing.trees,
  de.gebit.integrity.bindings.swing.util
 Bundle-Vendor: GEBIT Solutions GmbH
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

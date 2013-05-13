@@ -10,7 +10,10 @@ packagedef swing.swingset with
 		
 		test tableColumnCount name: "JTable" = 6
 		test tableRowCount name: "JTable" = 46
-		test tableCellText name: "JTable" row: 1 column: 1 = "Mike"
+		
+		variable testResult initially "Mike"
+		
+		test tableCellText name: "JTable" row: 1 column: 1 = testResult
 		test tableCellContent name: "JTable" row: 1 column: 1 = "Mike"
 		
 		tabletest tableContent name: "JTable"
@@ -22,6 +25,8 @@ packagedef swing.swingset with
 			| +col1 = | +col2 =   |
 			| "Mike"  | "Albers"  |
 			| "Mark"  | "Andrews" |
+		
+		
 		
 		
 		call swing.tools.authorAssist

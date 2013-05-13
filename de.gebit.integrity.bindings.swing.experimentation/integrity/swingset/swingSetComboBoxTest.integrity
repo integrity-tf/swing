@@ -35,6 +35,8 @@ packagedef swing.swingset with
 			| "Georges" |
 			| "Hans"    |
 			| "Howard"  |
+			
+		
 		
 		call swing.tools.authorAssist
 	

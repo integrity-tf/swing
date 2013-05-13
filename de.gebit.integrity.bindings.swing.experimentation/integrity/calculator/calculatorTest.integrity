@@ -27,6 +27,7 @@ packagedef swing.calculator with
 		//call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
 	
 		
+		
 		call swing.tools.authorAssist
 		
 		
