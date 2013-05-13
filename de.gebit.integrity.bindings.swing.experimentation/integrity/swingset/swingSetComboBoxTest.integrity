@@ -4,10 +4,8 @@ import swing.tables.*
 
 packagedef swing.swingset with
 
-	suitedef combobox with
-	
-		call launchApp mainClass: "SwingSet2"
-		
+	suitedef combobox requires swing.swingset.launch.launchSwingSet with
+			
 		call clickButton name: "frame0.JToggleButton#3"
 		
 		// See if a combo box entry exists, referenced by position or text
@@ -39,9 +37,6 @@ packagedef swing.swingset with
 			| "Howard"  |
 		
 		call swing.tools.authorAssist
-		
-		
-		call killApp
 	
 	suiteend
 

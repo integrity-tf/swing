@@ -4,9 +4,7 @@ import swing.tables.*
 
 packagedef swing.swingset with
 
-	suitedef tables with
-	
-		call launchApp mainClass: "SwingSet2"
+	suitedef tables requires swing.swingset.launch.launchSwingSet with
 		
 		call clickButton name: "frame0.JToggleButton#13"
 		
@@ -27,9 +25,6 @@ packagedef swing.swingset with
 		
 		
 		call swing.tools.authorAssist
-		
-		
-		call killApp
 	
 	suiteend
 

@@ -98,9 +98,20 @@ packagedef swing.tables with
 packageend
 
 
+packagedef swing.trees with
+
+	// Basic tree stuff
+	calldef getTreeChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture#getTreeChildCount
+	testdef treeChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture#getTreeChildCount
+
+packageend
+
+
 packagedef swing.launch with
 
 	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch
+	calldef launchAppAndWait uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWait
+	calldef launchAppAndWaitForComponent uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWaitForComponent
 	
 	testdef isAppAlive uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#isAlive
 	

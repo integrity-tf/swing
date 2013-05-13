@@ -4,9 +4,7 @@ import swing.tables.*
 
 packagedef swing.swingset with
 
-	suitedef tabbedpane with
-	
-		call launchApp mainClass: "SwingSet2"
+	suitedef tabbedpane requires swing.swingset.launch.launchSwingSet with
 		
 		call clickButton name: "frame0.JToggleButton#12"
 		
@@ -17,9 +15,6 @@ packagedef swing.swingset with
 		test tabTitle name: "frame0.JTabbedPane#0" position: 1 = "Laine"
 		
 		call swing.tools.authorAssist
-		
-		
-		call killApp
 	
 	suiteend
 
