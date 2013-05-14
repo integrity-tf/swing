@@ -16,6 +16,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +40,11 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 	protected static final Pattern SUGGESTION_PATTERN = Pattern.compile("(.+?)\\|\\|(.*?)\\|\\|(.*?)\\|\\|(.*)");
 
 	/**
+	 * The default timeout for an author-assist query in msecs.
+	 */
+	protected static final int DEFAULT_AUTHOR_ASSIST_REQUEST_TIMEOUT = 5000;
+
+	/**
 	 * Creates a socket for communication with the {@link SwingAuthorAssistServer}.
 	 * 
 	 * @return the initialized and connected socket
@@ -46,6 +53,15 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 	 */
 	protected Socket createSocket() throws UnknownHostException, IOException {
 		return new Socket(SwingAuthorAssistServer.DEFAULT_HOST, SwingAuthorAssistServer.DEFAULT_PORT);
+	}
+
+	/**
+	 * Returns the timeout to use for author-assist queries.
+	 * 
+	 * @return
+	 */
+	protected int getAuthorAssistQueryTimeout() {
+		return DEFAULT_AUTHOR_ASSIST_REQUEST_TIMEOUT;
 	}
 
 	/**
@@ -62,9 +78,25 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 	 */
 	protected <T extends Object> List<T> runAuthorAssistRequest(String aRequestType, String aRequest,
 			SwingAuthorAssistRequestRunnable<T> aRunnable) {
+		Timer tempTimeoutTimer = new Timer();
 		Socket tempSocket = null;
 		try {
 			tempSocket = createSocket();
+
+			final Socket tempFinalSocket = tempSocket;
+			final Thread tempAuthorAssistThread = Thread.currentThread();
+			tempTimeoutTimer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					try {
+						tempFinalSocket.close();
+					} catch (IOException exc) {
+						// ignored
+					}
+					tempAuthorAssistThread.interrupt();
+				}
+			}, getAuthorAssistQueryTimeout());
 
 			PrintWriter tempWriter = new PrintWriter(tempSocket.getOutputStream());
 			tempWriter.println(aRequestType + "|" + aRequest);
@@ -77,6 +109,9 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 		} catch (IOException exc) {
 			exc.printStackTrace();
 		} finally {
+			if (tempTimeoutTimer != null) {
+				tempTimeoutTimer.cancel();
+			}
 			if (tempSocket != null) {
 				try {
 					tempSocket.close();
