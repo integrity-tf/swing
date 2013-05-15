@@ -14,15 +14,14 @@ import java.util.Map;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 
 /**
- * Abstract base class for individual Proposal Providers for specific Swing
- * components.
+ * Abstract base class for individual Proposal Providers for specific Swing components.
  * 
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public abstract class AbstractSwingComponentFixtureProposalProvider extends
-		AbstractSwingFixtureAssist implements CustomProposalProvider {
+public abstract class AbstractSwingComponentFixtureProposalProvider extends AbstractSwingFixtureAssist implements
+		CustomProposalProvider {
 
 	/**
 	 * A high priority number.
@@ -37,8 +36,7 @@ public abstract class AbstractSwingComponentFixtureProposalProvider extends
 	protected abstract Class<? extends Component> getComponentClass();
 
 	@Override
-	public List<CustomProposalDefinition> defineParameterProposals(
-			String aFixtureMethodName, String aParameterName,
+	public List<CustomProposalDefinition> defineParameterProposals(String aFixtureMethodName, String aParameterName,
 			Map<String, Object> someParameterValues) {
 		if (COMPONENT_PATH_PARAMETER_NAME.equals(aParameterName)) {
 			return requestProposals(getComponentClass());
@@ -48,14 +46,25 @@ public abstract class AbstractSwingComponentFixtureProposalProvider extends
 	}
 
 	@Override
-	public List<CustomProposalDefinition> defineResultProposals(
-			String aFixtureMethodName, String aResultName, Object aResultValue,
-			Map<String, Object> someParameterValues) {
+	public List<CustomProposalDefinition> defineResultProposals(String aFixtureMethodName, String aResultName,
+			Object aResultValue, Map<String, Object> someParameterValues) {
 		return null;
 	}
 
+	/**
+	 * Prepares a string for being used as a content-assist suggestion.
+	 * 
+	 * @param aString
+	 * @return
+	 */
 	protected String packageString(String aString) {
-		return "\"" + aString.replace("\"", "\\\"") + "\"";
+		// First: escape '"' using '\'
+		String tempString = aString.replace("\"", "\\\"");
+
+		// Second: escape '\' using '\\'
+		tempString = aString.replace("\\", "\\\\");
+
+		return "\"" + tempString + "\"";
 	}
 
 }

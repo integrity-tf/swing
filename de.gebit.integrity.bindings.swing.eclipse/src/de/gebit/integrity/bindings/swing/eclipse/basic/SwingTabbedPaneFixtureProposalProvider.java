@@ -11,6 +11,8 @@ import java.awt.Component;
 
 import javax.swing.JTabbedPane;
 
+import de.gebit.integrity.bindings.swing.authorassist.queries.AbstractSwingAuthorAssistQuery;
+import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistTabTitleQuery;
 import de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractResultSuggestingSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
@@ -31,8 +33,8 @@ public class SwingTabbedPaneFixtureProposalProvider extends
 	}
 
 	@Override
-	protected String getAuthorAssistRequestType() {
-		return "tabtitles";
+	protected AbstractSwingAuthorAssistQuery generateAuthorAssistQuery(String aComponentName) {
+		return new SwingAuthorAssistTabTitleQuery(aComponentName);
 	}
 
 	@Override

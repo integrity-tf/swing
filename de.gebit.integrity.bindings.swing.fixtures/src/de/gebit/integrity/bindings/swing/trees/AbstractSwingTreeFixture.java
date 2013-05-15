@@ -18,14 +18,12 @@ import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 
 /**
- * This fixture is an abstract base for fixtures providing access to JTree
- * components.
+ * This fixture is an abstract base for fixtures providing access to JTree components.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public abstract class AbstractSwingTreeFixture extends AbstractSwingFixture
-		implements CustomProposalFixture {
+public abstract class AbstractSwingTreeFixture extends AbstractSwingFixture implements CustomProposalFixture {
 
 	/**
 	 * The name of the parameter denoting the path to individual tree items.
@@ -33,27 +31,22 @@ public abstract class AbstractSwingTreeFixture extends AbstractSwingFixture
 	public static final String TREE_ITEM_PATH_PARAMETER_NAME = "path";
 
 	/**
-	 * The names of methods for which only leaf nodes shall be suggested for
-	 * {@link #TREE_ITEM_PATH_PARAMETER_NAME}.
+	 * The names of methods for which only leaf nodes shall be suggested for {@link #TREE_ITEM_PATH_PARAMETER_NAME}.
 	 */
 	public static final String[] TREE_ITEM_LEAFS_ONLY_METHODS = new String[] {};
 
 	/**
-	 * The names of methods for which only parent nodes shall be suggested for
-	 * {@link #TREE_ITEM_PATH_PARAMETER_NAME}.
+	 * The names of methods for which only parent nodes shall be suggested for {@link #TREE_ITEM_PATH_PARAMETER_NAME}.
 	 */
 	public static final String[] TREE_ITEM_PARENTS_ONLY_METHODS = new String[] {};
 
 	/**
-	 * Parses a serialized path into a {@link TreePath} object. When parsing,
-	 * '.' chars are used as delimiters of individual path parts, except if a
-	 * '\' is encountered right in front of a '.', which escapes the '.'. '\'
-	 * only work this way in combination with '.' - if no '.' follows, the '\'
-	 * is just interpreted as normal character, so you don't need to
-	 * "escape the escape char" (except if you actually want to express the
-	 * string "\.", in which you'll need to escape the '\' with another '\', and
-	 * the '.' as well, so you'll get "\\\."). Bottom line: escaping '\' is
-	 * allowed, but in most cases optional.
+	 * Parses a serialized path into a {@link TreePath} object. When parsing, '^' chars are used as delimiters of
+	 * individual path parts, except if a '\' is encountered right in front of a '^', which escapes the '^'. '\' only
+	 * work this way in combination with '^' - if no '^' follows, the '\' is just interpreted as normal character, so
+	 * you don't need to "escape the escape char" (except if you actually want to express the string "\^", in which
+	 * you'll need to escape the '\' with another '\', and the '^' as well, so you'll get "\\\^"). Bottom line: escaping
+	 * '\' is allowed, but in most cases optional.
 	 * 
 	 * @param aPathString
 	 * @return the parsed TreePath object
@@ -68,15 +61,15 @@ public abstract class AbstractSwingTreeFixture extends AbstractSwingFixture
 				if (!tempPossibleEscape) {
 					if (tempChar == '\\') {
 						tempPossibleEscape = true;
-					} else if (tempChar == '.') {
+					} else if (tempChar == '^') {
 						tempPathParts.add(tempCurrentPart.toString());
 						tempCurrentPart = new StringBuilder();
 					} else {
 						tempCurrentPart.append(tempChar);
 					}
 				} else {
-					if (tempChar == '.') {
-						tempCurrentPart.append('.');
+					if (tempChar == '^') {
+						tempCurrentPart.append('^');
 					} else if (tempChar == '\\') {
 						tempCurrentPart.append('\\');
 					} else {
@@ -112,15 +105,11 @@ public abstract class AbstractSwingTreeFixture extends AbstractSwingFixture
 				}
 
 				if (!tempFound) {
-					throw new IllegalArgumentException(
-							"Tree Item path element '" + tempNextPart
-									+ "' not found.");
+					throw new IllegalArgumentException("Tree Item path element '" + tempNextPart + "' not found.");
 				}
 			} else {
-				throw new IllegalArgumentException(
-						"Tree Item path element '"
-								+ tempNextPart
-								+ "' can not be matched: previous element doesn't have any childs.");
+				throw new IllegalArgumentException("Tree Item path element '" + tempNextPart
+						+ "' can not be matched: previous element doesn't have any childs.");
 			}
 		}
 
@@ -128,15 +117,13 @@ public abstract class AbstractSwingTreeFixture extends AbstractSwingFixture
 	}
 
 	/**
-	 * Checks whether a given (partial) path string matches a given
-	 * {@link TreeNode}.
+	 * Checks whether a given (partial) path string matches a given {@link TreeNode}.
 	 * 
 	 * @param aPathPart
 	 *            the path part
 	 * @param aNode
 	 *            the node
-	 * @return true if the node is considered to match the path part, false
-	 *         otherwise
+	 * @return true if the node is considered to match the path part, false otherwise
 	 */
 	protected boolean checkPathPartEquality(String aPathPart, TreeNode aNode) {
 		return aPathPart.equals(aNode.toString());

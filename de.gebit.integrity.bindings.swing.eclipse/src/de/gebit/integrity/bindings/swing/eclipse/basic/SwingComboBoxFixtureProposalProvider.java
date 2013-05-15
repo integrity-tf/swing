@@ -11,6 +11,8 @@ import java.awt.Component;
 
 import javax.swing.JComboBox;
 
+import de.gebit.integrity.bindings.swing.authorassist.queries.AbstractSwingAuthorAssistQuery;
+import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistComboBoxEntryQuery;
 import de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractResultSuggestingSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
@@ -30,8 +32,8 @@ public class SwingComboBoxFixtureProposalProvider extends AbstractResultSuggesti
 	}
 
 	@Override
-	protected String getAuthorAssistRequestType() {
-		return "comboboxentries";
+	protected AbstractSwingAuthorAssistQuery generateAuthorAssistQuery(String aComponentName) {
+		return new SwingAuthorAssistComboBoxEntryQuery(aComponentName);
 	}
 
 	@Override

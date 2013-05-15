@@ -157,6 +157,11 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected AbstractSwingComponentHandler swingComponentHandler;
 
 	/**
+	 * The classloader to use for author assist query deserialization.
+	 */
+	protected ClassLoader classLoader;
+
+	/**
 	 * The author assist server instance (the server provides an entrance for the Eclipse autocompletion into the
 	 * running software).
 	 */
@@ -164,10 +169,13 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 	/**
 	 * Creates a new instance. This auto-creates a new component handler instance to use as well.
+	 * 
+	 * @param aClassLoader
+	 *            the classloader to use for deserialization of author assist server queries
 	 */
-	public SwingAuthorAssistFrame() {
+	public SwingAuthorAssistFrame(ClassLoader aClassLoader) {
 		this(new AbstractSwingComponentHandler() {
-		});
+		}, aClassLoader);
 	}
 
 	/**
@@ -175,8 +183,10 @@ public class SwingAuthorAssistFrame extends JFrame {
 	 * 
 	 * @param aSwingComponentHandler
 	 *            the component handler to use
+	 * @param aClassLoader
+	 *            the classloader to use for deserialization of author assist server queries
 	 */
-	public SwingAuthorAssistFrame(AbstractSwingComponentHandler aSwingComponentHandler) {
+	public SwingAuthorAssistFrame(AbstractSwingComponentHandler aSwingComponentHandler, ClassLoader aClassLoader) {
 		super("Integrity Swing Bindings - Author Assist Tools");
 
 		swingComponentHandler = aSwingComponentHandler;
@@ -310,7 +320,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 			Toolkit.getDefaultToolkit().getSystemEventQueue().push(tempEventQueue);
 		}
 
-		autoCompleteServer = createAuthorAssistServer(swingComponentHandler, this);
+		autoCompleteServer = createAuthorAssistServer(swingComponentHandler, this, classLoader);
 		autoCompleteServer.startUp();
 	}
 
@@ -321,11 +331,13 @@ public class SwingAuthorAssistFrame extends JFrame {
 	 *            the swing component handler to use
 	 * @param anOwnerFrame
 	 *            the owner of this server
+	 * @param aClassLoader
+	 *            the classloader to use for deserialization of author assist server queries
 	 * @return the author assist server (not started)
 	 */
 	protected SwingAuthorAssistServer createAuthorAssistServer(AbstractSwingComponentHandler aSwingComponentHandler,
-			JFrame anOwnerFrame) {
-		return new SwingAuthorAssistServer(aSwingComponentHandler, anOwnerFrame);
+			JFrame anOwnerFrame, ClassLoader aClassLoader) {
+		return new SwingAuthorAssistServer(aSwingComponentHandler, anOwnerFrame, aClassLoader);
 	}
 
 	/**
