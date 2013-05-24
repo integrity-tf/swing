@@ -42,17 +42,21 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Run the provided {@link Runnable} on the event queue and then wait for the event queue to settle down.
+	 * Run the provided {@link Runnable} on the event queue and then wait for
+	 * the event queue to settle down.
 	 * 
 	 * @param aRunnable
 	 *            the runnable
 	 * @throws EventQueueTimeoutException
 	 */
-	protected void runOnEventQueueAndWait(Runnable aRunnable) throws EventQueueTimeoutException {
+	protected void runOnEventQueueAndWait(Runnable aRunnable)
+			throws EventQueueTimeoutException {
 		runOnEventQueue(aRunnable);
 		waitForEventQueue();
-		// Now the runnable has been processed, but depending on what the runnable did, further events might have been
-		// pushed onto the queue (as a result of changing a controls' value, for example). We want to wait for those
+		// Now the runnable has been processed, but depending on what the
+		// runnable did, further events might have been
+		// pushed onto the queue (as a result of changing a controls' value, for
+		// example). We want to wait for those
 		// as well, so we put another wait behind:
 		waitForEventQueue();
 	}
@@ -63,18 +67,37 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	 * @throws EventQueueTimeoutException
 	 */
 	protected void waitForEventQueue() throws EventQueueTimeoutException {
-		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(getEventQueueWaitTimeout(),
-				getEventQueueWaitCount())) {
-			throw new EventQueueTimeoutException("Timed out while waiting for event queue ("
-					+ getEventQueueWaitTimeout() + " msecs)");
+		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(
+				getEventQueueWaitTimeout(), getEventQueueWaitCount())) {
+			throw new EventQueueTimeoutException(
+					"Timed out while waiting for event queue ("
+							+ getEventQueueWaitTimeout() + " msecs)");
 		}
 	}
 
 	/**
-	 * Returns the number of times to wait for the event queue. In some cases, one might need to wait multiple times,
-	 * for example if events being executed add more events on the event queue (waiting for the queue is performed by
-	 * pushing an event on the queue and waiting for it to be processed, so events added after that special event was
-	 * added will not be waited for).
+	 * Wait for the event queue a specified number of times to process all
+	 * pending messages.
+	 * 
+	 * @throws EventQueueTimeoutException
+	 */
+	protected void waitForEventQueueMultipleTimes(int aNumberOfTimes)
+			throws EventQueueTimeoutException {
+		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(
+				getEventQueueWaitTimeout(), aNumberOfTimes)) {
+			throw new EventQueueTimeoutException(
+					"Timed out while waiting for event queue ("
+							+ getEventQueueWaitTimeout() + " msecs)");
+		}
+	}
+
+	/**
+	 * Returns the number of times to wait for the event queue. In some cases,
+	 * one might need to wait multiple times, for example if events being
+	 * executed add more events on the event queue (waiting for the queue is
+	 * performed by pushing an event on the queue and waiting for it to be
+	 * processed, so events added after that special event was added will not be
+	 * waited for).
 	 * 
 	 */
 	protected int getEventQueueWaitCount() {
@@ -89,7 +112,8 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Finds the currently focused dialog. Returns null if no dialog is in focus.
+	 * Finds the currently focused dialog. Returns null if no dialog is in
+	 * focus.
 	 * 
 	 * @return the focused dialog or null
 	 */
@@ -103,7 +127,8 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Finds the currently focused dialog. This throws an {@link IllegalStateException} if no focused dialog was found.
+	 * Finds the currently focused dialog. This throws an
+	 * {@link IllegalStateException} if no focused dialog was found.
 	 * 
 	 * @return the dialog
 	 */
@@ -117,7 +142,8 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Finds the focused window. This throws an {@link IllegalStateException} if no focused window was found.
+	 * Finds the focused window. This throws an {@link IllegalStateException} if
+	 * no focused window was found.
 	 * 
 	 * @return the window
 	 */
@@ -164,7 +190,9 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 
 					@Override
 					public void run() {
-						window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+						window = KeyboardFocusManager
+								.getCurrentKeyboardFocusManager()
+								.getFocusedWindow();
 					}
 				});
 			} catch (InterruptedException exc) {
