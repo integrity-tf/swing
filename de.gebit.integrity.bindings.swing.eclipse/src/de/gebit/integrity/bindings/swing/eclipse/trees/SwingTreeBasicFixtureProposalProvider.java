@@ -8,7 +8,6 @@
 package de.gebit.integrity.bindings.swing.eclipse.trees;
 
 import java.awt.Component;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +16,8 @@ import java.util.Map;
 
 import javax.swing.JTree;
 
+import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistTreeItemQuery;
+import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistTreeItemQuery.SwingAuthorAssistTreeItemQueryResult;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.bindings.swing.trees.AbstractSwingTreeFixture;
 import de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture;
@@ -29,8 +30,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingTreeBasicFixture.class)
-public class SwingTreeBasicFixtureProposalProvider extends
-		AbstractSwingComponentFixtureProposalProvider {
+public class SwingTreeBasicFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {
@@ -38,74 +38,66 @@ public class SwingTreeBasicFixtureProposalProvider extends
 	}
 
 	@Override
-	public List<CustomProposalDefinition> defineParameterProposals(
-			String aFixtureMethodName, String aParameterName,
+	public List<CustomProposalDefinition> defineParameterProposals(String aFixtureMethodName, String aParameterName,
 			Map<String, Object> someParameterValues) {
 
-		if (AbstractSwingTreeFixture.TREE_ITEM_PATH_PARAMETER_NAME
-				.equals(aParameterName)) {
-			return requestPathProposals(
-					someParameterValues,
-					shallSuggestParents(aFixtureMethodName),
+		if (AbstractSwingTreeFixture.TREE_ITEM_PATH_PARAMETER_NAME.equals(aParameterName)) {
+			return requestPathProposals(someParameterValues, shallSuggestParents(aFixtureMethodName),
 					shallSuggestLeafs(aFixtureMethodName),
-					(String) someParameterValues
-							.get(AbstractSwingTreeFixture.TREE_ITEM_PATH_PARAMETER_NAME));
+					(String) someParameterValues.get(AbstractSwingTreeFixture.TREE_ITEM_PATH_PARAMETER_NAME));
 		} else {
-			return super.defineParameterProposals(aFixtureMethodName,
-					aParameterName, someParameterValues);
+			return super.defineParameterProposals(aFixtureMethodName, aParameterName, someParameterValues);
 		}
 	}
 
 	private boolean shallSuggestParents(String aFixtureMethodName) {
-		return !Arrays.asList(
-				AbstractSwingTreeFixture.TREE_ITEM_LEAFS_ONLY_METHODS)
-				.contains(aFixtureMethodName);
+		return !Arrays.asList(AbstractSwingTreeFixture.TREE_ITEM_LEAFS_ONLY_METHODS).contains(aFixtureMethodName);
 	}
 
 	private boolean shallSuggestLeafs(String aFixtureMethodName) {
-		return !Arrays.asList(
-				AbstractSwingTreeFixture.TREE_ITEM_PARENTS_ONLY_METHODS)
-				.contains(aFixtureMethodName);
+		return !Arrays.asList(AbstractSwingTreeFixture.TREE_ITEM_PARENTS_ONLY_METHODS).contains(aFixtureMethodName);
 	}
 
-	private List<CustomProposalDefinition> requestPathProposals(
-			Map<String, Object> someParameterValues,
-			boolean anIncludeParentsFlag, boolean anIncludeLeafsFlag,
-			String aPathPrefix) {
-		String tempComponentPath = (String) someParameterValues
-				.get(COMPONENT_PATH_PARAMETER_NAME);
+	private List<CustomProposalDefinition> requestPathProposals(Map<String, Object> someParameterValues,
+			boolean anIncludeParentsFlag, boolean anIncludeLeafsFlag, String aPathPrefix) {
+		String tempComponentPath = (String) someParameterValues.get(COMPONENT_PATH_PARAMETER_NAME);
 		if (tempComponentPath == null) {
 			return null;
 		}
 
-		String tempRequest = tempComponentPath + "|" + anIncludeParentsFlag
-				+ "|" + anIncludeLeafsFlag + "|"
-				+ (aPathPrefix != null ? aPathPrefix : "");
+		return runAuthorAssistRequest(new SwingAuthorAssistTreeItemQuery(tempComponentPath, anIncludeParentsFlag,
+				anIncludeLeafsFlag, aPathPrefix), new SwingAuthorAssistRequestRunnable<CustomProposalDefinition>() {
 
-		return runAuthorAssistRequest(
-				"treeitems",
-				tempRequest,
-				new SwingAuthorAssistRequestRunnable<CustomProposalDefinition>() {
+			@Override
+			public List<CustomProposalDefinition> run(Object[] someResults) throws IOException {
+				List<CustomProposalDefinition> tempResults = new ArrayList<CustomProposalDefinition>();
 
-					@Override
-					public List<CustomProposalDefinition> run(
-							BufferedReader aReader) throws IOException {
-						List<CustomProposalDefinition> tempResults = new ArrayList<CustomProposalDefinition>();
+				int tempCount = 1;
+				for (Object tempGenericResult : someResults) {
+					SwingAuthorAssistTreeItemQueryResult tempResult = (SwingAuthorAssistTreeItemQueryResult) tempGenericResult;
 
-						String tempLine = aReader.readLine();
-						int tempCount = 1;
-						while (tempLine != null) {
-							tempResults.add(new CustomProposalDefinition(
-									packageString(tempLine), tempLine,
-									HIGH_BASE_PRIORITY - tempCount, null));
-							tempCount++;
-
-							tempLine = aReader.readLine();
-						}
-
-						return tempResults;
+					int tempPriorityDivider;
+					String tempSuffixMessage;
+					if (tempResult.isSelected()) {
+						tempPriorityDivider = 1;
+						tempSuffixMessage = " (selected)";
+					} else if (tempResult.isVisible()) {
+						tempPriorityDivider = 2;
+						tempSuffixMessage = " (visible)";
+					} else {
+						tempPriorityDivider = 3;
+						tempSuffixMessage = "";
 					}
 
-				});
+					tempResults.add(new CustomProposalDefinition(packageString(tempResult.getItemPath()), tempResult
+							.getItemPath() + tempSuffixMessage, (HIGH_BASE_PRIORITY / tempPriorityDivider) - tempCount,
+							null));
+					tempCount++;
+				}
+
+				return tempResults;
+			}
+
+		});
 	}
 }

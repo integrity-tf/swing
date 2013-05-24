@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.bindings.swing.authorassist;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 
@@ -18,6 +20,12 @@ import de.gebit.integrity.fixtures.FixtureMethod;
  * 
  */
 public class SwingAuthorAssistFixture extends AbstractSwingFixture {
+
+	/**
+	 * The classloader used by Integrity to resolve the test model.
+	 */
+	@Inject
+	private ClassLoader classLoader;
 
 	/**
 	 * Set this system property to "yes" in order to prevent the author assist tool from appearing. Useful for example
@@ -43,11 +51,10 @@ public class SwingAuthorAssistFixture extends AbstractSwingFixture {
 	 * Show the assistance frame and wait for it to close.
 	 */
 	protected void showAssistFrame() {
-		SwingAuthorAssistFrame tempAssistFrame = new SwingAuthorAssistFrame(this);
+		SwingAuthorAssistFrame tempAssistFrame = new SwingAuthorAssistFrame(this, classLoader);
 
 		tempAssistFrame.setVisible(true);
 
 		tempAssistFrame.waitForClose();
 	}
-
 }

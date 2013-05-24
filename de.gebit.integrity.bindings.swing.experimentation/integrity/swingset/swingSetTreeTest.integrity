@@ -10,8 +10,6 @@ packagedef swing.swingset with
 		
 		test treeChildCount name: "JTree" = 3
 		
-		test treeChildCount name: "JTree" path: "Classical.Beethoven.Quartets" = 3
-		//test treeChildCount name: "JTree" path:
 		
 		
 		call swing.tools.authorAssist

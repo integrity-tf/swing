@@ -7,12 +7,13 @@
  *******************************************************************************/
 package de.gebit.integrity.bindings.swing.eclipse.tables;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistTableColumnQuery;
+import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistTableColumnQuery.SwingAuthorAssistTableColumnQueryResult;
 import de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist;
 import de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture;
@@ -44,20 +45,18 @@ public class SwingTableContentFixtureParameterEnumerator extends AbstractSwingFi
 			return null;
 		}
 
-		return runAuthorAssistRequest("tablecols", tempTableName,
+		return runAuthorAssistRequest(new SwingAuthorAssistTableColumnQuery(tempTableName),
 				new SwingAuthorAssistRequestRunnable<ArbitraryParameterDefinition>() {
 
 					@Override
-					public List<ArbitraryParameterDefinition> run(BufferedReader aReader) throws IOException {
+					public List<ArbitraryParameterDefinition> run(Object[] someResults) throws IOException {
 						List<ArbitraryParameterDefinition> tempResults = new ArrayList<ArbitraryParameterDefinition>();
 
-						String tempLine = aReader.readLine();
-						while (tempLine != null) {
-							String[] tempParts = tempLine.split(":");
+						for (Object tempGenericResult : someResults) {
+							SwingAuthorAssistTableColumnQueryResult tempResult = (SwingAuthorAssistTableColumnQueryResult) tempGenericResult;
 
-							tempResults.add(new ArbitraryParameterDefinition(tempParts[0], tempParts[1]));
-
-							tempLine = aReader.readLine();
+							tempResults.add(new ArbitraryParameterDefinition(tempResult.getTechnicalColumnName(),
+									tempResult.getColumnName()));
 						}
 
 						return tempResults;
