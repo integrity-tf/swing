@@ -27,7 +27,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingListFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingListFixture extends AbstractSwingFixture<JList> implements CustomProposalFixture {
 
 	/**
 	 * The parameter name for entry text.
@@ -69,7 +69,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	public Object getListEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer aListPosition)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		JList tempList = findComponentGuarded(aComponentPath, JList.class, null);
+		JList tempList = findComponentGuarded(aComponentPath);
 		ListModel tempModel = tempList.getModel();
 
 		int tempPosition = (aListPosition != null) ? aListPosition : (++nextPosition);
@@ -98,7 +98,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	@FixtureMethod(descriptionCall = "Get the number of entries in list '$text$'", descriptionTest = "Check the number of entries in list '$text$'")
 	public Integer getListEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JList.class, null).getModel().getSize();
+		return findComponentGuarded(aComponentPath).getModel().getSize();
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer[] someEntryPositions,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String[] someEntryTexts)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JList tempList = findComponentGuarded(aComponentPath, JList.class, null);
+		final JList tempList = findComponentGuarded(aComponentPath);
 
 		List<Integer> tempEntriesToSelect = new ArrayList<Integer>();
 		if (someEntryPositions != null) {
@@ -165,7 +165,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	@FixtureMethod(descriptionCall = "Fetches the selected entrys' position from list '$name$'", descriptionTest = "Checks the position of the selected entry in list '$name$'")
 	public int[] getSelectedEntryPositions(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JList tempList = findComponentGuarded(aComponentPath, JList.class, null);
+		final JList tempList = findComponentGuarded(aComponentPath);
 
 		int[] tempIndices = tempList.getSelectedIndices();
 
@@ -193,7 +193,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 	@FixtureMethod(descriptionCall = "Fetches the selected entry from list '$name$'", descriptionTest = "Checks the selected entry in list '$name$'")
 	public Object[] getSelectedEntries(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JList tempList = findComponentGuarded(aComponentPath, JList.class, null);
+		final JList tempList = findComponentGuarded(aComponentPath);
 
 		return tempList.getSelectedValues();
 	}
@@ -222,7 +222,7 @@ public class SwingListFixture extends AbstractSwingFixture implements CustomProp
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
-		JList tempList = findComponentGuarded(aComponentPath, JList.class, null);
+		JList tempList = findComponentGuarded(aComponentPath);
 
 		if (anEntryPosition != null) {
 			return (anEntryPosition > 0 && anEntryPosition <= tempList.getModel().getSize());

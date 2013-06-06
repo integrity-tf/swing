@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.bindings.swing.basic;
 
+import javax.swing.JComponent;
+
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.bindings.swing.EventQueueSynchronizer;
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -18,7 +20,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingWaitFixture extends AbstractSwingFixture {
+public class SwingWaitFixture extends AbstractSwingFixture<JComponent> {
 
 	/**
 	 * Waits for a fixed time.

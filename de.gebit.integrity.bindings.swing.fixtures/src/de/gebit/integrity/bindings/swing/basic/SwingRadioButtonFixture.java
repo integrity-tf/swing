@@ -23,7 +23,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingRadioButtonFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingRadioButtonFixture extends AbstractSwingFixture<JRadioButton> implements CustomProposalFixture {
 
 	/**
 	 * Checks (turns on) the given radio button by simulating a click on the button.
@@ -37,7 +37,7 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture implements Cus
 	@FixtureMethod(descriptionCall = "Check the radio button '$name$'")
 	public void checkRadioButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JRadioButton tempButton = findComponentGuarded(aComponentPath, JRadioButton.class, null);
+		final JRadioButton tempButton = findComponentGuarded(aComponentPath);
 
 		runOnEventQueueAndWait(new Runnable() {
 
@@ -62,7 +62,7 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture implements Cus
 	@FixtureMethod(descriptionCall = "Get the state of the radio button '$name$'", descriptionTest = "Check the state of the radio button '$name'")
 	public boolean getRadioButtonState(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JRadioButton.class, null).isSelected();
+		return findComponentGuarded(aComponentPath).isSelected();
 	}
 
 }

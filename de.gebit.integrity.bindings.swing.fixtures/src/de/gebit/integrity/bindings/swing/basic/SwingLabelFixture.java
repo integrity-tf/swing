@@ -23,7 +23,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingLabelFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingLabelFixture extends AbstractSwingFixture<JLabel> implements CustomProposalFixture {
 
 	/**
 	 * Returns the text on the provided label. Can be used either as a test or a call fixture, in order to either
@@ -31,15 +31,40 @@ public class SwingLabelFixture extends AbstractSwingFixture implements CustomPro
 	 * 
 	 * @param aComponentPath
 	 *            the component path
-	 * @return the text currently in the component
+	 * @return the text currently displayed on the label
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
-	public String getLabelText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JLabel.class, null).getText();
+		return findComponentGuarded(aComponentPath).getText();
 	}
 
+	/**
+	 * Sets the text on a specific label.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @param aText
+	 *            the new text to be displayed on the label
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Set the text displayed on label '$name$' to '$text'")
+	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
+			InvalidComponentPathException, EventQueueTimeoutException {
+		final JLabel tempLabel = findComponentGuarded(aComponentPath);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempLabel.setText(aText);
+			}
+		});
+	}
 }

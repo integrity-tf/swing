@@ -11,16 +11,180 @@ import java.awt.EventQueue;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
+import javax.swing.JComponent;
 import javax.swing.JDialog;
+
+import de.gebit.integrity.fixtures.FixtureMethod;
+import de.gebit.integrity.fixtures.FixtureParameter;
 
 /**
  * Abstract base class for Swing component fixtures.
  * 
+ * @param <T>
+ *            The component type.
+ * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class AbstractSwingFixture extends AbstractSwingComponentHandler {
+public abstract class AbstractSwingFixture<T extends JComponent> extends
+		AbstractSwingComponentHandler {
+
+	//
+	// Generally useful fixture methods applicable to all controls
+	//
+
+	/**
+	 * Returns the enable/disable state for the specified control.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return true if the control is enabled, false if it is disabled
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Get the enablement state for control '$name$'", descriptionTest = "Check the enablement state of control '$name$'")
+	public Boolean isEnabled(
+			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException,
+			InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath, getComponentClass(), null)
+				.isEnabled();
+	}
+
+	/**
+	 * Sets the enable/disable state of the specified control.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @param anEnabledFlag
+	 *            true if the control shall be enabled, false if it shall be
+	 *            disabled
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
+	public void setEnabled(
+			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "enabled") final Boolean anEnabledFlag)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException,
+			InvalidComponentPathException {
+		final JComponent tempComponent = findComponentGuarded(aComponentPath,
+				getComponentClass(), null);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempComponent.setEnabled(anEnabledFlag);
+			}
+		});
+	}
+
+	/**
+	 * Returns the visibility state for the specified control.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return true if the control is visible, false if it is invisible
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Get the visibility state for control '$name$'", descriptionTest = "Check the visibility state of control '$name$'")
+	public Boolean isVisible(
+			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException,
+			InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath, getComponentClass(), null)
+				.isVisible();
+	}
+
+	/**
+	 * Sets the visibility state of the specified control.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @param aVisibilityFlag
+	 *            true if the control shall be visible, false if it shall be
+	 *            invisible
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Set the visibility state for control '$name$' to '$visible$'")
+	public void setVisible(
+			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "visible") final Boolean aVisibilityFlag)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException,
+			InvalidComponentPathException {
+		final JComponent tempComponent = findComponentGuarded(aComponentPath,
+				getComponentClass(), null);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempComponent.setVisible(aVisibilityFlag);
+			}
+		});
+	}
+
+	/**
+	 * This must return the actual class of the component for which the
+	 * sub-fixture is written.
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	protected Class<? extends JComponent> getComponentClass() {
+		Class<?> tempClass = getClass();
+		Type tempType;
+
+		do {
+			tempType = tempClass.getGenericSuperclass();
+			if (tempType instanceof ParameterizedType) {
+				return (Class<? extends JComponent>) ((ParameterizedType) tempType)
+						.getActualTypeArguments()[0];
+			} else if (tempType instanceof Class) {
+				tempClass = (Class<? extends JComponent>) tempType;
+			} else {
+				tempType = null;
+			}
+		} while (tempType != null);
+
+		return null;
+	}
+
+	//
+	// Utility functionality for all fixtures
+	//
+
+	/**
+	 * Finds a component matching the given path and the component class
+	 * returned by {@link #getComponentClass()} in all open windows. This method
+	 * will return either one match or throw an exception.
+	 * 
+	 * @param aComponentPath
+	 *            the component path to filter for, or null if no path filtering
+	 *            shall be done
+	 * @return a match
+	 * @throws AmbiguousComponentPathException
+	 *             if there are more than one matching components
+	 * @throws InvalidComponentPathException
+	 *             if there is not even a single matching component
+	 */
+	@SuppressWarnings("unchecked")
+	public T findComponentGuarded(String aComponentPath)
+			throws AmbiguousComponentPathException,
+			InvalidComponentPathException {
+		return (T) findComponentGuarded(aComponentPath, getComponentClass(),
+				null);
+	}
 
 	/**
 	 * The default time to wait for the event thread to become ready.

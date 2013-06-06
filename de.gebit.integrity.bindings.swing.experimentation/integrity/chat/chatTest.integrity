@@ -1,5 +1,6 @@
 import swing.launch.*
 import swing.basic.*
+import gui.swing.*
 
 packagedef swing.chat with
 
@@ -50,7 +51,7 @@ packagedef swing.chat with
 	suitedef launchChatAppAndConnect gets roleButton with
 		suite launchChatApp
 		call checkRadioButton name: roleButton
-		call clickButton name: "connectButton"
+		call button.click name: "connectButton"
 	suiteend
 	
 	suitedef launchChatApp with
@@ -74,7 +75,7 @@ packagedef swing.chat with
 	
 	suitedef sendMessage gets message with
 		call setTextFieldContent name: "messageField" text: message
-		call clickButton name: "sendButton"
+		call button.click name: "sendButton"
 	suiteend
 	
 	suitedef checkMessageReceived gets message with

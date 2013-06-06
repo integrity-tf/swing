@@ -1,12 +1,13 @@
 import swing.launch.*
 import swing.basic.*
 import swing.tables.*
+import gui.swing.*
 
 packagedef swing.swingset with
 
 	suitedef tabbedpane requires swing.swingset.launch.launchSwingSet with
 		
-		call clickButton name: "frame0.JToggleButton#12"
+		call button.click name: "frame0.JToggleButton#12"
 		
 		call selectTab name: "frame0.JTabbedPane#0" position: 3
 		test selectedTab name: "frame0.JTabbedPane#0" = "Hania"

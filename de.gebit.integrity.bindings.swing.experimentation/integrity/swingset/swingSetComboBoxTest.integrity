@@ -1,12 +1,13 @@
 import swing.launch.*
 import swing.basic.*
 import swing.tables.*
+import gui.swing.*
 
 packagedef swing.swingset with
 
 	suitedef combobox requires swing.swingset.launch.launchSwingSet with
 			
-		call clickButton name: "frame0.JToggleButton#3"
+		call button.click name: "frame0.JToggleButton#3"
 		
 		// See if a combo box entry exists, referenced by position or text
 		test comboBoxEntryExists name: "frame0.JComboBox#1" position: 1

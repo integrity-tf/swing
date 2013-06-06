@@ -1,31 +1,77 @@
+packagedef gui.swing.label with
+	// Accessibility	
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isEnabled
+	
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isVisible
+	
+	// Frontend
+	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setText
+	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getText
+	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getText
+packageend
+
+packagedef gui.swing.button with
+	// Accessibility	
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isEnabled
+	
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isVisible
+	
+	// Frontend
+	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#setText
+	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#getText
+	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#getText
+	
+	// Actions
+	calldef click uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
+packageend
+
+packagedef gui.swing.checkbox with
+	// Accessibility
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isEnabled
+	
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isVisible
+	
+	// Frontend
+	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setText
+	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getText
+	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getText
+	
+	calldef isChecked uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isChecked
+	testdef checked uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isChecked
+	
+	// Actions
+	calldef check uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#check
+	calldef uncheck uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#uncheck
+	calldef toggle uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#toggle
+packageend
+
+
+// DEPRECATED DEFINITIONS; WILL BE MIGRATED TO NEW PACKAGE SCHEME
 packagedef swing.basic with
 
 	// Various useful stuff
 	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
 	calldef waitForEventQueue uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#waitForEventQueue
-
-	// Buttons
-	calldef clickButton uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
 	
 	// (Modal) Dialogs
 	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
-	
-	// Labels
-	calldef getLabelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getLabelText
-	testdef labelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getLabelText
-	
+		
 	// Radio Buttons
 	calldef checkRadioButton uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton
 	calldef getRadioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
 	testdef radioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
-	
-	// Checkboxes
-	calldef checkCheckBox uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#checkCheckBox
-	calldef uncheckCheckBox uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#uncheckCheckBox
-	calldef toggleCheckBox uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#toggleCheckBox
-	calldef setCheckBoxState uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setCheckBox
-	calldef getCheckBoxState uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getCheckBoxState
-	testdef checkBoxState uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getCheckBoxState
 	
 	// Text Fields
 	calldef getTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent

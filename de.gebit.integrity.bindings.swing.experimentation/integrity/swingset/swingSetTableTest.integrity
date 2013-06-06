@@ -1,12 +1,13 @@
 import swing.launch.*
 import swing.basic.*
 import swing.tables.*
+import gui.swing.*
 
 packagedef swing.swingset with
 
 	suitedef tables requires swing.swingset.launch.launchSwingSet with
 		
-		call clickButton name: "frame0.JToggleButton#13"
+		call button.click name: "frame0.JToggleButton#13"
 		
 		test tableColumnCount name: "JTable" = 6
 		test tableRowCount name: "JTable" = 46
@@ -25,6 +26,7 @@ packagedef swing.swingset with
 			| +col1 = | +col2 =   |
 			| "Mike"  | "Albers"  |
 			| "Mark"  | "Andrews" |
+		
 		
 		
 		

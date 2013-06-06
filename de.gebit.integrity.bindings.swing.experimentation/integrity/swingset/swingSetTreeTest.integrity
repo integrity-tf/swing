@@ -1,12 +1,13 @@
 import swing.launch.*
 import swing.basic.*
 import swing.trees.*
+import gui.swing.*
 
 packagedef swing.swingset with
 
 	suitedef tree requires swing.swingset.launch.launchSwingSet with
 			
-		call clickButton name: "frame0.JToggleButton#15"
+		call button.click name: "frame0.JToggleButton#15"
 		
 		test treeChildCount name: "JTree" = 3
 		

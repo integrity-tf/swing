@@ -1,5 +1,6 @@
 import swing.launch.*
 import swing.basic.*
+import gui.swing.*
 
 packagedef swing.calculator with
 
@@ -8,20 +9,20 @@ packagedef swing.calculator with
 		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.calculator.Calculator"
 		test isAppAlive
 		
-		test labelText name: "calculator.resultPanel.resultLabel" = 0
-		test labelText name: "resultPanel.inputLabel" = ""
+		test label.text name: "calculator.resultPanel.resultLabel" = 0
+		test label.text name: "resultPanel.inputLabel" = ""
 		
-		call 10 * clickButton name: "numberButton1"
+		call 10 * button.click name: "numberButton1"
 		
-		test labelText name: "resultLabel" = 0
-		test labelText name: "inputLabel" = 1111111111
+		test label.text name: "resultLabel" = 0
+		test label.text name: "inputLabel" = 1111111111
 		
-		call clickButton name: "evaluateButton"
+		call button.click name: "evaluateButton"
 		
-		test labelText name: "resultLabel" = 1234
-		test labelText name: "inputLabel" = ""
+		test label.text name: "resultLabel" = 1234
+		test label.text name: "inputLabel" = ""
 		
-		call clickButton name: "clearButton"
+		call button.click name: "clearButton"
 		call answerDialog button: YES
 		
 		//call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"

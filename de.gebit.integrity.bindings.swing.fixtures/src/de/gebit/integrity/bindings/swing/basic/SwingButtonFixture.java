@@ -28,7 +28,50 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingButtonFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> implements CustomProposalFixture {
+
+	/**
+	 * Returns the text on the provided button. Can be used either as a test or a call fixture, in order to either
+	 * compare the text with a given expected text or return the current text for storage in a variable.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return the text currently in the component
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Get the text displayed on button '$name$'", descriptionTest = "Check the text displayed on button '$name$'")
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath).getText();
+	}
+
+	/**
+	 * Sets the text on a specific button.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @param aText
+	 *            the new text to be displayed on the button
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Set the text displayed on button '$name$' to '$text'")
+	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
+			InvalidComponentPathException, EventQueueTimeoutException {
+		final AbstractButton tempButton = findComponentGuarded(aComponentPath);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempButton.setText(aText);
+			}
+		});
+	}
 
 	/**
 	 * Clicks the button.
@@ -42,7 +85,7 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 	@FixtureMethod(description = "Click the button '$name$'")
 	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		clickButton(findComponentGuarded(aComponentPath, AbstractButton.class, null));
+		clickButton(findComponentGuarded(aComponentPath));
 	}
 
 	/**

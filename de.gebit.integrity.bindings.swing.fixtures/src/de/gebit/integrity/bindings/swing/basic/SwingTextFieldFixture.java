@@ -23,7 +23,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingTextFieldFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> implements CustomProposalFixture {
 
 	/**
 	 * Returns the current text in the given text field. Can be used either as a call fixture method to retrieve the
@@ -39,7 +39,7 @@ public class SwingTextFieldFixture extends AbstractSwingFixture implements Custo
 	@FixtureMethod(descriptionCall = "Get the text currently entered in text field '$name$'", descriptionTest = "Check the text currently entered in text field '$name$'")
 	public String getTextFieldContent(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JTextField.class, null).getText();
+		return findComponentGuarded(aComponentPath).getText();
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class SwingTextFieldFixture extends AbstractSwingFixture implements Custo
 	public void setTextFieldContent(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
 			EventQueueTimeoutException, InvalidComponentPathException {
-		final JTextField tempField = findComponentGuarded(aComponentPath, JTextField.class, null);
+		final JTextField tempField = findComponentGuarded(aComponentPath);
 
 		runOnEventQueueAndWait(new Runnable() {
 

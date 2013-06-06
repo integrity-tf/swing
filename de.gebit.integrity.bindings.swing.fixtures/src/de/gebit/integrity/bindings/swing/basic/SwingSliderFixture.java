@@ -23,7 +23,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingSliderFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements CustomProposalFixture {
 
 	/**
 	 * Gets the minimum value of the named slider.
@@ -37,7 +37,7 @@ public class SwingSliderFixture extends AbstractSwingFixture implements CustomPr
 	@FixtureMethod(descriptionCall = "Get the minimum value of slider '$name$'", descriptionTest = "Check the minimum value of slider '$name$'")
 	public Integer getSliderMinValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JSlider.class, null).getMinimum();
+		return findComponentGuarded(aComponentPath).getMinimum();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class SwingSliderFixture extends AbstractSwingFixture implements CustomPr
 	@FixtureMethod(descriptionCall = "Get the maximum value of slider '$name$'", descriptionTest = "Check the maximum value of slider '$name$'")
 	public Integer getSliderMaxValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JSlider.class, null).getMaximum();
+		return findComponentGuarded(aComponentPath).getMaximum();
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class SwingSliderFixture extends AbstractSwingFixture implements CustomPr
 	@FixtureMethod(descriptionCall = "Get the current value of slider '$name$'", descriptionTest = "Check the current value of slider '$name$'")
 	public Integer getSliderValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, JSlider.class, null).getValue();
+		return findComponentGuarded(aComponentPath).getValue();
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class SwingSliderFixture extends AbstractSwingFixture implements CustomPr
 	public void setSliderValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = "value") final Integer aValue) throws AmbiguousComponentPathException,
 			EventQueueTimeoutException, InvalidComponentPathException {
-		final JSlider tempSlider = findComponentGuarded(aComponentPath, JSlider.class, null);
+		final JSlider tempSlider = findComponentGuarded(aComponentPath);
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
