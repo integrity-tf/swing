@@ -50,7 +50,7 @@ packagedef swing.chat with
 	
 	suitedef launchChatAppAndConnect gets roleButton with
 		suite launchChatApp
-		call checkRadioButton name: roleButton
+		call radiobutton.select name: roleButton
 		call button.click name: "connectButton"
 	suiteend
 	

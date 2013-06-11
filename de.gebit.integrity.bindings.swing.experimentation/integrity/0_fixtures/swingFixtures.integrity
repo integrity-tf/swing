@@ -57,6 +57,28 @@ packagedef gui.swing.checkbox with
 	calldef toggle uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#toggle
 packageend
 
+packagedef gui.swing.radiobutton with
+	// Accessibility	
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isEnabled
+	
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isVisible
+	
+	// Frontend	
+	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#setText
+	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getText
+	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getText
+	
+	calldef isSelected uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isSelected
+	testdef selected uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isSelected
+	
+	// Actions
+	calldef select uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#select
+packageend
+
 
 // DEPRECATED DEFINITIONS; WILL BE MIGRATED TO NEW PACKAGE SCHEME
 packagedef swing.basic with
@@ -67,11 +89,6 @@ packagedef swing.basic with
 	
 	// (Modal) Dialogs
 	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
-		
-	// Radio Buttons
-	calldef checkRadioButton uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton
-	calldef getRadioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
-	testdef radioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
 	
 	// Text Fields
 	calldef getTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent

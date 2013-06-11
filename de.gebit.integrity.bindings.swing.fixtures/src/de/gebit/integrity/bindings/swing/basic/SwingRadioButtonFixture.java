@@ -26,6 +26,49 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class SwingRadioButtonFixture extends AbstractSwingFixture<JRadioButton> implements CustomProposalFixture {
 
 	/**
+	 * Returns the text on the provided radio button. Can be used either as a test or a call fixture, in order to either
+	 * compare the text with a given expected text or return the current text for storage in a variable.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return the text currently displayed on the label
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Get the text displayed on radio button '$name$'", descriptionTest = "Check the text displayed on radio button '$name$'")
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath).getText();
+	}
+
+	/**
+	 * Sets the text on a specific radio button.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @param aText
+	 *            the new text to be displayed on the label
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Set the text displayed on label '$name$' to '$text'")
+	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
+			InvalidComponentPathException, EventQueueTimeoutException {
+		final JRadioButton tempRadioButton = findComponentGuarded(aComponentPath);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempRadioButton.setText(aText);
+			}
+		});
+	}
+
+	/**
 	 * Checks (turns on) the given radio button by simulating a click on the button.
 	 * 
 	 * @param aComponentPath
@@ -35,15 +78,15 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture<JRadioButton> 
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Check the radio button '$name$'")
-	public void checkRadioButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+	public void select(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JRadioButton tempButton = findComponentGuarded(aComponentPath);
+		final JRadioButton tempRadioButton = findComponentGuarded(aComponentPath);
 
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
 			public void run() {
-				tempButton.doClick();
+				tempRadioButton.doClick();
 			}
 		});
 	}
@@ -60,7 +103,7 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture<JRadioButton> 
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the state of the radio button '$name$'", descriptionTest = "Check the state of the radio button '$name'")
-	public boolean getRadioButtonState(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+	public boolean isSelected(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
 		return findComponentGuarded(aComponentPath).isSelected();
 	}
