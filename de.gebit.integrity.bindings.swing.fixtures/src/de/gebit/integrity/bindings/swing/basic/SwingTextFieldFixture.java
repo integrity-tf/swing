@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.bindings.swing.basic;
 
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
@@ -64,6 +65,48 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 			@Override
 			public void run() {
 				tempField.setText(aText);
+			}
+		});
+	}
+
+	/**
+	 * Returns the editability state for the specified control.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return true if the control is editable, false if not
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Get the editability state for control '$name$'", descriptionTest = "Check the editability state of control '$name$'")
+	public Boolean isEditable(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath, getComponentClass(), null).isEnabled();
+	}
+
+	/**
+	 * Sets the enable/disable state of the specified control.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @param anEnabledFlag
+	 *            true if the control shall be enabled, false if it shall be disabled
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
+	public void setEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "enabled") final Boolean anEnabledFlag) throws AmbiguousComponentPathException,
+			EventQueueTimeoutException, InvalidComponentPathException {
+		final JComponent tempComponent = findComponentGuarded(aComponentPath, getComponentClass(), null);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempComponent.setEnabled(anEnabledFlag);
 			}
 		});
 	}

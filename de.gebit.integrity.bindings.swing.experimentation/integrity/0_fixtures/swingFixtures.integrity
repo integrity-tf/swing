@@ -79,6 +79,33 @@ packagedef gui.swing.radiobutton with
 	calldef select uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#select
 packageend
 
+packagedef gui.swing.textfield with
+	// Accessibility	
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEnabled
+	
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isVisible
+	
+	//calldef setEditable uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#setEditable(@name String path, @editable Boolean editable)
+	//calldef isEditable uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#isEditable(@name String path):Boolean 
+	//testdef editable uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#isEditable(@name String path):Boolean
+	
+	//Frontend
+	
+	//calldef setText uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#setText(@name String path, @text String text)
+	//calldef getText uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#getText(@name String path):String 
+	//testdef text uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getText(@name String path):String 
+
+	//Backend
+	
+	//calldef setModel uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#setModel(@name String path, @model Object model)
+	//calldef getModel uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#getModel(@name String path):Object
+	//testdef model uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#getModel(@name String path):Object 
+packageend
+
 
 // DEPRECATED DEFINITIONS; WILL BE MIGRATED TO NEW PACKAGE SCHEME
 packagedef swing.basic with
