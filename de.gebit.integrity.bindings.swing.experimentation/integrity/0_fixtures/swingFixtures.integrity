@@ -89,47 +89,64 @@ packagedef gui.swing.textfield with
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isVisible
 	
-	//calldef setEditable uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#setEditable(@name String path, @editable Boolean editable)
-	//calldef isEditable uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#isEditable(@name String path):Boolean 
-	//testdef editable uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#isEditable(@name String path):Boolean
+	calldef setEditable uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setEditable
+	calldef isEditable uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEditable
+	testdef editable uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEditable
 	
-	//Frontend
-	
-	//calldef setText uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#setText(@name String path, @text String text)
-	//calldef getText uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#getText(@name String path):String 
-	//testdef text uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getText(@name String path):String 
+	// Frontend	
+	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setText
+	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getText
+	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getText
 
-	//Backend
+	// Backend	
+	calldef setModel uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setModel
+	calldef getModel uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getModel
+	testdef model uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getModel
+packageend
+
+packagedef gui.swing.slider with
+	// Accessibility	
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
 	
-	//calldef setModel uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#setModel(@name String path, @model Object model)
-	//calldef getModel uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#getModel(@name String path):Object
-	//testdef model uses de.gebit.integrity.bindings.swing.core.basic.SwingTextFieldFixture#getModel(@name String path):Object 
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
+	
+	// Frontend & Backend
+	calldef getMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMinValue
+	testdef minValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMinValue
+		
+	calldef getMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMaxValue
+	testdef maxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMaxValue
+		
+	calldef getValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getValue
+	testdef value uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getValue
+	
+	// Actions
+	calldef setMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setMinValue
+	calldef setMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setMaxValue
+	calldef setValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setValue
+packageend
+
+packagedef gui.swing.dialog with
+	// (Modal) Dialogs
+	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
+packageend
+
+packagedef gui.swing.tools with
+	// Various useful stuff
+	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
+	calldef waitForEventQueue uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#waitForEventQueue
+	
+	// Author Assistance tool
+	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
 packageend
 
 
 // DEPRECATED DEFINITIONS; WILL BE MIGRATED TO NEW PACKAGE SCHEME
 packagedef swing.basic with
-
-	// Various useful stuff
-	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
-	calldef waitForEventQueue uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#waitForEventQueue
-	
-	// (Modal) Dialogs
-	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
-	
-	// Text Fields
-	calldef getTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
-	testdef textFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
-	calldef setTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setTextFieldContent
-	
-	// Sliders
-	calldef getSliderMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMinValue
-	testdef sliderMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMinValue
-	calldef getSliderMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMaxValue
-	testdef sliderMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderMaxValue
-	calldef getSliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderValue
-	testdef sliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getSliderValue
-	calldef setSliderValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setSliderValue
 	
 	// Lists
 	calldef selectListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#selectEntries
@@ -213,6 +230,6 @@ packageend
 
 packagedef swing.tools with
 
-	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
+	
  
 packageend
