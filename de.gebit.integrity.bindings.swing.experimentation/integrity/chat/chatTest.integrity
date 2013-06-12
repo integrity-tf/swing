@@ -39,7 +39,7 @@ packagedef swing.chat with
 		
 		
 		
-		call swing.tools.authorAssist
+		call tools.authorAssist
 		
 				
 		suite killChatApp
@@ -55,12 +55,12 @@ packagedef swing.chat with
 	suiteend
 	
 	suitedef launchChatApp with
-		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.chat.Chat"
-		test isAppAlive
+		call lifecycle.launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.chat.Chat"
+		test lifecycle.isAppAlive
 	suiteend
  	
 	suitedef killChatApp with
-		call killApp
+		call lifecycle.killApp
 	suiteend
 
 	suitedef sendMessageFromAToB gets message with
@@ -74,7 +74,7 @@ packagedef swing.chat with
 	suiteend
 	
 	suitedef sendMessage gets message with
-		call setTextFieldContent name: "messageField" text: message
+		call textfield.setText name: "messageField" text: message
 		call button.click name: "sendButton"
 	suiteend
 	

@@ -31,7 +31,7 @@ packagedef swing.swingset with
 		
 		
 		
-		call swing.tools.authorAssist
+		call tools.authorAssist
 	
 	suiteend
 

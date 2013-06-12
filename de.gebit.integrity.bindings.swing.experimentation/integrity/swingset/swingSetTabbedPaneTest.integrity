@@ -1,4 +1,3 @@
-import swing.launch.*
 import swing.basic.*
 import swing.tables.*
 import gui.swing.*
@@ -15,7 +14,7 @@ packagedef swing.swingset with
 		
 		test tabTitle name: "frame0.JTabbedPane#0" position: 1 = "Laine"
 		
-		call swing.tools.authorAssist
+		call tools.authorAssist
 	
 	suiteend
 

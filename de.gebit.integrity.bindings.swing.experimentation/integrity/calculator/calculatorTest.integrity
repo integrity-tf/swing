@@ -6,8 +6,8 @@ packagedef swing.calculator with
 
 	suitedef main with
 		
-		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.calculator.Calculator"
-		test isAppAlive
+		call lifecycle.launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.calculator.Calculator"
+		test lifecycle.isAppAlive
 		
 		test label.text name: "calculator.resultPanel.resultLabel" = 0
 		test label.text name: "resultPanel.inputLabel" = ""
@@ -23,16 +23,16 @@ packagedef swing.calculator with
 		test label.text name: "inputLabel" = ""
 		
 		call button.click name: "clearButton"
-		call answerDialog button: YES
+		call dialog.answer button: YES
 		
 		//call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
 	
 		
 		
-		call swing.tools.authorAssist
+		call tools.authorAssist
 		
 		
-		call killApp
+		call lifecycle.killApp
 	
 	suiteend
 

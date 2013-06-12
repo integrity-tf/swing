@@ -132,7 +132,7 @@ packageend
 
 packagedef gui.swing.dialog with
 	// (Modal) Dialogs
-	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
+	calldef answer uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
 packageend
 
 packagedef gui.swing.tools with
@@ -142,6 +142,17 @@ packagedef gui.swing.tools with
 	
 	// Author Assistance tool
 	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
+packageend
+
+packagedef gui.swing.lifecycle with
+	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch
+	calldef launchAppAndWait uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWait
+	calldef launchAppAndWaitForComponent uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWaitForComponent
+	
+	testdef isAppAlive uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#isAlive
+	
+	calldef killApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
+	testdef killAppTest uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
 packageend
 
 
@@ -214,18 +225,7 @@ packagedef swing.trees with
 packageend
 
 
-packagedef swing.launch with
 
-	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch
-	calldef launchAppAndWait uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWait
-	calldef launchAppAndWaitForComponent uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWaitForComponent
-	
-	testdef isAppAlive uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#isAlive
-	
-	calldef killApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
-	testdef killAppTest uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
-
-packageend
 
 
 packagedef swing.tools with
