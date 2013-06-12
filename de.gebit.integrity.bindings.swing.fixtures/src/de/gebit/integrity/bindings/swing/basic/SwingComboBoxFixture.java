@@ -115,36 +115,21 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	}
 
 	/**
-	 * Checks whether an entry at the given position or with the given text exists in the combo box list. You only need
-	 * to provide one: either a position or a text.
+	 * Returns the number of entries found in the combo box.
 	 * 
 	 * @param aComponentPath
 	 *            The path to the component
-	 * @param anEntryPosition
-	 *            The position of the entry to be checked (one-based!)
-	 * @param anEntryText
-	 *            The text of the entry to be checked
 	 * @return true if the entry exists, false if it does not exist
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Returns if an entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
-			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME
-			+ "?'$text$'} exists in combo box '$name$'", descriptionTest = "Checks if an entry {"
-			+ ENTRY_POSITION_PARAMETER_NAME + "?at position $" + ENTRY_POSITION_PARAMETER_NAME + "$}{"
-			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} exists in combo box '$name$'")
-	public boolean entryExists(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
-			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
+	@FixtureMethod(descriptionCall = "Returns the number of entries in combo box '$name$'", descriptionTest = "Checks the number of entries in combo box '$name$'")
+	public int getEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		JComboBox tempComboBox = findComponentGuarded(aComponentPath);
 
-		if (anEntryPosition != null) {
-			return (anEntryPosition > 0 && anEntryPosition <= tempComboBox.getItemCount());
-		} else {
-			return (findItemIndexByText(tempComboBox, anEntryText) != null);
-		}
+		return tempComboBox.getModel().getSize();
 	}
 
 	/**

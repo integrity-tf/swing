@@ -130,6 +130,36 @@ packagedef gui.swing.slider with
 	calldef setValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setValue
 packageend
 
+packagedef gui.swing.combobox with
+	// Accessibility
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
+	
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
+	
+	// Frontend/Backend independent stuff
+	calldef getEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryCount
+	testdef entryCount uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryCount
+	
+	calldef getSelectedEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
+	testdef selectedEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
+	
+	// Frontend
+	// Fetch/Test an entry based on its position
+	calldef getEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry
+	testdef entry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry
+	
+	// Select an entry
+	calldef selectEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#selectEntry
+	
+	// Fetch/Test current selection
+	calldef getSelectedEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
+	testdef selectedEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
+packageend
+
 packagedef gui.swing.dialog with
 	// (Modal) Dialogs
 	calldef answer uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
@@ -172,16 +202,7 @@ packagedef swing.basic with
 	calldef getListEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntry
 	testdef listEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntry
 	
-	// Combo Boxes
-	calldef selectComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#selectEntry
-	calldef getSelectedComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
-	testdef selectedComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
-	calldef getSelectedComboBoxEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
-	testdef selectedComboBoxEntryPosition uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryPosition
-	calldef getComboBoxEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#entryExists
-	testdef comboBoxEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#entryExists
-	calldef getComboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry
-	testdef comboBoxEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntry
+	
 	
 	// Tabbed Panes
 	calldef selectTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#selectTab

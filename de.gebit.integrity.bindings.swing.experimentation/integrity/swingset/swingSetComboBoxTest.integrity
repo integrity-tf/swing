@@ -8,29 +8,24 @@ packagedef swing.swingset with
 	suitedef combobox requires swing.swingset.launch.launchSwingSet with
 			
 		call button.click name: "frame0.JToggleButton#3"
-		
-		// See if a combo box entry exists, referenced by position or text
-		test comboBoxEntryExists name: "frame0.JComboBox#1" position: 1
-		test comboBoxEntryExists name: "frame0.JComboBox#1" position: 40 = false
-		test comboBoxEntryExists name: "frame0.JComboBox#1" text: "Brent"
-		
+				
 		// check the text at a position
-		test comboBoxEntry name: "frame0.JComboBox#1" position: 1 = "Brent"
+		test combobox.entry name: "frame0.JComboBox#1" position: 1 = "Brent"
 		
 		// select an entry and check the selected entry
-		call selectComboBoxEntry name: "frame0.JComboBox#1" text: "Brent"
-		test selectedComboBoxEntry name: "frame0.JComboBox#1" = "Brent"
-		test selectedComboBoxEntryPosition name: "frame0.JComboBox#1" = 1
+		call combobox.selectEntry name: "frame0.JComboBox#1" text: "Brent"
+		test combobox.selectedEntry name: "frame0.JComboBox#1" = "Brent"
+		test combobox.selectedEntryPosition name: "frame0.JComboBox#1" = 1
 		
 		// Test all combo box entries, first by referring to their positions explicitly
-		tabletest comboBoxEntry name: "frame0.JComboBox#1"
+		tabletest combobox.entry name: "frame0.JComboBox#1"
 			| position | =         |
 			| 1        | "Brent"   |
 			| 2        | "Georges" |
 			| 4        | "Howard"  |
 
 		// Test all combo box entries, but do not refer their positions (they are automatically determined)			
-		tabletest comboBoxEntry name: "frame0.JComboBox#1"
+		tabletest combobox.entry name: "frame0.JComboBox#1"
 			| =         |
 			| "Brent"   |
 			| "Georges" |
