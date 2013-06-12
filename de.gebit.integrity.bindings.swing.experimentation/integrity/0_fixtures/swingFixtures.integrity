@@ -158,6 +158,18 @@ packagedef gui.swing.combobox with
 	// Fetch/Test current selection
 	calldef getSelectedEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
 	testdef selectedEntry uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntry
+	
+	// Backend
+	// Fetch/Test an entry based on its position
+	calldef getEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryModel
+	testdef entryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryModel
+	
+	// Select an entry
+	calldef selectEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#selectEntryModel
+	
+	// Fetch/Test current selection
+	calldef getSelectedEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryModel
+	testdef selectedEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryModel
 packageend
 
 packagedef gui.swing.dialog with

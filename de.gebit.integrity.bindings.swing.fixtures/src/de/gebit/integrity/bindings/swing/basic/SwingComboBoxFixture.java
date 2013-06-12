@@ -36,6 +36,11 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	public static final String ENTRY_POSITION_PARAMETER_NAME = "position";
 
 	/**
+	 * The parameter name for entry model.
+	 */
+	public static final String ENTRY_MODEL_PARAMETER_NAME = "model";
+
+	/**
 	 * These methods accept entry texts as their expected result.
 	 */
 	public static final String[] METHODS_WITH_ENTRY_TEXT_RESULTS = { "getSelectedEntry", "getEntry" };
@@ -79,6 +84,33 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	}
 
 	/**
+	 * Selects an entry provided as a model object.
+	 * 
+	 * @param aComponentPath
+	 *            The path to the component
+	 * @param aModelObject
+	 *            The model object to be selected
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(description = "Select the entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
+	public void selectEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = ENTRY_MODEL_PARAMETER_NAME) final Object aModelObject)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
+
+		runOnEventQueueAndWait(new Runnable() {
+
+			@Override
+			public void run() {
+				tempComboBox.setSelectedItem(aModelObject);
+			}
+		});
+	}
+
+	/**
 	 * Returns or checks the position of the currently selected entry in the combo box.
 	 * 
 	 * @param aComponentPath
@@ -101,13 +133,31 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	 * 
 	 * @param aComponentPath
 	 *            The path to the component
+	 * @return the selected entry as text, or null if none is selected
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Fetches the selected entry from combo box '$name$'", descriptionTest = "Checks the selected entry in combo box '$name$'")
+	public String getSelectedEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
+
+		return nullSafeToString(tempComboBox.getSelectedItem());
+	}
+
+	/**
+	 * Returns or checks the currently selected entry in the combo box.
+	 * 
+	 * @param aComponentPath
+	 *            The path to the component
 	 * @return the selected entry, or null if none is selected
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected entry from combo box '$name$'", descriptionTest = "Checks the selected entry in combo box '$name$'")
-	public Object getSelectedEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+	public Object getSelectedEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
 		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
 
@@ -133,6 +183,29 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	}
 
 	/**
+	 * Finds an entry which matches the provided position or text.
+	 * 
+	 * @param aComponentPath
+	 * @param anEntryPosition
+	 * @param anEntryText
+	 * @return
+	 */
+	protected Object getEntryInternal(String aComponentPath, Integer anEntryPosition, String anEntryText) {
+		JComboBox tempComboBox = findComponentGuarded(aComponentPath);
+
+		Integer tempEntryPositionToUse = anEntryPosition;
+		if (anEntryText == null && anEntryPosition == null) {
+			// This enables tabletests in which the position is not explicitly stated
+			position++;
+			tempEntryPositionToUse = position;
+		}
+
+		int tempIndexToFetch = findItemIndexGuarded(tempComboBox, tempEntryPositionToUse, anEntryText);
+
+		return tempComboBox.getItemAt(tempIndexToFetch);
+	}
+
+	/**
 	 * Fetches a given entry at a specified position or with a given text from the combo box. You only need to provide
 	 * one: either a position or a text.
 	 * 
@@ -152,23 +225,38 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 			+ ENTRY_POSITION_PARAMETER_NAME
 			+ "$}{"
 			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
-	public Object getEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+	public String getEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
-		JComboBox tempComboBox = findComponentGuarded(aComponentPath);
+		return nullSafeToString(getEntryInternal(aComponentPath, anEntryPosition, anEntryText));
+	}
 
-		Integer tempEntryPositionToUse = anEntryPosition;
-		if (anEntryText == null && anEntryPosition == null) {
-			// This enables tabletests in which the position is not explicitly
-			// stated
-			position++;
-			tempEntryPositionToUse = position;
-		}
-
-		int tempIndexToFetch = findItemIndexGuarded(tempComboBox, tempEntryPositionToUse, anEntryText);
-
-		return tempComboBox.getItemAt(tempIndexToFetch);
+	/**
+	 * Fetches a given entry at a specified position or with a given text from the combo box. You only need to provide
+	 * one: either a position or a text.
+	 * 
+	 * @param aComponentPath
+	 *            The path to the component
+	 * @param anEntryPosition
+	 *            The position of the entry to be fetched (one-based!)
+	 * @return the entry
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
+	@FixtureMethod(descriptionCall = "Fetches the entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} from combo box '$name$'", descriptionTest = "Checks the entry {"
+			+ ENTRY_POSITION_PARAMETER_NAME
+			+ "?at position $"
+			+ ENTRY_POSITION_PARAMETER_NAME
+			+ "$}{"
+			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
+	public Object getEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
+			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
+			throws AmbiguousComponentPathException, InvalidComponentPathException {
+		return getEntryInternal(aComponentPath, anEntryPosition, anEntryText);
 	}
 
 	/**

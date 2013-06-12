@@ -29,8 +29,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public abstract class AbstractSwingFixture<T extends JComponent> extends
-		AbstractSwingComponentHandler {
+public abstract class AbstractSwingFixture<T extends JComponent> extends AbstractSwingComponentHandler {
 
 	//
 	// Generally useful fixture methods applicable to all controls
@@ -47,12 +46,9 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the enablement state for control '$name$'", descriptionTest = "Check the enablement state of control '$name$'")
-	public Boolean isEnabled(
-			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException,
-			InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, getComponentClass(), null)
-				.isEnabled();
+	public Boolean isEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath, getComponentClass(), null).isEnabled();
 	}
 
 	/**
@@ -61,20 +57,16 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 * @param aComponentPath
 	 *            the component path
 	 * @param anEnabledFlag
-	 *            true if the control shall be enabled, false if it shall be
-	 *            disabled
+	 *            true if the control shall be enabled, false if it shall be disabled
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
-	public void setEnabled(
-			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "enabled") final Boolean anEnabledFlag)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException,
-			InvalidComponentPathException {
-		final JComponent tempComponent = findComponentGuarded(aComponentPath,
-				getComponentClass(), null);
+	public void setEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "enabled") final Boolean anEnabledFlag) throws AmbiguousComponentPathException,
+			EventQueueTimeoutException, InvalidComponentPathException {
+		final JComponent tempComponent = findComponentGuarded(aComponentPath, getComponentClass(), null);
 
 		runOnEventQueueAndWait(new Runnable() {
 
@@ -96,12 +88,9 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the visibility state for control '$name$'", descriptionTest = "Check the visibility state of control '$name$'")
-	public Boolean isVisible(
-			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException,
-			InvalidComponentPathException {
-		return findComponentGuarded(aComponentPath, getComponentClass(), null)
-				.isVisible();
+	public Boolean isVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+		return findComponentGuarded(aComponentPath, getComponentClass(), null).isVisible();
 	}
 
 	/**
@@ -110,20 +99,16 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 * @param aComponentPath
 	 *            the component path
 	 * @param aVisibilityFlag
-	 *            true if the control shall be visible, false if it shall be
-	 *            invisible
+	 *            true if the control shall be visible, false if it shall be invisible
 	 * @throws AmbiguousComponentPathException
 	 * @throws EventQueueTimeoutException
 	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the visibility state for control '$name$' to '$visible$'")
-	public void setVisible(
-			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "visible") final Boolean aVisibilityFlag)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException,
-			InvalidComponentPathException {
-		final JComponent tempComponent = findComponentGuarded(aComponentPath,
-				getComponentClass(), null);
+	public void setVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "visible") final Boolean aVisibilityFlag) throws AmbiguousComponentPathException,
+			EventQueueTimeoutException, InvalidComponentPathException {
+		final JComponent tempComponent = findComponentGuarded(aComponentPath, getComponentClass(), null);
 
 		runOnEventQueueAndWait(new Runnable() {
 
@@ -135,8 +120,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	}
 
 	/**
-	 * This must return the actual class of the component for which the
-	 * sub-fixture is written.
+	 * This must return the actual class of the component for which the sub-fixture is written.
 	 * 
 	 * @return
 	 */
@@ -148,8 +132,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 		do {
 			tempType = tempClass.getGenericSuperclass();
 			if (tempType instanceof ParameterizedType) {
-				return (Class<? extends JComponent>) ((ParameterizedType) tempType)
-						.getActualTypeArguments()[0];
+				return (Class<? extends JComponent>) ((ParameterizedType) tempType).getActualTypeArguments()[0];
 			} else if (tempType instanceof Class) {
 				tempClass = (Class<? extends JComponent>) tempType;
 			} else {
@@ -165,13 +148,11 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	//
 
 	/**
-	 * Finds a component matching the given path and the component class
-	 * returned by {@link #getComponentClass()} in all open windows. This method
-	 * will return either one match or throw an exception.
+	 * Finds a component matching the given path and the component class returned by {@link #getComponentClass()} in all
+	 * open windows. This method will return either one match or throw an exception.
 	 * 
 	 * @param aComponentPath
-	 *            the component path to filter for, or null if no path filtering
-	 *            shall be done
+	 *            the component path to filter for, or null if no path filtering shall be done
 	 * @return a match
 	 * @throws AmbiguousComponentPathException
 	 *             if there are more than one matching components
@@ -179,11 +160,9 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 *             if there is not even a single matching component
 	 */
 	@SuppressWarnings("unchecked")
-	public T findComponentGuarded(String aComponentPath)
-			throws AmbiguousComponentPathException,
+	public T findComponentGuarded(String aComponentPath) throws AmbiguousComponentPathException,
 			InvalidComponentPathException {
-		return (T) findComponentGuarded(aComponentPath, getComponentClass(),
-				null);
+		return (T) findComponentGuarded(aComponentPath, getComponentClass(), null);
 	}
 
 	/**
@@ -206,15 +185,13 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	}
 
 	/**
-	 * Run the provided {@link Runnable} on the event queue and then wait for
-	 * the event queue to settle down.
+	 * Run the provided {@link Runnable} on the event queue and then wait for the event queue to settle down.
 	 * 
 	 * @param aRunnable
 	 *            the runnable
 	 * @throws EventQueueTimeoutException
 	 */
-	protected void runOnEventQueueAndWait(Runnable aRunnable)
-			throws EventQueueTimeoutException {
+	protected void runOnEventQueueAndWait(Runnable aRunnable) throws EventQueueTimeoutException {
 		runOnEventQueue(aRunnable);
 		waitForEventQueue();
 		// Now the runnable has been processed, but depending on what the
@@ -231,37 +208,30 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 * @throws EventQueueTimeoutException
 	 */
 	protected void waitForEventQueue() throws EventQueueTimeoutException {
-		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(
-				getEventQueueWaitTimeout(), getEventQueueWaitCount())) {
-			throw new EventQueueTimeoutException(
-					"Timed out while waiting for event queue ("
-							+ getEventQueueWaitTimeout() + " msecs)");
+		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(getEventQueueWaitTimeout(),
+				getEventQueueWaitCount())) {
+			throw new EventQueueTimeoutException("Timed out while waiting for event queue ("
+					+ getEventQueueWaitTimeout() + " msecs)");
 		}
 	}
 
 	/**
-	 * Wait for the event queue a specified number of times to process all
-	 * pending messages.
+	 * Wait for the event queue a specified number of times to process all pending messages.
 	 * 
 	 * @throws EventQueueTimeoutException
 	 */
-	protected void waitForEventQueueMultipleTimes(int aNumberOfTimes)
-			throws EventQueueTimeoutException {
-		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(
-				getEventQueueWaitTimeout(), aNumberOfTimes)) {
-			throw new EventQueueTimeoutException(
-					"Timed out while waiting for event queue ("
-							+ getEventQueueWaitTimeout() + " msecs)");
+	protected void waitForEventQueueMultipleTimes(int aNumberOfTimes) throws EventQueueTimeoutException {
+		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(getEventQueueWaitTimeout(), aNumberOfTimes)) {
+			throw new EventQueueTimeoutException("Timed out while waiting for event queue ("
+					+ getEventQueueWaitTimeout() + " msecs)");
 		}
 	}
 
 	/**
-	 * Returns the number of times to wait for the event queue. In some cases,
-	 * one might need to wait multiple times, for example if events being
-	 * executed add more events on the event queue (waiting for the queue is
-	 * performed by pushing an event on the queue and waiting for it to be
-	 * processed, so events added after that special event was added will not be
-	 * waited for).
+	 * Returns the number of times to wait for the event queue. In some cases, one might need to wait multiple times,
+	 * for example if events being executed add more events on the event queue (waiting for the queue is performed by
+	 * pushing an event on the queue and waiting for it to be processed, so events added after that special event was
+	 * added will not be waited for).
 	 * 
 	 */
 	protected int getEventQueueWaitCount() {
@@ -276,8 +246,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	}
 
 	/**
-	 * Finds the currently focused dialog. Returns null if no dialog is in
-	 * focus.
+	 * Finds the currently focused dialog. Returns null if no dialog is in focus.
 	 * 
 	 * @return the focused dialog or null
 	 */
@@ -291,8 +260,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	}
 
 	/**
-	 * Finds the currently focused dialog. This throws an
-	 * {@link IllegalStateException} if no focused dialog was found.
+	 * Finds the currently focused dialog. This throws an {@link IllegalStateException} if no focused dialog was found.
 	 * 
 	 * @return the dialog
 	 */
@@ -306,8 +274,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	}
 
 	/**
-	 * Finds the focused window. This throws an {@link IllegalStateException} if
-	 * no focused window was found.
+	 * Finds the focused window. This throws an {@link IllegalStateException} if no focused window was found.
 	 * 
 	 * @return the window
 	 */
@@ -327,6 +294,21 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 	 */
 	protected Window findFocusedWindow() {
 		return new FocusWindowFinder().findFocusedWindow();
+	}
+
+	/**
+	 * Converts an object to a string, but in a null-safe manner. If the object is null, this also returns null (not an
+	 * empty string or "null" as a string, but the value null).
+	 * 
+	 * @param anObject
+	 * @return a string or null
+	 */
+	protected String nullSafeToString(Object anObject) {
+		if (anObject == null) {
+			return null;
+		} else {
+			return anObject.toString();
+		}
 	}
 
 	/**
@@ -354,9 +336,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends
 
 					@Override
 					public void run() {
-						window = KeyboardFocusManager
-								.getCurrentKeyboardFocusManager()
-								.getFocusedWindow();
+						window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
 					}
 				});
 			} catch (InterruptedException exc) {
