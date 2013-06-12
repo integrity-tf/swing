@@ -13,7 +13,7 @@ package de.gebit.integrity.bindings.swing;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class IntegritySwingBindingsException extends Exception {
+public class IntegritySwingBindingsException extends RuntimeException {
 
 	/**
 	 * Serial version.
