@@ -24,8 +24,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JRootPane;
 
 /**
- * Abstract base class for working with Swing components, especially containing
- * methods to identify components and work with component paths.
+ * Abstract base class for working with Swing components, especially containing methods to identify components and work
+ * with component paths.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -50,51 +50,43 @@ public abstract class AbstractSwingComponentHandler {
 	protected static final String COMPONENT_PATH_PARAMETER_NAME = "name";
 
 	/**
-	 * The pattern to parse "uniquified" paths (such with numbers added at the
-	 * end).
+	 * The pattern to parse "uniquified" paths (such with numbers added at the end).
 	 */
-	protected static final Pattern UNIQUIFIED_PATH_PATTERN = Pattern
-			.compile("(.+)#(\\d+)");
+	protected static final Pattern UNIQUIFIED_PATH_PATTERN = Pattern.compile("(.+)#(\\d+)");
 
 	/**
-	 * Finds all components matching a given path and/or a given class in all
-	 * open windows. A frame which is to be ignored can be provided.
+	 * Finds all components matching a given path and/or a given class in all open windows. A frame which is to be
+	 * ignored can be provided.
 	 * 
 	 * @param aComponentPath
-	 *            the path to find, or null if no path filtering shall be
-	 *            performed
+	 *            the path to find, or null if no path filtering shall be performed
 	 * @param aComponentClass
-	 *            the class to filter for, or null if no class filtering is to
-	 *            be done
+	 *            the class to filter for, or null if no class filtering is to be done
 	 * @param aFrameToIgnore
 	 *            a frame whose contents need to be ignored
 	 * @return all matching components
 	 */
-	public <C extends Component> List<C> findComponents(String aComponentPath,
-			Class<C> aComponentClass, JFrame aFrameToIgnore) {
+	public <C extends Component> List<C> findComponents(String aComponentPath, Class<C> aComponentClass,
+			JFrame aFrameToIgnore) {
 		List<C> tempComponents = new ArrayList<C>(1);
 
 		for (Window tempWindow : Window.getWindows()) {
 			if (tempWindow.isVisible()) {
 				if (aFrameToIgnore == null || aFrameToIgnore != tempWindow) {
-					tempComponents.addAll(findComponentsInContainer(tempWindow,
-							aComponentPath, aComponentClass));
+					tempComponents.addAll(findComponentsInContainer(tempWindow, aComponentPath, aComponentClass));
 				}
 			}
 		}
 
 		if (tempComponents.size() == 0) {
-			Matcher tempMatcher = UNIQUIFIED_PATH_PATTERN
-					.matcher(aComponentPath);
+			Matcher tempMatcher = UNIQUIFIED_PATH_PATTERN.matcher(aComponentPath);
 			if (tempMatcher.matches()) {
 				String tempPath = tempMatcher.group(1);
 				Integer tempNumber = Integer.parseInt(tempMatcher.group(2));
 
-				tempComponents = findComponents(tempPath, aComponentClass,
-						aFrameToIgnore);
+				tempComponents = findComponents(tempPath, aComponentClass, aFrameToIgnore);
 				if (tempComponents.size() > tempNumber) {
-					return Collections.singletonList(tempComponents
-							.get(tempNumber));
+					return Collections.singletonList(tempComponents.get(tempNumber));
 				} else {
 					return tempComponents;
 				}
@@ -105,46 +97,37 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Finds all components in a given container which match a given path and/or
-	 * a provided class.
+	 * Finds all components in a given container which match a given path and/or a provided class.
 	 * 
 	 * @param aContainer
 	 *            the container in which to search
 	 * @param aComponentPath
-	 *            the path to match, or null if no path filtering shall be
-	 *            performed
+	 *            the path to match, or null if no path filtering shall be performed
 	 * @param aComponentClass
-	 *            the class to match, or null if no class filtering shall be
-	 *            performed
+	 *            the class to match, or null if no class filtering shall be performed
 	 * @return
 	 */
-	protected <C extends Component> List<C> findComponentsInContainer(
-			Container aContainer, String aComponentPath,
+	protected <C extends Component> List<C> findComponentsInContainer(Container aContainer, String aComponentPath,
 			Class<C> aComponentClass) {
 		List<C> tempComponents = new ArrayList<C>(1);
 
-		String[] tempPathParts = aComponentPath != null ? splitPath(aComponentPath)
-				: null;
-		recursiveFindComponentsInContainer(aContainer, tempPathParts, -1,
-				resolveSwingComponentBaseClass(aComponentClass), tempComponents);
+		String[] tempPathParts = aComponentPath != null ? splitPath(aComponentPath) : null;
+		recursiveFindComponentsInContainer(aContainer, tempPathParts, -1, resolveToBase(aComponentClass),
+				tempComponents);
 
 		return tempComponents;
 	}
 
 	@SuppressWarnings("unchecked")
-	private <C extends Component> void recursiveFindComponentsInContainer(
-			Container aContainer, String[] somePathParts, int aPathPosition,
-			Class<C> aComponentClass, List<C> aCollection) {
+	private <C extends Component> void recursiveFindComponentsInContainer(Container aContainer, String[] somePathParts,
+			int aPathPosition, Class<C> aComponentClass, List<C> aCollection) {
 		if (somePathParts == null) {
 			for (Component tempComponent : aContainer.getComponents()) {
 				if (tempComponent instanceof Container) {
-					recursiveFindComponentsInContainer(
-							(Container) tempComponent, somePathParts, 0,
-							aComponentClass, aCollection);
+					recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, 0, aComponentClass,
+							aCollection);
 				}
-				if (aComponentClass == null
-						|| (aComponentClass.isAssignableFrom(tempComponent
-								.getClass()))) {
+				if (aComponentClass == null || (aComponentClass.isAssignableFrom(tempComponent.getClass()))) {
 					aCollection.add((C) tempComponent);
 				}
 			}
@@ -155,21 +138,16 @@ public abstract class AbstractSwingComponentHandler {
 				boolean tempIsLastPart = somePathParts.length == 1;
 				String tempNameToFind = somePathParts[0];
 				String tempContainerName = getComponentName(aContainer);
-				if (tempContainerName != null
-						&& tempNameToFind.equals(tempContainerName)) {
+				if (tempContainerName != null && tempNameToFind.equals(tempContainerName)) {
 					if (tempIsLastPart) {
-						if (aComponentClass == null
-								|| aComponentClass.isAssignableFrom(aContainer
-										.getClass())) {
+						if (aComponentClass == null || aComponentClass.isAssignableFrom(aContainer.getClass())) {
 							aCollection.add((C) aContainer);
 						}
 					} else {
-						recursiveFindComponentsInContainer(aContainer,
-								somePathParts, 1, aComponentClass, aCollection);
+						recursiveFindComponentsInContainer(aContainer, somePathParts, 1, aComponentClass, aCollection);
 					}
 				} else {
-					recursiveFindComponentsInContainer(aContainer,
-							somePathParts, 0, aComponentClass, aCollection);
+					recursiveFindComponentsInContainer(aContainer, somePathParts, 0, aComponentClass, aCollection);
 				}
 			} else {
 				boolean tempIsLastPart = aPathPosition + 1 == somePathParts.length;
@@ -181,9 +159,8 @@ public abstract class AbstractSwingComponentHandler {
 						// Unnamed containers are ignored; those are allowed
 						// gaps in the path
 						if (tempComponent instanceof Container) {
-							recursiveFindComponentsInContainer(
-									(Container) tempComponent, somePathParts,
-									aPathPosition, aComponentClass, aCollection);
+							recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, aPathPosition,
+									aComponentClass, aCollection);
 						}
 						// ...but this could also be a generically named
 						// component! We'll just go on with that now.
@@ -191,17 +168,13 @@ public abstract class AbstractSwingComponentHandler {
 						if (tempNameToFind.equals(tempComponentName)) {
 							if (tempIsLastPart) {
 								if (aComponentClass == null
-										|| aComponentClass
-												.isAssignableFrom(tempComponent
-														.getClass())) {
+										|| aComponentClass.isAssignableFrom(tempComponent.getClass())) {
 									aCollection.add((C) tempComponent);
 								}
 							} else {
 								if (tempComponent instanceof Container) {
-									recursiveFindComponentsInContainer(
-											(Container) tempComponent,
-											somePathParts, aPathPosition + 1,
-											aComponentClass, aCollection);
+									recursiveFindComponentsInContainer((Container) tempComponent, somePathParts,
+											aPathPosition + 1, aComponentClass, aCollection);
 								}
 							}
 						}
@@ -209,25 +182,19 @@ public abstract class AbstractSwingComponentHandler {
 						if (tempNameToFind.equals(tempComponentName)) {
 							if (tempIsLastPart) {
 								if (aComponentClass == null
-										|| aComponentClass
-												.isAssignableFrom(tempComponent
-														.getClass())) {
+										|| aComponentClass.isAssignableFrom(tempComponent.getClass())) {
 									aCollection.add((C) tempComponent);
 								}
 							} else {
 								if (tempComponent instanceof Container) {
-									recursiveFindComponentsInContainer(
-											(Container) tempComponent,
-											somePathParts, aPathPosition + 1,
-											aComponentClass, aCollection);
+									recursiveFindComponentsInContainer((Container) tempComponent, somePathParts,
+											aPathPosition + 1, aComponentClass, aCollection);
 								}
 							}
 						} else {
 							if (tempComponent instanceof Container) {
-								recursiveFindComponentsInContainer(
-										(Container) tempComponent,
-										somePathParts, 0, aComponentClass,
-										aCollection);
+								recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, 0,
+										aComponentClass, aCollection);
 							}
 						}
 					}
@@ -237,15 +204,13 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Finds a component matching the given path and/or class in all open
-	 * windows. This method will return either one match or throw an exception.
+	 * Finds a component matching the given path and/or class in all open windows. This method will return either one
+	 * match or throw an exception.
 	 * 
 	 * @param aComponentPath
-	 *            the component path to filter for, or null if no path filtering
-	 *            shall be done
+	 *            the component path to filter for, or null if no path filtering shall be done
 	 * @param aComponentClass
-	 *            the class to filter for, or null if no class filtering shall
-	 *            be done
+	 *            the class to filter for, or null if no class filtering shall be done
 	 * @param aFrameToIgnore
 	 *            an optional frame which is to be ignored during the search
 	 * @return a match
@@ -254,41 +219,31 @@ public abstract class AbstractSwingComponentHandler {
 	 * @throws InvalidComponentPathException
 	 *             if there is not even a single matching component
 	 */
-	public <C extends Component> C findComponentGuarded(String aComponentPath,
-			Class<C> aComponentClass, JFrame aFrameToIgnore)
-			throws AmbiguousComponentPathException,
-			InvalidComponentPathException {
-		return filterComponentList(
-				findComponents(aComponentPath, aComponentClass, aFrameToIgnore),
-				aComponentPath);
+	public <C extends Component> C findComponentGuarded(String aComponentPath, Class<C> aComponentClass,
+			JFrame aFrameToIgnore) throws AmbiguousComponentPathException, InvalidComponentPathException {
+		return filterComponentList(findComponents(aComponentPath, aComponentClass, aFrameToIgnore), aComponentPath);
 	}
 
 	/**
-	 * Finds a component matching the given path and/or class in the given
-	 * container. This method will return either one match or throw an
-	 * exception.
+	 * Finds a component matching the given path and/or class in the given container. This method will return either one
+	 * match or throw an exception.
 	 * 
 	 * @param aContainer
 	 *            the container to search in
 	 * @param aComponentPath
-	 *            the component path to filter for, or null if no path filtering
-	 *            shall be done
+	 *            the component path to filter for, or null if no path filtering shall be done
 	 * @param aComponentClass
-	 *            the class to filter for, or null if no class filtering shall
-	 *            be done
+	 *            the class to filter for, or null if no class filtering shall be done
 	 * @return a match
 	 * @throws AmbiguousComponentPathException
 	 *             if there are more than one matching components
 	 * @throws InvalidComponentPathException
 	 *             if there is not even a single matching component
 	 */
-	protected <C extends Component> C findComponentInContainerGuarded(
-			Container aContainer, String aComponentPath,
-			Class<C> aComponentClass) throws AmbiguousComponentPathException,
-			InvalidComponentPathException {
-		return filterComponentList(
-				findComponentsInContainer(aContainer, aComponentPath,
-						aComponentClass), aComponentPath);
+	protected <C extends Component> C findComponentInContainerGuarded(Container aContainer, String aComponentPath,
+			Class<C> aComponentClass) throws AmbiguousComponentPathException, InvalidComponentPathException {
+		return filterComponentList(findComponentsInContainer(aContainer, aComponentPath, aComponentClass),
+				aComponentPath);
 	}
 
 	/**
@@ -305,8 +260,7 @@ public abstract class AbstractSwingComponentHandler {
 			return null;
 		}
 
-		if (((aComponent.getParent() instanceof JRootPane) || (aComponent
-				.getParent() instanceof JLayeredPane))
+		if (((aComponent.getParent() instanceof JRootPane) || (aComponent.getParent() instanceof JLayeredPane))
 				&& IGNORED_JROOTPANE_CONTAINERS.contains(tempName)) {
 			return null;
 		} else {
@@ -322,13 +276,11 @@ public abstract class AbstractSwingComponentHandler {
 	 * @return the generic name
 	 */
 	protected String getGenericComponentName(Component aComponent) {
-		return resolveSwingComponentBaseClass(aComponent.getClass())
-				.getSimpleName();
+		return resolveToBase(aComponent.getClass()).getSimpleName();
 	}
 
 	/**
-	 * Returns either the single entry of the given list, or throws an
-	 * {@link AmbiguousComponentPathException} or
+	 * Returns either the single entry of the given list, or throws an {@link AmbiguousComponentPathException} or
 	 * {@link InvalidComponentPathException}.
 	 * 
 	 * @param aComponentList
@@ -342,42 +294,34 @@ public abstract class AbstractSwingComponentHandler {
 	 *             if there is not even a single matching component
 	 */
 	@SuppressWarnings("unchecked")
-	private <C extends Component> C filterComponentList(List<C> aComponentList,
-			String aComponentPath) throws AmbiguousComponentPathException,
-			InvalidComponentPathException {
+	private <C extends Component> C filterComponentList(List<C> aComponentList, String aComponentPath)
+			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		if (aComponentList.size() == 0) {
 			throw new InvalidComponentPathException(aComponentPath, this);
 		} else if (aComponentList.size() > 1) {
-			throw new AmbiguousComponentPathException(aComponentPath,
-					(List<Component>) aComponentList, this);
+			throw new AmbiguousComponentPathException(aComponentPath, (List<Component>) aComponentList, this);
 		} else {
 			return aComponentList.get(0);
 		}
 	}
 
 	/**
-	 * Checks whether the given path is unique and resolves to a single
-	 * component.
+	 * Checks whether the given path is unique and resolves to a single component.
 	 * 
 	 * @param aComponentPath
 	 *            the path to check
 	 * @param aComponentClass
-	 *            a class to use for component filtering, or null if no class
-	 *            filtering is to be done
-	 * @return true if there is at most a single match, false if there are
-	 *         multiple matches
+	 *            a class to use for component filtering, or null if no class filtering is to be done
+	 * @return true if there is at most a single match, false if there are multiple matches
 	 */
-	public <C extends Component> boolean checkPathUniqueness(
-			String aComponentPath, Class<C> aComponentClass) {
-		List<C> tempMatches = findComponents(aComponentPath, aComponentClass,
-				null);
+	public <C extends Component> boolean checkPathUniqueness(String aComponentPath, Class<C> aComponentClass) {
+		List<C> tempMatches = findComponents(aComponentPath, aComponentClass, null);
 
 		return (tempMatches.size() <= 1);
 	}
 
 	/**
-	 * Calculates the full path to the given component (doesn't need to be
-	 * unique!).
+	 * Calculates the full path to the given component (doesn't need to be unique!).
 	 * 
 	 * @param aComponent
 	 *            the component
@@ -396,8 +340,7 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Calculates the full path to the given component. Will not return a path
-	 * if the created path would not be unique.
+	 * Calculates the full path to the given component. Will not return a path if the created path would not be unique.
 	 * 
 	 * @param aComponent
 	 *            the component
@@ -414,8 +357,7 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Calculates a unique full path to the given component. The path may be
-	 * enriched with numbers to make it unique.
+	 * Calculates a unique full path to the given component. The path may be enriched with numbers to make it unique.
 	 * 
 	 * @param aComponent
 	 *            the component
@@ -425,8 +367,7 @@ public abstract class AbstractSwingComponentHandler {
 		String tempPath = createComponentPath(aComponent);
 
 		@SuppressWarnings("unchecked")
-		List<Component> tempMatches = (List<Component>) findComponents(
-				tempPath, aComponent.getClass(), null);
+		List<Component> tempMatches = (List<Component>) findComponents(tempPath, aComponent.getClass(), null);
 
 		if (tempMatches.size() > 1) {
 			for (int i = 0; i < tempMatches.size(); i++) {
@@ -439,8 +380,7 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Calculates the shortest possible (but still unique) path to the given
-	 * component.
+	 * Calculates the shortest possible (but still unique) path to the given component.
 	 * 
 	 * @param aComponent
 	 *            the component
@@ -481,8 +421,7 @@ public abstract class AbstractSwingComponentHandler {
 		return tempBuilder.toString();
 	}
 
-	private void recursiveCreateComponentPath(Component aComponent,
-			List<String> aList, int aDepth) {
+	private void recursiveCreateComponentPath(Component aComponent, List<String> aList, int aDepth) {
 		String tempName = getComponentName(aComponent);
 
 		if (tempName != null) {
@@ -510,16 +449,25 @@ public abstract class AbstractSwingComponentHandler {
 		return aPath.split("\\.");
 	}
 
+	/**
+	 * Resolves the provided class to a "base class" onto which content assist shall be provided. The level of resolving
+	 * may vary.
+	 * 
+	 * @param aClass
+	 *            the class to resolve
+	 * @return the resolved class
+	 */
+	protected <C extends Component> Class<C> resolveToBase(Class<C> aClass) {
+		return resolveSwingComponentBaseClass(aClass);
+	}
+
 	@SuppressWarnings("unchecked")
-	private <C extends Component> Class<C> resolveSwingComponentBaseClass(
-			Class<C> aClass) {
+	private <C extends Component> Class<C> resolveSwingComponentBaseClass(Class<C> aClass) {
 		Class<?> tempClassInFocus = aClass;
 
 		while (tempClassInFocus != null
-				&& !"javax.swing.".equals(tempClassInFocus.getName().substring(
-						0,
-						tempClassInFocus.getName().length()
-								- tempClassInFocus.getSimpleName().length()))) {
+				&& !"javax.swing.".equals(tempClassInFocus.getName().substring(0,
+						tempClassInFocus.getName().length() - tempClassInFocus.getSimpleName().length()))) {
 			tempClassInFocus = tempClassInFocus.getSuperclass();
 		}
 
@@ -531,16 +479,14 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	/**
-	 * Generates a prettified component description, which contains just the
-	 * interesting fields per component.
+	 * Generates a prettified component description, which contains just the interesting fields per component.
 	 * 
 	 * @param aComponent
 	 *            the component to look at
 	 * @return the description
 	 */
 	public String getPrettyComponentDescription(Component aComponent) {
-		StringBuilder tempDescription = new StringBuilder(aComponent.getClass()
-				.getName() + " [");
+		StringBuilder tempDescription = new StringBuilder(aComponent.getClass().getName() + " [");
 
 		String tempName = getComponentName(aComponent);
 		if (tempName != null) {
@@ -554,8 +500,7 @@ public abstract class AbstractSwingComponentHandler {
 
 		if (aComponent instanceof JButton) {
 			appendCommaIfNotFirst(tempDescription);
-			tempDescription.append("text='" + ((JButton) aComponent).getText()
-					+ "'");
+			tempDescription.append("text='" + ((JButton) aComponent).getText() + "'");
 		}
 		// add more special attributes for specific components here!
 
