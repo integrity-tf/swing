@@ -14,7 +14,7 @@ package de.gebit.integrity.bindings.swing;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class EventQueueTimeoutException extends Exception {
+public class EventQueueTimeoutException extends RuntimeException {
 
 	/**
 	 * Serial Version.

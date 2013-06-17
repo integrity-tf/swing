@@ -8,6 +8,8 @@
 package de.gebit.integrity.bindings.swing.eclipse.basic;
 
 import java.awt.Component;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 
@@ -49,6 +51,13 @@ public class SwingComboBoxFixtureProposalProvider extends AbstractResultSuggesti
 	@Override
 	protected String getRelevantTextParameterName() {
 		return SwingComboBoxFixture.ENTRY_TEXT_PARAMETER_NAME;
+	}
+
+	@Override
+	public List<CustomProposalDefinition> defineResultProposals(String aFixtureMethodName, String aResultName,
+			Object aResultValue, Map<String, Object> someParameterValues) {
+		System.out.println(someParameterValues.get("name"));
+		return super.defineResultProposals(aFixtureMethodName, aResultName, aResultValue, someParameterValues);
 	}
 
 }

@@ -14,9 +14,6 @@ import javax.swing.JList;
 import javax.swing.ListModel;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -37,7 +34,7 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	/**
 	 * The parameter name for entry position.
 	 */
-	public static final String ENTRY_POSITION_PARAMETER_NAME = "position";
+	public static final String ENTRY_INDEX_PARAMETER_NAME = "index";
 
 	/**
 	 * These methods accept entry texts as their expected result.
@@ -48,7 +45,7 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	 * The last position; this is used in case of repeated invocations because of tabletests to track which position
 	 * must be checked next.
 	 */
-	protected int nextPosition;
+	protected int nextIndex;
 
 	/**
 	 * Returns the current element at the given position in the given list, starting at the top. Can be used either as a
@@ -57,22 +54,19 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	 * 
 	 * @param aComponentPath
 	 *            the path of the component
-	 * @param aListPosition
-	 *            the position in the list (one-based!), omit for automatic position calculation in tabletests
+	 * @param aListIndex
+	 *            the position in the list (one-based!), you can omit this for automatic position calculation in
+	 *            tabletests
 	 * @return the element in the list at the given position, or null if the position is larger than the available
 	 *         entries
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the element at position $position$ in list '$name$'", descriptionTest = "Check the element at position $position$ in list '$name$'")
-	public Object getListEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer aListPosition)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Object getEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer aListIndex) {
 		JList tempList = findComponentGuarded(aComponentPath);
 		ListModel tempModel = tempList.getModel();
 
-		int tempPosition = (aListPosition != null) ? aListPosition : (++nextPosition);
+		int tempPosition = (aListIndex != null) ? aListIndex : (++nextIndex);
 		if (tempPosition <= 0) {
 			throw new IndexOutOfBoundsException("List positions below and including 0 are invalid.");
 		}
@@ -87,17 +81,38 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	}
 
 	/**
-	 * Enters the given text into the text field provided.
+	 * Returns the text of the element at the given position in the given list, starting at the top. Can be used either
+	 * as a call fixture method to retrieve the text into a variable, or as a test fixture to check the text against a
+	 * reference text.
 	 * 
 	 * @param aComponentPath
 	 *            the path of the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
+	 * @param aListIndex
+	 *            the position in the list (one-based!), you can omit this for automatic position calculation in
+	 *            tabletests
+	 * @return the text of the element in the list at the given position, or null if the position is larger than the
+	 *         available entries
+	 */
+	@FixtureMethod(descriptionCall = "Get the text at position $position$ in list '$name$'", descriptionTest = "Check the text at position $position$ in list '$name$'")
+	public Object getEntryText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer aListIndex) {
+		Object tempEntry = getEntryModel(aComponentPath, aListIndex);
+
+		if (tempEntry == null) {
+			return null;
+		} else {
+			return tempEntry.toString();
+		}
+	}
+
+	/**
+	 * Fetches the entry count of the specified list.
+	 * 
+	 * @param aComponentPath
+	 *            the path of the component
 	 */
 	@FixtureMethod(descriptionCall = "Get the number of entries in list '$text$'", descriptionTest = "Check the number of entries in list '$text$'")
-	public Integer getListEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Integer getEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getModel().getSize();
 	}
 
@@ -107,25 +122,22 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	 * 
 	 * @param aComponentPath
 	 *            The path to the component
-	 * @param someEntryPositions
+	 * @param someEntryIndices
 	 *            The position(s) of the entry to be selected (one-based!)
 	 * @param someEntryTexts
 	 *            The text(s) of the entry to be selected
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(description = "Select the entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
-			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in list '$name$'")
-	public void selectEntries(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer[] someEntryPositions,
-			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String[] someEntryTexts)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	@FixtureMethod(description = "Select the entries {" + ENTRY_INDEX_PARAMETER_NAME + "?at index $"
+			+ ENTRY_INDEX_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$" + ENTRY_TEXT_PARAMETER_NAME
+			+ "$'} in list '$name$'")
+	public void select(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer[] someEntryIndices,
+			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String[] someEntryTexts) {
 		final JList tempList = findComponentGuarded(aComponentPath);
 
 		List<Integer> tempEntriesToSelect = new ArrayList<Integer>();
-		if (someEntryPositions != null) {
-			for (Integer tempEntryPosition : someEntryPositions) {
+		if (someEntryIndices != null) {
+			for (Integer tempEntryPosition : someEntryIndices) {
 				tempEntriesToSelect.add(findItemIndexGuarded(tempList, tempEntryPosition, null));
 			}
 		}
@@ -158,13 +170,9 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	 * @param aComponentPath
 	 *            The path to the component
 	 * @return the positions of the selected entries (one-based) or zero if none is selected
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Fetches the selected entrys' position from list '$name$'", descriptionTest = "Checks the position of the selected entry in list '$name$'")
-	public int[] getSelectedEntryPositions(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	@FixtureMethod(descriptionCall = "Fetches the selected entries' indices from list '$name$'", descriptionTest = "Checks the position of the selected entries' indices in list '$name$'")
+	public int[] getSelectedIndices(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JList tempList = findComponentGuarded(aComponentPath);
 
 		int[] tempIndices = tempList.getSelectedIndices();
@@ -173,6 +181,7 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 			return new int[] { 0 };
 		}
 
+		// one-based
 		for (int i = 0; i < tempIndices.length; i++) {
 			tempIndices[i]++;
 		}
@@ -186,49 +195,37 @@ public class SwingListFixture extends AbstractSwingFixture<JList> implements Cus
 	 * @param aComponentPath
 	 *            The path to the component
 	 * @return the selected entry or entries, or null if none is selected
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
-	@FixtureMethod(descriptionCall = "Fetches the selected entry from list '$name$'", descriptionTest = "Checks the selected entry in list '$name$'")
-	public Object[] getSelectedEntries(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JList tempList = findComponentGuarded(aComponentPath);
+	@FixtureMethod(descriptionCall = "Fetches the selected entries from list '$name$'", descriptionTest = "Checks the selected entries in list '$name$'")
+	public Object[] getSelectedEntriesModel(
+			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+		JList tempList = findComponentGuarded(aComponentPath);
 
-		return tempList.getSelectedValues();
+		Object[] tempSelectedValues = tempList.getSelectedValues();
+
+		return tempSelectedValues.length > 0 ? tempSelectedValues : null;
 	}
 
 	/**
-	 * Checks whether an entry at the given position or with the given text exists in the list. You only need to provide
-	 * one: either a position or a text.
+	 * Returns or checks the currently selected entry (or multiple in case of multi-select lists) in the list. This
+	 * method returns the texts of the entry.
 	 * 
 	 * @param aComponentPath
 	 *            The path to the component
-	 * @param anEntryPosition
-	 *            The position of the entry to be checked (one-based!)
-	 * @param anEntryText
-	 *            The text of the entry to be checked
-	 * @return true if the entry exists, false if it does not exist
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
+	 * @return the selected entry or entries, or null if none is selected
 	 */
-	@FixtureMethod(descriptionCall = "Returns if an entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
-			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME
-			+ "?'$text$'} exists in combo box '$name$'", descriptionTest = "Checks if an entry {"
-			+ ENTRY_POSITION_PARAMETER_NAME + "?at position $" + ENTRY_POSITION_PARAMETER_NAME + "$}{"
-			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} exists in combo box '$name$'")
-	public boolean entryExists(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
-			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+	@FixtureMethod(descriptionCall = "Fetches the selected entries' texts from list '$name$'", descriptionTest = "Checks the selected entries' texts in list '$name$'")
+	public String[] getSelectedEntriesText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		JList tempList = findComponentGuarded(aComponentPath);
 
-		if (anEntryPosition != null) {
-			return (anEntryPosition > 0 && anEntryPosition <= tempList.getModel().getSize());
-		} else {
-			return (findItemIndexByText(tempList, anEntryText) != null);
+		Object[] tempSelectedValues = tempList.getSelectedValues();
+
+		String[] tempTargetArray = new String[tempSelectedValues.length];
+		for (int i = 0; i < tempSelectedValues.length; i++) {
+			tempTargetArray[i] = tempSelectedValues[i].toString();
 		}
+
+		return tempTargetArray.length > 0 ? tempTargetArray : null;
 	}
 
 	/**

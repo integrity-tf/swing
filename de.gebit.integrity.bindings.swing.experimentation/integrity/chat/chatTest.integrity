@@ -18,26 +18,24 @@ packagedef swing.chat with
 		
 		suite sendMessageFromBToA message: "Foobar!"
 		
-		tabletest listEntry name: "messageList"
-			| position | =         |
-			| 1        | "Bar!"    |
-			| 2        | "Foobar!" |
+		tabletest list.entryText name: "messageList"
+			| index | =         |
+			| 1     | "Bar!"    |
+			| 2     | "Foobar!" |
 			
-		tabletest listEntry name: "messageList"
+		tabletest list.entryModel name: "messageList"
 			| =         |
 			| "Bar!"    |
 			| "Foobar!" |
 			
 		// Do some selection testing, just because it's cool :)
-		call selectListEntries name: "messageList" position: 1
-		test selectedListEntries name: "messageList" = "Bar!"
-		test selectedListEntryPositions name: "messageList" = 1
+		call list.selectEntries name: "messageList" index: 1
+		test list.selectedEntriesText name: "messageList" = "Bar!"
+		test list.selectedIndices name: "messageList" = 1
 		
-		call selectListEntries name: "messageList" position: 1, 2
-		test selectedListEntries name: "messageList" = "Bar!", "Foobar!"
-		test selectedListEntryPositions name: "messageList" = 1, 2
-		
-		
+		call list.selectEntries name: "messageList" index: 1, 2
+		test list.selectedEntriesModel name: "messageList" = "Bar!", "Foobar!"
+		test list.selectedIndices name: "messageList" = 1, 2
 		
 		call tools.authorAssist
 		
@@ -81,9 +79,9 @@ packagedef swing.chat with
 	suitedef checkMessageReceived gets message with
 		// received messages are added at the bottom of the list, so we can check the last one
 		variable listEntryCount
-		call getListEntryCount name: "messageList" -> listEntryCount
+		call list.getEntryCount name: "messageList" -> listEntryCount
 		
-		test listEntry name: "messageList" position: listEntryCount = message
+		test list.entryText name: "messageList" index: listEntryCount = message
 	suiteend
 
 packageend

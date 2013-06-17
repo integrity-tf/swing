@@ -43,7 +43,7 @@ public class SwingListFixtureProposalProvider extends AbstractResultSuggestingSw
 
 	@Override
 	protected String getRelevantPositionParameterName() {
-		return SwingListFixture.ENTRY_POSITION_PARAMETER_NAME;
+		return SwingListFixture.ENTRY_INDEX_PARAMETER_NAME;
 	}
 
 	@Override

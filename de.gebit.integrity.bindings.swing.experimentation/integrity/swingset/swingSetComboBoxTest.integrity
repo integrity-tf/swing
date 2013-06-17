@@ -32,6 +32,8 @@ packagedef swing.swingset with
 			| "Hans"    |
 			| "Howard"  |
 			
+		//test combobox.selectedEntry name: "frame0.JComboBox#0" = 
+			
 		
 		
 		call tools.authorAssist

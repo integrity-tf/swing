@@ -1,3 +1,13 @@
+/*
+ * These definitions implement the "core" definitions. 
+ * 
+ * These "core" definitions are an attempt to define a common language to write tests
+ * which can be applied to a lot of GUI frameworks. The Swing bindings implement that
+ * core definition set and some additional definitions.
+ */
+
+
+
 packagedef gui.swing.label with
 	// Accessibility	
 	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setEnabled
@@ -104,32 +114,6 @@ packagedef gui.swing.textfield with
 	testdef model uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getModel
 packageend
 
-packagedef gui.swing.slider with
-	// Accessibility	
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setEnabled
-	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
-	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
-	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setVisible
-	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
-	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
-	
-	// Frontend & Backend
-	calldef getMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMinValue
-	testdef minValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMinValue
-		
-	calldef getMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMaxValue
-	testdef maxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getMaxValue
-		
-	calldef getValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getValue
-	testdef value uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getValue
-	
-	// Actions
-	calldef setMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setMinValue
-	calldef setMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setMaxValue
-	calldef setValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setValue
-packageend
-
 packagedef gui.swing.combobox with
 	// Accessibility
 	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setEnabled
@@ -172,97 +156,36 @@ packagedef gui.swing.combobox with
 	testdef selectedEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryModel
 packageend
 
-packagedef gui.swing.dialog with
-	// (Modal) Dialogs
-	calldef answer uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
-packageend
-
-packagedef gui.swing.tools with
-	// Various useful stuff
-	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
-	calldef waitForEventQueue uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#waitForEventQueue
+packagedef gui.swing.list with
+	// Accessibility
+	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#setEnabled
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isEnabled
 	
-	// Author Assistance tool
-	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
-packageend
-
-packagedef gui.swing.lifecycle with
-	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch
-	calldef launchAppAndWait uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWait
-	calldef launchAppAndWaitForComponent uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launchAndWaitForComponent
+	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#setVisible
+	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isVisible
 	
-	testdef isAppAlive uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#isAlive
+	// Frontend	
+	calldef getEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryCount
+	testdef entryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryCount
 	
-	calldef killApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
-	testdef killAppTest uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
-packageend
-
-
-// DEPRECATED DEFINITIONS; WILL BE MIGRATED TO NEW PACKAGE SCHEME
-packagedef swing.basic with
+	calldef getSelectedIndices uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedIndices
+	testdef selectedIndices uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedIndices
 	
-	// Lists
-	calldef selectListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#selectEntries
-	calldef getSelectedListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntries
-	testdef selectedListEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntries
-	calldef getSelectedListEntryPositions uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntryPositions
-	testdef selectedListEntryPositions uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntryPositions
-	calldef getListEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#entryExists
-	testdef listEntryExists uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#entryExists
-	calldef getListEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
-	testdef listEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
-	calldef getListEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntry
-	testdef listEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntry
+	calldef getEntryText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryText
+	testdef entryText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryText
 	
+	calldef getSelectedEntriesText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesText
+	testdef selectedEntriesText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesText
 	
+	// Backend	
+	calldef getEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryModel
+	testdef entryModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryModel
 	
-	// Tabbed Panes
-	calldef selectTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#selectTab
-	calldef getSelectedTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTab
-	testdef selectedTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTab
-	calldef getSelectedTabPosition uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTabPosition
-	testdef selectedTabPosition uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTabPosition
-	calldef getTabTitle uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getTabTitle
-	testdef tabTitle uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getTabTitle
- 
-packageend
-
-
-packagedef swing.tables with
-
-	// Basic table stuff
-	calldef getTableColumnCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableColumnCount
-	testdef tableColumnCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableColumnCount
-	calldef getTableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
-	testdef tableRowCount uses de.gebit.integrity.bindings.swing.tables.SwingTableBasicFixture#getTableRowCount
+	calldef getSelectedEntriesModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesModel
+	testdef selectedEntriesModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesModel
 	
-	// Table cell content
-	calldef getTableCellContent uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellContent
-	testdef tableCellContent uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellContent
-	calldef getTableCellText uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellText
-	testdef tableCellText uses de.gebit.integrity.bindings.swing.tables.SwingTableCellContentFixture#getTableCellText
-	
-	// Table (row) content
-	testdef tableContent uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableContent
-	testdef tableText uses de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture#getTableText
-
-packageend
-
-
-packagedef swing.trees with
-
-	// Basic tree stuff
-	calldef getTreeChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture#getTreeChildCount
-	testdef treeChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture#getTreeChildCount
-
-packageend
-
-
-
-
-
-packagedef swing.tools with
-
-	
- 
+	// Actions
+	calldef selectEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#select
 packageend
