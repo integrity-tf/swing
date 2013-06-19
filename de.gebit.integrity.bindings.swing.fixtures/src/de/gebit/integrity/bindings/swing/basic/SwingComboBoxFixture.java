@@ -67,6 +67,8 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText) {
 		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
 
+		checkComponentEnabled(tempComboBox);
+
 		final int tempIndexToSelect = findItemIndexGuarded(tempComboBox, anEntryPosition, anEntryText);
 
 		runOnEventQueueAndWait(new Runnable() {
@@ -91,6 +93,8 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	public void selectEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_MODEL_PARAMETER_NAME) final Object aModelObject) {
 		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
+
+		checkComponentEnabled(tempComboBox);
 
 		runOnEventQueueAndWait(new Runnable() {
 

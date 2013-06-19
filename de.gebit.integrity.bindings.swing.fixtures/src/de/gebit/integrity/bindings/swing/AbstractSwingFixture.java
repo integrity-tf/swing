@@ -19,6 +19,7 @@ import javax.swing.JDialog;
 
 import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
 import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidActionException;
 import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -167,6 +168,20 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 		if (!new EventQueueSynchronizer().waitForEventQueueMultipleTimes(getEventQueueWaitTimeout(), aNumberOfTimes)) {
 			throw new EventQueueTimeoutException("Timed out while waiting for event queue ("
 					+ getEventQueueWaitTimeout() + " msecs)");
+		}
+	}
+
+	/**
+	 * Checks whether the provided component is enabled (and user input is thus possible).
+	 * 
+	 * @param aComponent
+	 *            the component to check
+	 * @throws InvalidActionException
+	 *             if the component is not enabled
+	 */
+	protected void checkComponentEnabled(JComponent aComponent) throws InvalidActionException {
+		if (!aComponent.isEnabled()) {
+			throw new InvalidActionException("The " + aComponent.getClass().getSimpleName() + " is not enabled.");
 		}
 	}
 

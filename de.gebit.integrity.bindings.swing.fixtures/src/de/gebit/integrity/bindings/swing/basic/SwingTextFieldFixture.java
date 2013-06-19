@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
 import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidActionException;
 import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -60,9 +61,13 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 */
 	@FixtureMethod(descriptionCall = "Enter '$text$' in text field '$name$'")
 	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "text") final String aText) {
 		final JTextField tempField = findComponentGuarded(aComponentPath);
+
+		checkComponentEnabled(tempField);
+		if (!tempField.isEditable()) {
+			throw new InvalidActionException("The text field is not editable.");
+		}
 
 		runOnEventQueueAndWait(new Runnable() {
 

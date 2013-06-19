@@ -10,9 +10,6 @@ package de.gebit.integrity.bindings.swing.basic;
 import javax.swing.JSlider;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -66,9 +63,11 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 */
 	@FixtureMethod(description = "Set the slider '$name$' to a value of $value$")
 	public void setValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "value") final Integer aValue) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "value") final Integer aValue) {
 		final JSlider tempSlider = findComponentGuarded(aComponentPath);
+
+		checkComponentEnabled(tempSlider);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override

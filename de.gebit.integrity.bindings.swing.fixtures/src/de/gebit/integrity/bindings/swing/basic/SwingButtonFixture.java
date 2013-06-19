@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
 import de.gebit.integrity.bindings.swing.exceptions.IntegritySwingBindingsException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidActionException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -153,8 +154,13 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 * @param aButton
 	 *            the button
 	 * @throws EventQueueTimeoutException
+	 * @throws InvalidActionException
 	 */
-	protected void clickButton(AbstractButton aButton) throws EventQueueTimeoutException {
+	protected void clickButton(AbstractButton aButton) throws EventQueueTimeoutException, InvalidActionException {
+		if (!aButton.isEnabled()) {
+			throw new InvalidActionException("The button to be clicked is currently disabled.");
+		}
+
 		runOnEventQueueAndWait(createButtonClickRunnable(aButton));
 	}
 

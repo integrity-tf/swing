@@ -45,6 +45,8 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	public void check(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
 
+		checkComponentEnabled(tempBox);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
@@ -64,6 +66,8 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	public void uncheck(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
 
+		checkComponentEnabled(tempBox);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
@@ -82,6 +86,8 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	@FixtureMethod(descriptionCall = "Toggle the radio button '$name$'")
 	public void toggle(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
+
+		checkComponentEnabled(tempBox);
 
 		runOnEventQueueAndWait(new Runnable() {
 
