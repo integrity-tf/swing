@@ -5,11 +5,11 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.bindings.swing;
+package de.gebit.integrity.bindings.swing.exceptions;
 
 /**
- * Thrown if the {@link EventQueueSynchronizer} has hit a timeout. The queue was not finished processing all events
- * until the given time has elapsed.
+ * Thrown if the {@link de.gebit.integrity.bindings.swing.EventQueueSynchronizer} has hit a timeout. The queue was not
+ * finished processing all events until the given time has elapsed.
  * 
  * @author Rene Schneider - initial API and implementation
  * 

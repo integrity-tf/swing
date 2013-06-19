@@ -5,10 +5,12 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.bindings.swing;
+package de.gebit.integrity.bindings.swing.exceptions;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+
+import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
 
 /**
  * Exception base class for exceptions concerning Swing component paths.

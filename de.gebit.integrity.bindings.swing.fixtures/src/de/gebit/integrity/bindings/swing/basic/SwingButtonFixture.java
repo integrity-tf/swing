@@ -14,10 +14,10 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.IntegritySwingBindingsException;
-import de.gebit.integrity.bindings.swing.InvalidComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
+import de.gebit.integrity.bindings.swing.exceptions.IntegritySwingBindingsException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;

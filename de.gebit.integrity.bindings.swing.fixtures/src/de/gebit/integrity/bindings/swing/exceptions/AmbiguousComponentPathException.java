@@ -5,11 +5,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.bindings.swing;
+package de.gebit.integrity.bindings.swing.exceptions;
 
 import java.awt.Component;
 import java.awt.Window;
 import java.util.List;
+
+import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
 
 /**
  * Thrown if there are multiple components matching a given path. This exception contains very detailed, human-readable

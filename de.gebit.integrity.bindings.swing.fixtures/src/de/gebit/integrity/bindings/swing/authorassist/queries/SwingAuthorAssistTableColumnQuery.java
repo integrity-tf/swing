@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
-import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.InvalidComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture;
 
 /**

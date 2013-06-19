@@ -17,6 +17,9 @@ import java.lang.reflect.Type;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 
+import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 

@@ -17,8 +17,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
-import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.InvalidComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 
 /**
  * This queries the server for possible items in a tree.

@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.bindings.swing;
+package de.gebit.integrity.bindings.swing.exceptions;
 
 /**
  * Base class for all special exceptions used in the Swing Bindings for Integrity.

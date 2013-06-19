@@ -23,6 +23,9 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JRootPane;
 
+import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
+import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
+
 /**
  * Abstract base class for working with Swing components, especially containing methods to identify components and work
  * with component paths.
