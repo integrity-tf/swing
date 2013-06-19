@@ -10,9 +10,6 @@ package de.gebit.integrity.bindings.swing.tables;
 import javax.swing.JTable;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -30,13 +27,9 @@ public class SwingTableBasicFixture extends AbstractSwingFixture implements Cust
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the number of columns in table '$name$'", descriptionTest = "Check the number of columns in table '$name$'")
-	public Integer getTableColumnCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Integer getTableColumnCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath, JTable.class, null).getColumnCount();
 	}
 
@@ -45,13 +38,9 @@ public class SwingTableBasicFixture extends AbstractSwingFixture implements Cust
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the number of rows in table '$name$'", descriptionTest = "Check the number of rows in table '$name$'")
-	public Integer getTableRowCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Integer getTableRowCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath, JTable.class, null).getRowCount();
 	}
 

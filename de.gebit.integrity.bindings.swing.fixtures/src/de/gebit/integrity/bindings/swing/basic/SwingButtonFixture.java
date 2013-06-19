@@ -37,13 +37,9 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 * @param aComponentPath
 	 *            the component path
 	 * @return the text currently in the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text displayed on button '$name$'", descriptionTest = "Check the text displayed on button '$name$'")
-	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
 
@@ -54,9 +50,6 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 *            the component path
 	 * @param aText
 	 *            the new text to be displayed on the button
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the text displayed on button '$name$' to '$text'")
 	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -78,13 +71,9 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Click the button '$name$'")
-	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		clickButton(findComponentGuarded(aComponentPath));
 	}
 
@@ -93,8 +82,6 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 * 
 	 * @param aButton
 	 *            the button to click
-	 * @throws IntegritySwingBindingsException
-	 * @throws EventQueueTimeoutException
 	 */
 	@FixtureMethod(description = "Answer the dialog by clicking '$button$'")
 	public void answerDialog(@FixtureParameter(name = "button") DialogButton aButton)

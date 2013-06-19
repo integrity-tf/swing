@@ -44,13 +44,9 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	 * @param aComponentPath
 	 *            the component path
 	 * @return true if the control is enabled, false if it is disabled
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the enablement state for control '$name$'", descriptionTest = "Check the enablement state of control '$name$'")
-	public Boolean isEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Boolean isEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath, getComponentClass(), null).isEnabled();
 	}
 
@@ -61,9 +57,6 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	 *            the component path
 	 * @param anEnabledFlag
 	 *            true if the control shall be enabled, false if it shall be disabled
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
 	public void setEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -86,13 +79,9 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	 * @param aComponentPath
 	 *            the component path
 	 * @return true if the control is visible, false if it is invisible
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the visibility state for control '$name$'", descriptionTest = "Check the visibility state of control '$name$'")
-	public Boolean isVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Boolean isVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath, getComponentClass(), null).isVisible();
 	}
 
@@ -103,9 +92,6 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	 *            the component path
 	 * @param aVisibilityFlag
 	 *            true if the control shall be visible, false if it shall be invisible
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the visibility state for control '$name$' to '$visible$'")
 	public void setVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,

@@ -49,9 +49,6 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 	 *            the position of the tab (one-based)
 	 * @param aTabText
 	 *            the title text of the tab
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Select the tab {" + TAB_POSITION_PARAMETER_NAME + "?at position $"
 			+ TAB_POSITION_PARAMETER_NAME + "$}{" + TAB_TEXT_PARAMETER_NAME + "?'$text$'} in tabbed pane '$name$'")
@@ -112,8 +109,6 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 	 * @param aComponentPath
 	 *            the path to the component
 	 * @return
-	 * @throws AmbiguousComponentPathException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected tabs' title from tabbed pane '$name$'", descriptionTest = "Checks the title of the selected tab in tabbed pane '$name$'")
 	public String getSelectedTab(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
@@ -129,8 +124,6 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 	 * @param aComponentPath
 	 *            the path to the component
 	 * @return
-	 * @throws AmbiguousComponentPathException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected tabs' position from tabbed pane '$name$'", descriptionTest = "Checks the position of the selected tab in tabbed pane '$name$'")
 	public Integer getSelectedTabPosition(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
@@ -148,8 +141,6 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 	 * @param aTabPosition
 	 *            the position of the tab (one-based)
 	 * @return
-	 * @throws AmbiguousComponentPathException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the title of the tab at position $" + TAB_POSITION_PARAMETER_NAME
 			+ "$ from tabbed pane '$name$'", descriptionTest = "Checks the title of the tab at position $"

@@ -45,9 +45,6 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 *            the path to the component
 	 * @param aRow
 	 *            the row number (one-based!), omit for automatic row calculation in tabletests
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Check the content in table '$name$'")
 	public SwingTableRowResult getTableContent(
@@ -64,14 +61,10 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 *            the path to the component
 	 * @param aRow
 	 *            the row number (one-based!), omit for automatic row calculation in tabletests
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Check the text in table '$name$'")
 	public Object getTableText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "row") Integer aRow, @FixtureParameter(name = "column") Integer aColumn)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "row") Integer aRow, @FixtureParameter(name = "column") Integer aColumn) {
 		return new SwingTableRowResult(internalGetTableRowText(aComponentPath, aRow));
 	}
 
@@ -112,8 +105,6 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 * @param aRow
 	 *            the row number (one-based!) or null for automatic row calculation in tabletests
 	 * @return the content
-	 * @throws AmbiguousComponentPathException
-	 * @throws InvalidComponentPathException
 	 */
 	protected Map<String, Object> internalGetTableRowContent(String aComponentPath, Integer aRow)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
@@ -146,8 +137,6 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	 * @param aRow
 	 *            the row number (one-based!)
 	 * @return the content
-	 * @throws AmbiguousComponentPathException
-	 * @throws InvalidComponentPathException
 	 */
 	protected Map<String, Object> internalGetTableRowText(String aComponentPath, int aRow)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {

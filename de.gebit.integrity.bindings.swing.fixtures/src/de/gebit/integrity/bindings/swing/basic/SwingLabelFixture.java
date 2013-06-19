@@ -32,13 +32,9 @@ public class SwingLabelFixture extends AbstractSwingFixture<JLabel> implements C
 	 * @param aComponentPath
 	 *            the component path
 	 * @return the text currently displayed on the label
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
-	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
 
@@ -49,9 +45,6 @@ public class SwingLabelFixture extends AbstractSwingFixture<JLabel> implements C
 	 *            the component path
 	 * @param aText
 	 *            the new text to be displayed on the label
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the text displayed on label '$name$' to '$text'")
 	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,

@@ -31,13 +31,9 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 * @param aComponentPath
 	 *            the component path
 	 * @return true if the control is editable, false if not
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the editability state for control '$name$'", descriptionTest = "Check the editability state of control '$name$'")
-	public Boolean isEditable(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Boolean isEditable(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).isEditable();
 	}
 
@@ -48,9 +44,6 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 *            the component path
 	 * @param anEditableFlag
 	 *            true if the control shall be editable, false if it shall be non-editable
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
 	public void setEditable(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -74,13 +67,9 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 * @param aComponentPath
 	 *            the path of the component
 	 * @return the text in the text field
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text currently entered in text field '$name$'", descriptionTest = "Check the text currently entered in text field '$name$'")
-	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
 
@@ -91,9 +80,6 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 *            the path of the component
 	 * @param aText
 	 *            the text in the text field
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Enter '$text$' in text field '$name$'")
 	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -117,13 +103,9 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 * @param aComponentPath
 	 *            the path of the component
 	 * @return the text in the text field
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text currently entered in text field '$name$'", descriptionTest = "Check the text currently entered in text field '$name$'")
-	public Object getModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Object getModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
 

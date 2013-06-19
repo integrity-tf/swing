@@ -12,7 +12,6 @@ import javax.swing.table.TableModel;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
 import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -35,14 +34,10 @@ public class SwingTableCellContentFixture extends AbstractSwingFixture implement
 	 *            the row number (one-based!)
 	 * @param aColumn
 	 *            the column number (one-based!)
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the content from table '$name$' at row $row$, column $column$", descriptionTest = "Check the content in table '$name$' at row $row$, column $column$")
 	public Object getTableCellContent(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "row") Integer aRow, @FixtureParameter(name = "column") Integer aColumn)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "row") Integer aRow, @FixtureParameter(name = "column") Integer aColumn) {
 		return internalGetTableContent(aComponentPath, aRow, aColumn);
 	}
 
@@ -56,14 +51,10 @@ public class SwingTableCellContentFixture extends AbstractSwingFixture implement
 	 *            the row number (one-based!)
 	 * @param aColumn
 	 *            the column number (one-based!)
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text from table '$name$' at row $row$, column $column$", descriptionTest = "Check the text in table '$name$' at row $row$, column $column$")
 	public Object getTableCellText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "row") Integer aRow, @FixtureParameter(name = "column") Integer aColumn)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "row") Integer aRow, @FixtureParameter(name = "column") Integer aColumn) {
 		Object tempElement = internalGetTableContent(aComponentPath, aRow, aColumn);
 		if (tempElement != null) {
 			return tempElement.toString();
@@ -82,8 +73,6 @@ public class SwingTableCellContentFixture extends AbstractSwingFixture implement
 	 * @param aColumn
 	 *            the column number (one-based!)
 	 * @return the content
-	 * @throws AmbiguousComponentPathException
-	 * @throws InvalidComponentPathException
 	 */
 	protected Object internalGetTableContent(String aComponentPath, Integer aRow, Integer aColumn)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {

@@ -30,13 +30,9 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the minimum value of slider '$name$'", descriptionTest = "Check the minimum value of slider '$name$'")
-	public Integer getMinValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Integer getMinValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getMinimum();
 	}
 
@@ -45,13 +41,9 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the maximum value of slider '$name$'", descriptionTest = "Check the maximum value of slider '$name$'")
-	public Integer getMaxValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Integer getMaxValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getMaximum();
 	}
 
@@ -60,13 +52,9 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the current value of slider '$name$'", descriptionTest = "Check the current value of slider '$name$'")
-	public Integer getValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public Integer getValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getValue();
 	}
 
@@ -75,9 +63,6 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the minimum value of slider '$name$' to $value$")
 	public void setMinValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -98,9 +83,6 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the maximum value of slider '$name$' to $value$")
 	public void setMaxValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -121,9 +103,6 @@ public class SwingSliderFixture extends AbstractSwingFixture<JSlider> implements
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the slider '$name$' to a value of $value$")
 	public void setValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,

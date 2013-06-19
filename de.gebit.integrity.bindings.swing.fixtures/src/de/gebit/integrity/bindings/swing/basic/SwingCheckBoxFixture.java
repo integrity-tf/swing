@@ -32,13 +32,9 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	 * @param aComponentPath
 	 *            the component path
 	 * @return the text currently in the checkbox
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the text displayed on button '$name$'", descriptionTest = "Check the text displayed on button '$name$'")
-	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
 
@@ -49,9 +45,6 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	 *            the component path
 	 * @param aText
 	 *            the new text to be displayed on the checkbox
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(description = "Set the text displayed on button '$name$' to '$text'")
 	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
@@ -73,13 +66,9 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Check the checkbox '$name$'")
-	public void check(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public void check(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
 
 		runOnEventQueueAndWait(new Runnable() {
@@ -96,13 +85,9 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Uncheck the checkbox '$name$'")
-	public void uncheck(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public void uncheck(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
 
 		runOnEventQueueAndWait(new Runnable() {
@@ -119,13 +104,9 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	 * 
 	 * @param aComponentPath
 	 *            the path to the component
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Toggle the radio button '$name$'")
-	public void toggle(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public void toggle(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
 
 		runOnEventQueueAndWait(new Runnable() {
@@ -144,13 +125,9 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 	 * @param aComponentPath
 	 *            the path to the component
 	 * @return true if the button is checked, false if not
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Get the state of the checkbox '$name$'", descriptionTest = "Check the state of the checkbox '$name'")
-	public boolean isChecked(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
+	public boolean isChecked(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).isSelected();
 	}
 
