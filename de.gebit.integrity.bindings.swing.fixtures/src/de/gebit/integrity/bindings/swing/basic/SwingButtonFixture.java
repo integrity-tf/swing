@@ -49,7 +49,7 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 *            the path to the component
 	 */
 	@FixtureMethod(description = "Click the button '$name$'")
-	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+	public void click(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		clickButton(findComponentGuarded(aComponentPath));
 	}
 

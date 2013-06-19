@@ -34,7 +34,7 @@ packagedef gui.swing.button with
 	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#getText
 	
 	// Actions
-	calldef click uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
+	calldef click uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#click
 packageend
 
 packagedef gui.swing.checkbox with
