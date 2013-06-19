@@ -45,6 +45,8 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture<JRadioButton> 
 	public void select(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JRadioButton tempRadioButton = findComponentGuarded(aComponentPath);
 
+		focusComponent(tempRadioButton);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override

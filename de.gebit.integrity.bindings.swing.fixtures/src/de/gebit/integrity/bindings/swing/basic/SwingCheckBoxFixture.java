@@ -47,6 +47,8 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 
 		checkComponentEnabled(tempBox);
 
+		focusComponent(tempBox);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
@@ -68,6 +70,8 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 
 		checkComponentEnabled(tempBox);
 
+		focusComponent(tempBox);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
@@ -88,6 +92,8 @@ public class SwingCheckBoxFixture extends AbstractSwingFixture<JCheckBox> implem
 		final JCheckBox tempBox = findComponentGuarded(aComponentPath);
 
 		checkComponentEnabled(tempBox);
+
+		focusComponent(tempBox);
 
 		runOnEventQueueAndWait(new Runnable() {
 

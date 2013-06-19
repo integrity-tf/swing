@@ -66,6 +66,10 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 			throw new InvalidActionException("The text field is not editable.");
 		}
 
+		// First, request the focus to be placed in the text field, to simulate user behavior of first focusing, then
+		// entering text.
+		focusComponent(tempField);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
@@ -73,6 +77,9 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 				tempField.setText(aText);
 			}
 		});
+
+		// Switching the focus away is not part of this fixture method, since that isn't done consciously by the user as
+		// well, but it simply happens on the next action.
 	}
 
 	/**

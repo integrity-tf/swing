@@ -186,6 +186,24 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	}
 
 	/**
+	 * Requests the input focus to be placed on the provided component. This method does NOT wait for the Event Queue to
+	 * process the focus placement, because usually, another action running on the event queue is placed there right
+	 * after a call to this method, and waiting for that second action implicitly waits for this one as well.
+	 * 
+	 * @param aComponent
+	 *            the component to set focus to
+	 */
+	protected void focusComponent(final JComponent aComponent) {
+		runOnEventQueue(new Runnable() {
+
+			@Override
+			public void run() {
+				aComponent.requestFocusInWindow();
+			}
+		});
+	}
+
+	/**
 	 * Returns the number of times to wait for the event queue. In some cases, one might need to wait multiple times,
 	 * for example if events being executed add more events on the event queue (waiting for the queue is performed by
 	 * pushing an event on the queue and waiting for it to be processed, so events added after that special event was

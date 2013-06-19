@@ -160,6 +160,9 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 			throw new InvalidActionException("The button to be clicked is currently disabled.");
 		}
 
+		// First, set focus to the button. This happens implicitly when the user "clicks".
+		focusComponent(aButton);
+
 		runOnEventQueueAndWait(createButtonClickRunnable(aButton));
 	}
 

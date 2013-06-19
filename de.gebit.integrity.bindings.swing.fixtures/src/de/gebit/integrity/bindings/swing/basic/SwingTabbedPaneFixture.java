@@ -90,6 +90,8 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 			throw new IllegalArgumentException("You need to provide either a position or a text.");
 		}
 
+		focusComponent(tempTabbedPane);
+
 		runOnEventQueueAndWait(new Runnable() {
 
 			@Override
