@@ -60,8 +60,7 @@ public class SwingButtonFixture extends AbstractSwingFixture<AbstractButton> imp
 	 *            the button to click
 	 */
 	@FixtureMethod(description = "Answer the dialog by clicking '$button$'")
-	public void answerDialog(@FixtureParameter(name = "button") DialogButton aButton)
-			throws IntegritySwingBindingsException, EventQueueTimeoutException {
+	public void answerDialog(@FixtureParameter(name = "button") DialogButton aButton) {
 		JDialog tempDialog = findFocusedDialogGuarded();
 		List<JOptionPane> tempPanes = findComponentsInContainer(tempDialog, null, JOptionPane.class);
 		if (tempPanes.size() == 0) {

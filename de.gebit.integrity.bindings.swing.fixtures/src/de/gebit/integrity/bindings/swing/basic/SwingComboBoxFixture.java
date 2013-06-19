@@ -10,8 +10,6 @@ package de.gebit.integrity.bindings.swing.basic;
 import javax.swing.JComboBox;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -155,8 +153,7 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 	 * @return true if the entry exists, false if it does not exist
 	 */
 	@FixtureMethod(descriptionCall = "Returns the number of entries in combo box '$name$'", descriptionTest = "Checks the number of entries in combo box '$name$'")
-	public int getEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+	public int getEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		JComboBox tempComboBox = findComponentGuarded(aComponentPath);
 
 		return tempComboBox.getModel().getSize();
@@ -204,8 +201,7 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
 	public String getEntry(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
-			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText) {
 		return nullSafeToString(getEntryInternal(aComponentPath, anEntryPosition, anEntryText));
 	}
 
@@ -228,8 +224,7 @@ public class SwingComboBoxFixture extends AbstractSwingFixture<JComboBox> implem
 			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
 	public Object getEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
-			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText) {
 		return getEntryInternal(aComponentPath, anEntryPosition, anEntryText);
 	}
 

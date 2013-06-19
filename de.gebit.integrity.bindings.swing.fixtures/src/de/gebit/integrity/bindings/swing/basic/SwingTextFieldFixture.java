@@ -10,10 +10,7 @@ package de.gebit.integrity.bindings.swing.basic;
 import javax.swing.JTextField;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
 import de.gebit.integrity.bindings.swing.exceptions.InvalidActionException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -99,14 +96,10 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	 *            the path of the component
 	 * @param aModel
 	 *            the model for the text field
-	 * @throws AmbiguousComponentPathException
-	 * @throws EventQueueTimeoutException
-	 * @throws InvalidComponentPathException
 	 */
 	@FixtureMethod(descriptionCall = "Enter '$text$' in text field '$name$'")
 	public void setModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "text") final Object aModel) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "text") final Object aModel) {
 		if (!(aModel instanceof String)) {
 			throw new IllegalArgumentException("The Swing TextField does not support models different from String.");
 		}

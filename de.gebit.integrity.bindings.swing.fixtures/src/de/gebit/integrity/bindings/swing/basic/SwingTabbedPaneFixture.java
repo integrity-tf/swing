@@ -10,9 +10,6 @@ package de.gebit.integrity.bindings.swing.basic;
 import javax.swing.JTabbedPane;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -54,8 +51,7 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 			+ TAB_POSITION_PARAMETER_NAME + "$}{" + TAB_TEXT_PARAMETER_NAME + "?'$text$'} in tabbed pane '$name$'")
 	public void selectTab(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = TAB_POSITION_PARAMETER_NAME) Integer aTabPosition,
-			@FixtureParameter(name = TAB_TEXT_PARAMETER_NAME) String aTabText) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = TAB_TEXT_PARAMETER_NAME) String aTabText) {
 		final JTabbedPane tempTabbedPane = findComponentGuarded(aComponentPath);
 
 		final Integer tempTabToSelect;
@@ -111,8 +107,7 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 	 * @return
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected tabs' title from tabbed pane '$name$'", descriptionTest = "Checks the title of the selected tab in tabbed pane '$name$'")
-	public String getSelectedTab(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+	public String getSelectedTab(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		JTabbedPane tempTabbedPane = findComponentGuarded(aComponentPath);
 
 		return tempTabbedPane.getTitleAt(tempTabbedPane.getSelectedIndex());
@@ -126,8 +121,7 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 	 * @return
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected tabs' position from tabbed pane '$name$'", descriptionTest = "Checks the position of the selected tab in tabbed pane '$name$'")
-	public Integer getSelectedTabPosition(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+	public Integer getSelectedTabPosition(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		JTabbedPane tempTabbedPane = findComponentGuarded(aComponentPath);
 
 		return tempTabbedPane.getSelectedIndex() + 1;
@@ -146,8 +140,7 @@ public class SwingTabbedPaneFixture extends AbstractSwingFixture<JTabbedPane> im
 			+ "$ from tabbed pane '$name$'", descriptionTest = "Checks the title of the tab at position $"
 			+ TAB_POSITION_PARAMETER_NAME + "$ in tabbed pane '$name$'")
 	public String getTabTitle(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = TAB_POSITION_PARAMETER_NAME) Integer aTabPosition)
-			throws AmbiguousComponentPathException, InvalidComponentPathException {
+			@FixtureParameter(name = TAB_POSITION_PARAMETER_NAME) Integer aTabPosition) {
 		JTabbedPane tempTabbedPane = findComponentGuarded(aComponentPath);
 
 		if (aTabPosition == null || aTabPosition < 1) {
