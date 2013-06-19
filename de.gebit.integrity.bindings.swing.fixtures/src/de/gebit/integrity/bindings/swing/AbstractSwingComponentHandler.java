@@ -33,7 +33,7 @@ import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathExceptio
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public abstract class AbstractSwingComponentHandler {
+public abstract class AbstractSwingComponentHandler implements IComponentHandler {
 
 	/**
 	 * Used to fix broken JRootPane/JLayeredPane content default names. See
@@ -46,11 +46,6 @@ public abstract class AbstractSwingComponentHandler {
 		IGNORED_JROOTPANE_CONTAINERS.add("null.contentPane");
 		IGNORED_JROOTPANE_CONTAINERS.add("null.layeredPane");
 	}
-
-	/**
-	 * The parameter name for the component path parameter.
-	 */
-	protected static final String COMPONENT_PATH_PARAMETER_NAME = "name";
 
 	/**
 	 * The pattern to parse "uniquified" paths (such with numbers added at the end).
