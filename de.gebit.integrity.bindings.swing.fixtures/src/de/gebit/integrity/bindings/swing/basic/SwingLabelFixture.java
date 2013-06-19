@@ -10,9 +10,6 @@ package de.gebit.integrity.bindings.swing.basic;
 import javax.swing.JLabel;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -36,28 +33,5 @@ public class SwingLabelFixture extends AbstractSwingFixture<JLabel> implements C
 	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
 	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
-	}
-
-	/**
-	 * Sets the text on a specific label.
-	 * 
-	 * @param aComponentPath
-	 *            the component path
-	 * @param aText
-	 *            the new text to be displayed on the label
-	 */
-	@FixtureMethod(description = "Set the text displayed on label '$name$' to '$text'")
-	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
-			InvalidComponentPathException, EventQueueTimeoutException {
-		final JLabel tempLabel = findComponentGuarded(aComponentPath);
-
-		runOnEventQueueAndWait(new Runnable() {
-
-			@Override
-			public void run() {
-				tempLabel.setText(aText);
-			}
-		});
 	}
 }

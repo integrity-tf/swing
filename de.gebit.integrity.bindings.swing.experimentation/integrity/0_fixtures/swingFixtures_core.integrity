@@ -10,32 +10,26 @@
 
 packagedef gui.swing.label with
 	// Accessibility	
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#isVisible
 	
 	// Frontend
-	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#setText
 	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getText
 	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getText
 packageend
 
 packagedef gui.swing.button with
 	// Accessibility	
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#isVisible
 	
 	// Frontend
-	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#setText
 	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#getText
 	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#getText
 	
@@ -45,16 +39,13 @@ packageend
 
 packagedef gui.swing.checkbox with
 	// Accessibility
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#isVisible
 	
 	// Frontend
-	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#setText
 	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getText
 	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingCheckBoxFixture#getText
 	
@@ -69,16 +60,13 @@ packageend
 
 packagedef gui.swing.radiobutton with
 	// Accessibility	
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#isVisible
 	
 	// Frontend	
-	calldef setText uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#setText
 	calldef getText uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getText
 	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getText
 	
@@ -91,15 +79,12 @@ packageend
 
 packagedef gui.swing.textfield with
 	// Accessibility	
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isVisible
 	
-	calldef setEditable uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setEditable
 	calldef isEditable uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEditable
 	testdef editable uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#isEditable
 	
@@ -116,11 +101,9 @@ packageend
 
 packagedef gui.swing.combobox with
 	// Accessibility
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
 	
@@ -158,11 +141,9 @@ packageend
 
 packagedef gui.swing.list with
 	// Accessibility
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#isVisible
 	

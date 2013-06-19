@@ -51,29 +51,6 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	}
 
 	/**
-	 * Sets the enable/disable state of the specified control.
-	 * 
-	 * @param aComponentPath
-	 *            the component path
-	 * @param anEnabledFlag
-	 *            true if the control shall be enabled, false if it shall be disabled
-	 */
-	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
-	public void setEnabled(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "enabled") final Boolean anEnabledFlag) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
-		final JComponent tempComponent = findComponentGuarded(aComponentPath, getComponentClass(), null);
-
-		runOnEventQueueAndWait(new Runnable() {
-
-			@Override
-			public void run() {
-				tempComponent.setEnabled(anEnabledFlag);
-			}
-		});
-	}
-
-	/**
 	 * Returns the visibility state for the specified control.
 	 * 
 	 * @param aComponentPath
@@ -83,29 +60,6 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	@FixtureMethod(descriptionCall = "Get the visibility state for control '$name$'", descriptionTest = "Check the visibility state of control '$name$'")
 	public Boolean isVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath, getComponentClass(), null).isVisible();
-	}
-
-	/**
-	 * Sets the visibility state of the specified control.
-	 * 
-	 * @param aComponentPath
-	 *            the component path
-	 * @param aVisibilityFlag
-	 *            true if the control shall be visible, false if it shall be invisible
-	 */
-	@FixtureMethod(description = "Set the visibility state for control '$name$' to '$visible$'")
-	public void setVisible(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "visible") final Boolean aVisibilityFlag) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
-		final JComponent tempComponent = findComponentGuarded(aComponentPath, getComponentClass(), null);
-
-		runOnEventQueueAndWait(new Runnable() {
-
-			@Override
-			public void run() {
-				tempComponent.setVisible(aVisibilityFlag);
-			}
-		});
 	}
 
 	/**

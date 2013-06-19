@@ -10,9 +10,6 @@ package de.gebit.integrity.bindings.swing.basic;
 import javax.swing.JRadioButton;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
-import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathException;
-import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
-import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -36,29 +33,6 @@ public class SwingRadioButtonFixture extends AbstractSwingFixture<JRadioButton> 
 	@FixtureMethod(descriptionCall = "Get the text displayed on radio button '$name$'", descriptionTest = "Check the text displayed on radio button '$name$'")
 	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
-	}
-
-	/**
-	 * Sets the text on a specific radio button.
-	 * 
-	 * @param aComponentPath
-	 *            the component path
-	 * @param aText
-	 *            the new text to be displayed on the label
-	 */
-	@FixtureMethod(description = "Set the text displayed on label '$name$' to '$text'")
-	public void setText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "text") final String aText) throws AmbiguousComponentPathException,
-			InvalidComponentPathException, EventQueueTimeoutException {
-		final JRadioButton tempRadioButton = findComponentGuarded(aComponentPath);
-
-		runOnEventQueueAndWait(new Runnable() {
-
-			@Override
-			public void run() {
-				tempRadioButton.setText(aText);
-			}
-		});
 	}
 
 	/**

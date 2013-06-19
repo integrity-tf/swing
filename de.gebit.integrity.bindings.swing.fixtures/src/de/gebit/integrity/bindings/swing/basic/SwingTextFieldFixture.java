@@ -38,29 +38,6 @@ public class SwingTextFieldFixture extends AbstractSwingFixture<JTextField> impl
 	}
 
 	/**
-	 * Sets the editability state of the specified control.
-	 * 
-	 * @param aComponentPath
-	 *            the component path
-	 * @param anEditableFlag
-	 *            true if the control shall be editable, false if it shall be non-editable
-	 */
-	@FixtureMethod(description = "Set the enablement state for control '$name$' to '$enabled$'")
-	public void setEditable(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "editable") final Boolean anEditableFlag) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
-		final JTextField tempTextField = findComponentGuarded(aComponentPath);
-
-		runOnEventQueueAndWait(new Runnable() {
-
-			@Override
-			public void run() {
-				tempTextField.setEditable(anEditableFlag);
-			}
-		});
-	}
-
-	/**
 	 * Returns the current text in the given text field. Can be used either as a call fixture method to retrieve the
 	 * text into a variable, or as a test fixture to check the text against a reference text.
 	 * 

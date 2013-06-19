@@ -4,11 +4,9 @@
 
 packagedef gui.swing.slider with
 	// Accessibility	
-	calldef setEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setEnabled
 	calldef isEnabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
 	testdef enabled uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isEnabled
 	
-	calldef setVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setVisible
 	calldef isVisible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
 	testdef visible uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#isVisible
 	
@@ -23,8 +21,6 @@ packagedef gui.swing.slider with
 	testdef value uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#getValue
 	
 	// Actions
-	calldef setMinValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setMinValue
-	calldef setMaxValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setMaxValue
 	calldef setValue uses de.gebit.integrity.bindings.swing.basic.SwingSliderFixture#setValue
 packageend
 
