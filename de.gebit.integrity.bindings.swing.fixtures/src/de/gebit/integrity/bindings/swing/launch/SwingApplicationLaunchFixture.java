@@ -22,8 +22,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture;
 
 /**
- * Swing applications are a bit...special. I need a special launching fixture
- * for those...
+ * Swing applications are a bit...special. I need a special launching fixture for those...
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -41,19 +40,15 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	private static final long DEFAULT_COMPONENT_TIMEOUT = 30000;
 
 	/**
-	 * The default number of frames to wait for until the application is
-	 * considered "alive".
+	 * The default number of frames to wait for until the application is considered "alive".
 	 */
 	private static final int DEFAULT_FRAME_COUNT = 1;
 
 	/**
-	 * Launches the provided application by calling the static main method of
-	 * the application class and waiting the provided number of milliseconds to
-	 * give the application some time to fully start up. This start method is
-	 * timing-sensitive and should only be used as a last resort, if calling
-	 * {@link #launch(String, String[])} and
-	 * {@link #launchAndWaitForComponent(String, String[], String)} are not
-	 * sufficient!
+	 * Launches the provided application by calling the static main method of the application class and waiting the
+	 * provided number of milliseconds to give the application some time to fully start up. This start method is
+	 * timing-sensitive and should only be used as a last resort, if calling {@link #launch(String, String[])} and
+	 * {@link #launchAndWaitForComponent(String, String[], String)} are not sufficient!
 	 * 
 	 * @param aMainClassName
 	 *            the name of the application class
@@ -61,17 +56,14 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	 *            the arguments to provide to the main method
 	 * @param aTimeToWait
 	 *            the number of milliseconds to wait
-	 * @return an application wrapper instance which can optionally be saved to
-	 *         handle multiple applications
+	 * @return an application wrapper instance which can optionally be saved to handle multiple applications
 	 * @throws Throwable
 	 */
 	@FixtureMethod(description = "Launch Java Swing Application '$mainClass$' and wait $time$ milliseconds.")
-	public ApplicationWrapper launchAndWait(
-			@FixtureParameter(name = "mainClass") String aMainClassName,
+	public ApplicationWrapper launchAndWait(@FixtureParameter(name = "mainClass") String aMainClassName,
 			@FixtureParameter(name = "arguments") String[] someArguments,
 			@FixtureParameter(name = "time") int aTimeToWait) throws Throwable {
-		ApplicationWrapper tempWrapper = super.launch(aMainClassName,
-				someArguments);
+		ApplicationWrapper tempWrapper = super.launch(aMainClassName, someArguments);
 
 		if (aTimeToWait > 0) {
 			try {
@@ -85,8 +77,8 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	}
 
 	/**
-	 * Launches the provided application by calling the static main method of
-	 * the application class and waiting for a specified component to appear.
+	 * Launches the provided application by calling the static main method of the application class and waiting for a
+	 * specified component to appear.
 	 * 
 	 * @param aMainClassName
 	 *            the name of the application class
@@ -94,22 +86,17 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	 *            the arguments to provide to the main method
 	 * @param aComponentPath
 	 *            the component to wait for
-	 * @return an application wrapper instance which can optionally be saved to
-	 *         handle multiple applications
+	 * @return an application wrapper instance which can optionally be saved to handle multiple applications
 	 * @throws Throwable
 	 */
 	@FixtureMethod(description = "Launch Java Swing Application '$mainClass$' and wait for component '$component$' to appear.")
-	public ApplicationWrapper launchAndWaitForComponent(
-			@FixtureParameter(name = "mainClass") String aMainClassName,
+	public ApplicationWrapper launchAndWaitForComponent(@FixtureParameter(name = "mainClass") String aMainClassName,
 			@FixtureParameter(name = "arguments") String[] someArguments,
-			@FixtureParameter(name = "component") String aComponentPath)
-			throws Throwable {
-		ApplicationWrapper tempWrapper = super.launch(aMainClassName,
-				someArguments);
+			@FixtureParameter(name = "component") String aComponentPath) throws Throwable {
+		ApplicationWrapper tempWrapper = super.launch(aMainClassName, someArguments);
 
 		if (aComponentPath != null) {
-			ComponentWaiter tempWaiter = new ComponentWaiter(
-					getComponentTimeout(), aComponentPath);
+			ComponentWaiter tempWaiter = new ComponentWaiter(getComponentTimeout(), aComponentPath);
 			tempWaiter.start();
 			tempWaiter.wasSuccessful();
 		}
@@ -118,10 +105,8 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	}
 
 	@Override
-	protected boolean checkWrapper(ApplicationWrapper aWrapper)
-			throws Throwable {
-		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(),
-				getFrameCount());
+	protected boolean checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
+		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(), getFrameCount());
 
 		tempWaiter.start();
 		return tempWaiter.wasSuccessful();
@@ -150,8 +135,7 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 		// writing all results.
 		for (Window tempWindow : Window.getWindows()) {
 			if (tempWindow instanceof JFrame) {
-				((JFrame) tempWindow)
-						.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				((JFrame) tempWindow).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 			tempWindow.dispose();
 		}
