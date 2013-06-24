@@ -165,7 +165,7 @@ public abstract class AbstractSwingButtonFixture<C extends AbstractButton> exten
 		}
 
 		// First, set focus to the button. This happens implicitly when the user "clicks".
-		focusComponent(aButton);
+		focusComponent(aButton, false);
 
 		runOnEventQueueAndWait(createButtonClickRunnable(aButton));
 	}

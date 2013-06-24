@@ -71,7 +71,7 @@ public abstract class AbstractSwingComboBoxFixture<C extends JComboBox> extends 
 
 		checkComponentEnabled(tempComboBox);
 
-		focusComponent(tempComboBox);
+		focusComponent(tempComboBox, false);
 
 		final int tempIndexToSelect = findItemIndexGuarded(tempComboBox, anEntryPosition, anEntryText);
 
@@ -100,7 +100,7 @@ public abstract class AbstractSwingComboBoxFixture<C extends JComboBox> extends 
 
 		checkComponentEnabled(tempComboBox);
 
-		focusComponent(tempComboBox);
+		focusComponent(tempComboBox, false);
 
 		runOnEventQueueAndWait(new Runnable() {
 

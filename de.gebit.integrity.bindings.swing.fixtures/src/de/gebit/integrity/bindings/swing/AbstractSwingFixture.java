@@ -71,7 +71,7 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	 */
 	@FixtureMethod(descriptionCall = "Set focus on control '$name$'")
 	public void focus(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
-		focusComponent(findComponentGuarded(aComponentPath));
+		focusComponent(findComponentGuarded(aComponentPath), true);
 	}
 
 	/**
@@ -215,15 +215,23 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	 * 
 	 * @param aComponent
 	 *            the component to set focus to
+	 * @param aWaitForQueue
+	 *            whether to wait for the Event Queue
 	 */
-	protected void focusComponent(final JComponent aComponent) {
-		runOnEventQueue(new Runnable() {
+	protected void focusComponent(final JComponent aComponent, boolean aWaitForQueue) {
+		Runnable tempRunnable = new Runnable() {
 
 			@Override
 			public void run() {
 				aComponent.requestFocusInWindow();
 			}
-		});
+		};
+
+		if (aWaitForQueue) {
+			runOnEventQueueAndWait(tempRunnable);
+		} else {
+			runOnEventQueue(tempRunnable);
+		}
 	}
 
 	/**

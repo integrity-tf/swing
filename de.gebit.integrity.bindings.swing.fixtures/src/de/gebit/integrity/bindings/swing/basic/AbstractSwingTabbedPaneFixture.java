@@ -94,7 +94,7 @@ public abstract class AbstractSwingTabbedPaneFixture<C extends JTabbedPane> exte
 			throw new IllegalArgumentException("You need to provide either a position or a text.");
 		}
 
-		focusComponent(tempTabbedPane);
+		focusComponent(tempTabbedPane, false);
 
 		runOnEventQueueAndWait(new Runnable() {
 

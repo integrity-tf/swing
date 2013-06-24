@@ -72,7 +72,7 @@ public abstract class AbstractSwingTextFieldFixture<C extends JTextField> extend
 
 		// First, request the focus to be placed in the text field, to simulate user behavior of first focusing, then
 		// entering text.
-		focusComponent(tempField);
+		focusComponent(tempField, false);
 
 		runOnEventQueueAndWait(new Runnable() {
 

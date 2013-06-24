@@ -51,7 +51,7 @@ public abstract class AbstractSwingCheckBoxFixture<C extends JCheckBox> extends 
 
 		checkComponentEnabled(tempBox);
 
-		focusComponent(tempBox);
+		focusComponent(tempBox, false);
 
 		runOnEventQueueAndWait(new Runnable() {
 
@@ -74,7 +74,7 @@ public abstract class AbstractSwingCheckBoxFixture<C extends JCheckBox> extends 
 
 		checkComponentEnabled(tempBox);
 
-		focusComponent(tempBox);
+		focusComponent(tempBox, false);
 
 		runOnEventQueueAndWait(new Runnable() {
 
@@ -97,7 +97,7 @@ public abstract class AbstractSwingCheckBoxFixture<C extends JCheckBox> extends 
 
 		checkComponentEnabled(tempBox);
 
-		focusComponent(tempBox);
+		focusComponent(tempBox, false);
 
 		runOnEventQueueAndWait(new Runnable() {
 
