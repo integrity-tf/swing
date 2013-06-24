@@ -64,6 +64,29 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	}
 
 	/**
+	 * Focuses a specified control (if possible).
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 */
+	@FixtureMethod(descriptionCall = "Set focus on control '$name$'")
+	public void focus(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+		focusComponent(findComponentGuarded(aComponentPath));
+	}
+
+	/**
+	 * Checks whether a specified control has the input focus.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return true if the control has the input focus, false otherwise
+	 */
+	@FixtureMethod(descriptionCall = "Get focus state of control '$name$'", descriptionTest = "Check focus state of control '$name$'")
+	public Boolean hasFocus(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+		return findComponentGuarded(aComponentPath).hasFocus();
+	}
+
+	/**
 	 * This must return the actual class of the component for which the sub-fixture is written.
 	 * 
 	 * @return
