@@ -65,7 +65,7 @@ public abstract class AbstractSwingListFixture<C extends JList> extends Abstract
 	 *         entries
 	 */
 	@FixtureMethod(descriptionCall = "Get the element at position $position$ in list '$name$'", descriptionTest = "Check the element at position $position$ in list '$name$'")
-	public Object getEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+	public Object getEntryValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer aListIndex) {
 		JList tempList = findComponentGuarded(aComponentPath);
 		ListModel tempModel = tempList.getModel();
@@ -100,7 +100,7 @@ public abstract class AbstractSwingListFixture<C extends JList> extends Abstract
 	@FixtureMethod(descriptionCall = "Get the text at position $position$ in list '$name$'", descriptionTest = "Check the text at position $position$ in list '$name$'")
 	public Object getEntryText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer aListIndex) {
-		Object tempEntry = getEntryModel(aComponentPath, aListIndex);
+		Object tempEntry = getEntryValue(aComponentPath, aListIndex);
 
 		if (tempEntry == null) {
 			return null;
@@ -201,7 +201,7 @@ public abstract class AbstractSwingListFixture<C extends JList> extends Abstract
 	 * @return the selected entry or entries, or null if none is selected
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected entries from list '$name$'", descriptionTest = "Checks the selected entries in list '$name$'")
-	public Object[] getSelectedEntriesModel(
+	public Object[] getSelectedEntriesValue(
 			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		JList tempList = findComponentGuarded(aComponentPath);
 

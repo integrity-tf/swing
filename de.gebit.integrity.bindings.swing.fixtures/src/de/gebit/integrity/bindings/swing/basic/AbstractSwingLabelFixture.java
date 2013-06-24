@@ -38,4 +38,18 @@ public abstract class AbstractSwingLabelFixture<C extends JLabel> extends Abstra
 	public String getText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
+
+	/**
+	 * Returns the value on the provided label (in the Swing case, this is always a displayed String, since Swing
+	 * doesn't have any model/text differentiation for text fields). Can be used either as a test or a call fixture, in
+	 * order to either compare the text with a given expected text or return the current text for storage in a variable.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return the text currently displayed on the label
+	 */
+	@FixtureMethod(descriptionCall = "Get the value displayed on label '$name$'", descriptionTest = "Check the value displayed on label '$name$'")
+	public String getValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+		return findComponentGuarded(aComponentPath).getText();
+	}
 }

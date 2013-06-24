@@ -85,17 +85,17 @@ public abstract class AbstractSwingComboBoxFixture<C extends JComboBox> extends 
 	}
 
 	/**
-	 * Selects an entry provided as a model object.
+	 * Selects an entry provided as a value object.
 	 * 
 	 * @param aComponentPath
 	 *            The path to the component
-	 * @param aModelObject
-	 *            The model object to be selected
+	 * @param aValueObject
+	 *            The value object to be selected
 	 */
 	@FixtureMethod(description = "Select the entry {" + ENTRY_POSITION_PARAMETER_NAME + "?at position $"
 			+ ENTRY_POSITION_PARAMETER_NAME + "$}{" + ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
-	public void selectEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = ENTRY_MODEL_PARAMETER_NAME) final Object aModelObject) {
+	public void selectEntryValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = ENTRY_MODEL_PARAMETER_NAME) final Object aValueObject) {
 		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
 
 		checkComponentEnabled(tempComboBox);
@@ -106,7 +106,7 @@ public abstract class AbstractSwingComboBoxFixture<C extends JComboBox> extends 
 
 			@Override
 			public void run() {
-				tempComboBox.setSelectedItem(aModelObject);
+				tempComboBox.setSelectedItem(aValueObject);
 			}
 		});
 	}
@@ -147,7 +147,7 @@ public abstract class AbstractSwingComboBoxFixture<C extends JComboBox> extends 
 	 * @return the selected entry, or null if none is selected
 	 */
 	@FixtureMethod(descriptionCall = "Fetches the selected entry from combo box '$name$'", descriptionTest = "Checks the selected entry in combo box '$name$'")
-	public Object getSelectedEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+	public Object getSelectedEntryValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		final JComboBox tempComboBox = findComponentGuarded(aComponentPath);
 
 		return tempComboBox.getSelectedItem();
@@ -230,7 +230,7 @@ public abstract class AbstractSwingComboBoxFixture<C extends JComboBox> extends 
 			+ ENTRY_POSITION_PARAMETER_NAME
 			+ "$}{"
 			+ ENTRY_TEXT_PARAMETER_NAME + "?'$text$'} in combo box '$name$'")
-	public Object getEntryModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+	public Object getEntryValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_POSITION_PARAMETER_NAME) Integer anEntryPosition,
 			@FixtureParameter(name = ENTRY_TEXT_PARAMETER_NAME) String anEntryText) {
 		return getEntryInternal(aComponentPath, anEntryPosition, anEntryText);

@@ -23,7 +23,7 @@ packagedef swing.chat with
 			| 1     | "Bar!"    |
 			| 2     | "Foobar!" |
 			
-		tabletest list.entryModel name: "messageList"
+		tabletest list.entryValue name: "messageList"
 			| =         |
 			| "Bar!"    |
 			| "Foobar!" |
@@ -34,7 +34,7 @@ packagedef swing.chat with
 		test list.selectedIndices name: "messageList" = 1
 		
 		call list.selectEntries name: "messageList" index: 1, 2
-		test list.selectedEntriesModel name: "messageList" = "Bar!", "Foobar!"
+		test list.selectedEntriesValue name: "messageList" = "Bar!", "Foobar!"
 		test list.selectedIndices name: "messageList" = 1, 2
 		
 		call tools.authorAssist

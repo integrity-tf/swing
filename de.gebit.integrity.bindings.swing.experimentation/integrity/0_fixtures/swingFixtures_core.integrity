@@ -94,9 +94,9 @@ packagedef gui.swing.textfield with
 	testdef text uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getText
 
 	// Backend	
-	calldef setModel uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setModel
-	calldef getModel uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getModel
-	testdef model uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getModel
+	calldef setValue uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setValue
+	calldef getValue uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getValue
+	testdef value uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getValue
 packageend
 
 packagedef gui.swing.combobox with
@@ -128,15 +128,15 @@ packagedef gui.swing.combobox with
 	
 	// Backend
 	// Fetch/Test an entry based on its position
-	calldef getEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryModel
-	testdef entryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryModel
+	calldef getEntryValue uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryValue
+	testdef entryValue uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getEntryValue
 	
 	// Select an entry
-	calldef selectEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#selectEntryModel
+	calldef selectEntryValue uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#selectEntryValue
 	
 	// Fetch/Test current selection
-	calldef getSelectedEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryModel
-	testdef selectedEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryModel
+	calldef getSelectedEntryValue uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryValue
+	testdef selectedEntryValue uses de.gebit.integrity.bindings.swing.basic.SwingComboBoxFixture#getSelectedEntryValue
 packageend
 
 packagedef gui.swing.list with
@@ -161,11 +161,11 @@ packagedef gui.swing.list with
 	testdef selectedEntriesText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesText
 	
 	// Backend	
-	calldef getEntryModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryModel
-	testdef entryModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryModel
+	calldef getEntryValue uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryValue
+	testdef entryValue uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getEntryValue
 	
-	calldef getSelectedEntriesModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesModel
-	testdef selectedEntriesModel uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesModel
+	calldef getSelectedEntriesValue uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesValue
+	testdef selectedEntriesValue uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getSelectedEntriesValue
 	
 	// Actions
 	calldef selectEntries uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#select

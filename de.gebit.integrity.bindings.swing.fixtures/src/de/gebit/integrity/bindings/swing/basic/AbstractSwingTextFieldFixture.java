@@ -95,23 +95,23 @@ public abstract class AbstractSwingTextFieldFixture<C extends JTextField> extend
 	 * @return the text in the text field
 	 */
 	@FixtureMethod(descriptionCall = "Get the text currently entered in text field '$name$'", descriptionTest = "Check the text currently entered in text field '$name$'")
-	public Object getModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+	public Object getValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getText();
 	}
 
 	/**
-	 * Enters the given model into the text field provided. For Swing, this must be a String, since Swing doesn't
+	 * Enters the given value into the text field provided. For Swing, this must be a String, since Swing doesn't
 	 * support model/view distinction for text fields.
 	 * 
 	 * @param aComponentPath
 	 *            the path of the component
-	 * @param aModel
-	 *            the model for the text field
+	 * @param aValue
+	 *            the value for the text field
 	 */
 	@FixtureMethod(descriptionCall = "Enter '$text$' in text field '$name$'")
-	public void setModel(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "text") final Object aModel) {
-		if (!(aModel instanceof String)) {
+	public void setValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
+			@FixtureParameter(name = "text") final Object aValue) {
+		if (!(aValue instanceof String)) {
 			throw new IllegalArgumentException("The Swing TextField does not support models different from String.");
 		}
 
@@ -121,7 +121,7 @@ public abstract class AbstractSwingTextFieldFixture<C extends JTextField> extend
 
 			@Override
 			public void run() {
-				tempField.setText((String) aModel);
+				tempField.setText((String) aValue);
 			}
 		});
 	}
