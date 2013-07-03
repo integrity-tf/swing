@@ -64,7 +64,9 @@ public abstract class AbstractSwingListFixture<C extends JList> extends Abstract
 	 * @return the element in the list at the given position, or null if the position is larger than the available
 	 *         entries
 	 */
-	@FixtureMethod(descriptionCall = "Get the element at position $position$ in list '$name$'", descriptionTest = "Check the element at position $position$ in list '$name$'")
+	@FixtureMethod(descriptionCall = "Get the element at position $" + ENTRY_INDEX_PARAMETER_NAME
+			+ "$ in list '$name$'", descriptionTest = "Check the element at position $" + ENTRY_INDEX_PARAMETER_NAME
+			+ "$ in list '$name$'")
 	public Object getEntryValue(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer aListIndex) {
 		JList tempList = findComponentGuarded(aComponentPath);
@@ -97,7 +99,9 @@ public abstract class AbstractSwingListFixture<C extends JList> extends Abstract
 	 * @return the text of the element in the list at the given position, or null if the position is larger than the
 	 *         available entries
 	 */
-	@FixtureMethod(descriptionCall = "Get the text at position $position$ in list '$name$'", descriptionTest = "Check the text at position $position$ in list '$name$'")
+	@FixtureMethod(descriptionCall = "Get the text at position $" + ENTRY_INDEX_PARAMETER_NAME + "$ in list '$"
+			+ COMPONENT_PATH_PARAMETER_NAME + "$'", descriptionTest = "Check the text at position $"
+			+ ENTRY_INDEX_PARAMETER_NAME + "$ in list '$name$'")
 	public Object getEntryText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
 			@FixtureParameter(name = ENTRY_INDEX_PARAMETER_NAME) Integer aListIndex) {
 		Object tempEntry = getEntryValue(aComponentPath, aListIndex);
@@ -115,7 +119,8 @@ public abstract class AbstractSwingListFixture<C extends JList> extends Abstract
 	 * @param aComponentPath
 	 *            the path of the component
 	 */
-	@FixtureMethod(descriptionCall = "Get the number of entries in list '$text$'", descriptionTest = "Check the number of entries in list '$text$'")
+	@FixtureMethod(descriptionCall = "Get the number of entries in list '$" + COMPONENT_PATH_PARAMETER_NAME + "$'", descriptionTest = "Check the number of entries in list '$"
+			+ COMPONENT_PATH_PARAMETER_NAME + "$'")
 	public Integer getEntryCount(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
 		return findComponentGuarded(aComponentPath).getModel().getSize();
 	}
