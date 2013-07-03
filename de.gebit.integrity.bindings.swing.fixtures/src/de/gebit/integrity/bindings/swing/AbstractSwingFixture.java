@@ -7,12 +7,18 @@
  *******************************************************************************/
 package de.gebit.integrity.bindings.swing;
 
+import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -21,6 +27,7 @@ import de.gebit.integrity.bindings.swing.exceptions.AmbiguousComponentPathExcept
 import de.gebit.integrity.bindings.swing.exceptions.EventQueueTimeoutException;
 import de.gebit.integrity.bindings.swing.exceptions.InvalidActionException;
 import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathException;
+import de.gebit.integrity.fixtures.ExtendedResultFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
@@ -33,7 +40,8 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public abstract class AbstractSwingFixture<T extends JComponent> extends AbstractSwingComponentHandler {
+public abstract class AbstractSwingFixture<T extends JComponent> extends AbstractSwingComponentHandler implements
+		ExtendedResultFixture {
 
 	//
 	// Generally useful fixture methods applicable to all controls
@@ -115,6 +123,12 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	//
 
 	/**
+	 * Stores the component which was last found by {@link #findComponentGuarded(String)}. Intended to be used by the
+	 * screenshot functionality to determine the window to be captured.
+	 */
+	protected JComponent lastUsedComponent;
+
+	/**
 	 * Finds a component matching the given path and the component class returned by {@link #getComponentClass()} in all
 	 * open windows. This method will return either one match or throw an exception.
 	 * 
@@ -129,7 +143,11 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 	@SuppressWarnings("unchecked")
 	public T findComponentGuarded(String aComponentPath) throws AmbiguousComponentPathException,
 			InvalidComponentPathException {
-		return (T) findComponentGuarded(aComponentPath, getComponentClass(), null);
+		T tempComponent = (T) findComponentGuarded(aComponentPath, getComponentClass(), null);
+		if (tempComponent != null) {
+			lastUsedComponent = tempComponent;
+		}
+		return tempComponent;
 	}
 
 	/**
@@ -355,6 +373,57 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 			return window;
 		}
 
+	}
+
+	//
+	// Extended Result Fixture implementation
+	//
+
+	/**
+	 * Set this system property to "false" if you want to deactivate the "screenshot on failure" feature. By default it
+	 * is activated.
+	 */
+	public static final String SCREENSHOTS_ON_FAILURE_PARAMETER = "de.gebit.integrity.bindings.swing.screenshotOnFailure";
+
+	@Override
+	public List<ExtendedResult> provideExtendedResults(FixtureInvocationResult anInvocationResult) {
+		if (anInvocationResult != FixtureInvocationResult.SUCCESS) {
+			if ("false".equalsIgnoreCase(System.getProperty(SCREENSHOTS_ON_FAILURE_PARAMETER))) {
+				// Screenshots on failure are deactivated
+				return null;
+			}
+
+			// Determine the window of interest. Use the one in which the last used component is located; if that is not
+			// possible, guess by using the currently focused window.
+			Window tempWindow = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+
+			if (lastUsedComponent != null) {
+				JComponent tempComponent = lastUsedComponent;
+				Container tempParent = tempComponent.getParent();
+				while (tempParent != null) {
+					if (tempParent instanceof Window) {
+						tempWindow = (Window) tempParent;
+						break;
+					}
+					tempParent = tempParent.getParent();
+				}
+			}
+
+			if (tempWindow != null) {
+				BufferedImage tempImage = new BufferedImage(tempWindow.getWidth(), tempWindow.getHeight(),
+						BufferedImage.TYPE_INT_RGB);
+				Graphics2D tempGraphics = (Graphics2D) tempImage.getGraphics();
+				tempWindow.paintAll(tempGraphics);
+
+				try {
+					return Arrays.asList(new ExtendedResult[] { new ExtendedResultImage(tempImage) });
+				} catch (IOException exc) {
+					exc.printStackTrace();
+				}
+			}
+		}
+
+		return null;
 	}
 
 }
