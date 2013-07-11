@@ -16,7 +16,7 @@ import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
 /**
  * This is a base class for author assist queries.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class AbstractSwingAuthorAssistQuery implements Serializable {

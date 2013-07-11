@@ -23,7 +23,7 @@ import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathExceptio
 /**
  * This queries the server for possible items in a tree.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SwingAuthorAssistTreeItemQuery extends AbstractSwingAuthorAssistQuery {

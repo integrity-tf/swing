@@ -20,7 +20,7 @@ import de.gebit.integrity.bindings.swing.authorassist.queries.AbstractSwingAutho
  * Abstract base class for proposal providers which propose possible results based on data currently found in the
  * application. This one is geared towards a specific "list"-style pattern.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class AbstractResultSuggestingSwingComponentFixtureProposalProvider extends

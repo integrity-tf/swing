@@ -24,7 +24,7 @@ import de.gebit.integrity.fixtures.ArbitraryParameterFixtureLink;
  * This parameter enumerator parses data from the swing author assist server and produces proposals for arbitrary
  * parameters in JTable tests, basically resembling the columns of the table.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 @ArbitraryParameterFixtureLink(SwingTableContentFixture.class)

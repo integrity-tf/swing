@@ -22,7 +22,7 @@ import de.gebit.integrity.bindings.swing.tables.SwingTableContentFixture;
 /**
  * This queries the server for columns available for a certain table.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SwingAuthorAssistTableColumnQuery extends AbstractSwingAuthorAssistQuery {

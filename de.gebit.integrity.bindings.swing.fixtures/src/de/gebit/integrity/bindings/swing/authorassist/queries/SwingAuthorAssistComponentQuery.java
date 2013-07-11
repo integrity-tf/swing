@@ -33,7 +33,7 @@ import de.gebit.integrity.bindings.swing.util.Base64;
 /**
  * This queries the server for available components matching a certain class.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SwingAuthorAssistComponentQuery extends AbstractSwingAuthorAssistQuery {

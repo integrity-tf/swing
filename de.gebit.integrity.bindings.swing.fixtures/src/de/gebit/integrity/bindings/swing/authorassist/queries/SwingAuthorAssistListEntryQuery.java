@@ -20,7 +20,7 @@ import de.gebit.integrity.bindings.swing.exceptions.InvalidComponentPathExceptio
 /**
  * This queries the server for possible entries in a list.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SwingAuthorAssistListEntryQuery extends AbstractSwingAuthorAssistQuery {
