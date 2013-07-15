@@ -24,7 +24,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingTreeBasicFixture extends AbstractSwingTreeFixture implements
+public class SwingTreeFixture extends AbstractSwingTreeFixture implements
 		CustomProposalFixture {
 
 	/**

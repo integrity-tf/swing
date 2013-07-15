@@ -20,16 +20,16 @@ import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistT
 import de.gebit.integrity.bindings.swing.authorassist.queries.SwingAuthorAssistTreeItemQuery.SwingAuthorAssistTreeItemQueryResult;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingComponentFixtureProposalProvider;
 import de.gebit.integrity.bindings.swing.trees.AbstractSwingTreeFixture;
-import de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture;
+import de.gebit.integrity.bindings.swing.trees.SwingTreeFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
- * Proposal provider class for the {@link SwingTreeBasicFixture}.
+ * Proposal provider class for the {@link SwingTreeFixture}.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-@CustomProposalFixtureLink(SwingTreeBasicFixture.class)
+@CustomProposalFixtureLink(SwingTreeFixture.class)
 public class SwingTreeBasicFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
