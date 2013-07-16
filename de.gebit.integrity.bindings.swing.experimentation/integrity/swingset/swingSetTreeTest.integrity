@@ -1,6 +1,4 @@
-import swing.launch.*
-import swing.basic.*
-import swing.trees.*
+import swing.*
 import gui.swing.*
 
 packagedef swing.swingset with
@@ -9,7 +7,7 @@ packagedef swing.swingset with
 			
 		call button.click name: "frame0.JToggleButton#15"
 		
-		test treeChildCount name: "JTree" = 3
+		test tree.childCount name: "JTree" = 3
 		
 		
 		

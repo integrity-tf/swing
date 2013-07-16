@@ -54,7 +54,6 @@ packageend
 // DEPRECATED DEFINITIONS; WILL BE MIGRATED TO NEW PACKAGE SCHEME
 packagedef swing.basic with
 	
-	
 	// Tabbed Panes
 	calldef selectTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#selectTab
 	calldef getSelectedTab uses de.gebit.integrity.bindings.swing.basic.SwingTabbedPaneFixture#getSelectedTab
@@ -88,12 +87,43 @@ packagedef swing.tables with
 packageend
 
 
-packagedef swing.trees with
+packagedef swing.tree with
 
-	// Basic tree stuff
-	calldef getTreeChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture#getTreeChildCount
-	testdef treeChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeBasicFixture#getTreeChildCount
+	// Accessibility
+	calldef isEnabled uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isEnabled
+	testdef enabled uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isEnabled
+	
+	calldef isVisible uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isVisible
+	testdef visible uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isVisible
 
+	// Frontend
+	calldef getChildCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getChildCount
+	testdef childCount uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getChildCount
+	
+	calldef getEntryText uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getEntryText
+	testdef entryText uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getEntryText
+	
+	calldef getEntryExpanded uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isEntryExpanded
+	testdef entryExpanded uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isEntryExpanded
+	
+	calldef getEntryVisible uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isEntryVisible
+	testdef entryVisible uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#isEntryVisible
+	
+	calldef getSelectedEntriesText uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getSelectedEntriesText
+	testdef selectedEntriesText uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getSelectedEntriesText
+	calldef getSelectedEntriesPath uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getSelectedEntriesPath
+	testdef selectedEntriesPath uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getSelectedEntriesPath
+	
+	// Backend	
+	calldef getEntryValue uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getEntryValue
+	testdef entryValue uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getEntryValue
+	
+	calldef getSelectedEntriesValue uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getSelectedEntriesValue
+	testdef selectedEntriesValue uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#getSelectedEntriesValue
+	
+	// Actions
+	calldef selectEntries uses de.gebit.integrity.bindings.swing.trees.SwingTreeFixture#selectEntries
+	
 packageend
 
 
