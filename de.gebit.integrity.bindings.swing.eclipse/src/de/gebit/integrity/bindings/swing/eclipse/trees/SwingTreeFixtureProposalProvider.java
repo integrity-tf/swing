@@ -30,7 +30,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureL
  * 
  */
 @CustomProposalFixtureLink(SwingTreeFixture.class)
-public class SwingTreeBasicFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
+public class SwingTreeFixtureProposalProvider extends AbstractSwingComponentFixtureProposalProvider {
 
 	@Override
 	protected Class<? extends Component> getComponentClass() {
