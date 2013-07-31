@@ -59,8 +59,8 @@ public abstract class AbstractSwingWaitFixture<C extends JComponent> extends Abs
 	 *            the timeout in seconds (default is {@link #getEventQueueWaitTimeout()})
 	 */
 	@FixtureMethod(description = "Wait for AWT Event Queue")
-	public void waitForEventQueue(@FixtureParameter(name = "count", optional = true) Integer aNumberOfTimes,
-			@FixtureParameter(name = "timeout", optional = true) Double aTimeout) {
+	public void waitForEventQueue(@FixtureParameter(name = "count") Integer aNumberOfTimes,
+			@FixtureParameter(name = "timeout") Double aTimeout) {
 		int tempNumberOfTimes = getEventQueueWaitCount();
 		if (aNumberOfTimes != null) {
 			tempNumberOfTimes = aNumberOfTimes;
