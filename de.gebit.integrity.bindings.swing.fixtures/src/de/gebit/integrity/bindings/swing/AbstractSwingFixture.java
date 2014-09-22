@@ -7,10 +7,11 @@
  *******************************************************************************/
 package de.gebit.integrity.bindings.swing;
 
+import java.awt.AWTException;
 import java.awt.Container;
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
+import java.awt.Robot;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -410,13 +411,11 @@ public abstract class AbstractSwingFixture<T extends JComponent> extends Abstrac
 			}
 
 			if (tempWindow != null) {
-				BufferedImage tempImage = new BufferedImage(tempWindow.getWidth(), tempWindow.getHeight(),
-						BufferedImage.TYPE_INT_RGB);
-				Graphics2D tempGraphics = (Graphics2D) tempImage.getGraphics();
-				tempWindow.paintAll(tempGraphics);
-
 				try {
+					BufferedImage tempImage = new Robot().createScreenCapture(tempWindow.getBounds());
 					return Arrays.asList(new ExtendedResult[] { new ExtendedResultImage(tempImage) });
+				} catch (AWTException exc) {
+					exc.printStackTrace();
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}
