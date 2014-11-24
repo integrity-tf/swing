@@ -127,8 +127,26 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 		return false;
 	}
 
+	/**
+	 * Temporary variable to get hold of the event thread.
+	 */
+	private volatile Thread eventThread;
+
 	@Override
 	protected boolean killInternal(ApplicationWrapper aWrapper) {
+		// We need to get hold of the event thread in order to wait for it to die
+		try {
+			EventQueue.invokeAndWait(new Runnable() {
+
+				@Override
+				public void run() {
+					eventThread = Thread.currentThread();
+				}
+			});
+		} catch (InterruptedException | InvocationTargetException exc1) {
+			// ignore
+		}
+
 		// A Swing application is killed by closing all frames. This of course
 		// leaves the Integrity thread, but
 		// that must be allowed to kill itself after finishing all tests and
@@ -138,6 +156,13 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 				((JFrame) tempWindow).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 			tempWindow.dispose();
+		}
+
+		try {
+			// The event thread should die automatically now. Wait some time for it to die.
+			eventThread.join(10000);
+		} catch (InterruptedException exc) {
+			// ignore
 		}
 
 		return super.killInternal(aWrapper);
