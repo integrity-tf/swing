@@ -12,7 +12,7 @@ Import-Package: de.gebit.integrity.bindings.swing,
  de.gebit.integrity.bindings.swing.tables,
  de.gebit.integrity.bindings.swing.trees,
  de.gebit.integrity.fixtures
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: de.gebit.integrity.bindings.swing.eclipse,
  de.gebit.integrity.bindings.swing.eclipse.basic,
  de.gebit.integrity.bindings.swing.eclipse.tables,
