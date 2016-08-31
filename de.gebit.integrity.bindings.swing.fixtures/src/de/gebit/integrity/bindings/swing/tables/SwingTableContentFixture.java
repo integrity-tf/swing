@@ -29,8 +29,8 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SwingTableContentFixture extends AbstractSwingFixture implements CustomProposalFixture,
-		ArbitraryParameterFixture {
+public class SwingTableContentFixture extends AbstractSwingFixture
+		implements CustomProposalFixture, ArbitraryParameterFixture {
 
 	/**
 	 * The last row; this is used in case of repeated invocations because of tabletests to track which row must be
@@ -49,8 +49,8 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 	@FixtureMethod(description = "Check the content in table '$name$'")
 	public SwingTableRowResult getTableContent(
 			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath,
-			@FixtureParameter(name = "row") Integer aRow) throws AmbiguousComponentPathException,
-			EventQueueTimeoutException, InvalidComponentPathException {
+			@FixtureParameter(name = "row") Integer aRow)
+			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
 		return new SwingTableRowResult(internalGetTableRowContent(aComponentPath, aRow));
 	}
 
@@ -84,6 +84,8 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 		 */
 		private Map<String, Object> arbitraryResultsMap;
 
+		private String aFixedResult;
+
 		/**
 		 * Creates a new instance.
 		 */
@@ -93,6 +95,14 @@ public class SwingTableContentFixture extends AbstractSwingFixture implements Cu
 
 		public Map<String, Object> getArbitraryResultsMap() {
 			return arbitraryResultsMap;
+		}
+
+		public String getaFixedResult() {
+			return aFixedResult;
+		}
+
+		public void setaFixedResult(String anFixedResult) {
+			this.aFixedResult = anFixedResult;
 		}
 
 	}

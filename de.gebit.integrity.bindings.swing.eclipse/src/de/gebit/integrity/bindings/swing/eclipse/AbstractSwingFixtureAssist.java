@@ -107,7 +107,8 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 			tempObjectOutputStream.writeObject(aQuery);
 			tempObjectOutputStream.flush();
 
-			tempObjectInputStream = new ClassloaderAwareObjectInputStream(tempSocket.getInputStream(), getClassLoader());
+			tempObjectInputStream = new ClassloaderAwareObjectInputStream(tempSocket.getInputStream(),
+					getClassLoader());
 			Object[] tempResult = (Object[]) tempObjectInputStream.readObject();
 
 			return aRunnable.run(tempResult);
@@ -177,8 +178,8 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 							if (tempPlainDetails.length() == 0) {
 								tempPlainDetails = null;
 							} else {
-								tempPlainDetails = tempPlainDetails.replace(
-										SwingAuthorAssistComponentQuery.COMPONENT_LINE_NEWLINE, "\n");
+								tempPlainDetails = tempPlainDetails
+										.replace(SwingAuthorAssistComponentQuery.COMPONENT_LINE_NEWLINE, "\n");
 							}
 
 							boolean tempHasShortPath = tempShortPath.length() > 0
@@ -201,6 +202,7 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 	 * Implementations of this interface encapsulate parsers for responses from the {@link SwingAuthorAssistServer}.
 	 * 
 	 * 
+	 * @param <T>
 	 * @author Slartibartfast
 	 * 
 	 */
